@@ -1,65 +1,67 @@
-# QA 报告 — AuraAI (AllScented)
+# QA 报告 — Allscented
 
 ## 基本信息
 
 | 项目 | 值 |
 |------|-----|
-| 站点 | AuraAI — AI-Powered Fragrance Platform |
-| 源设计 | Stitch 0729-v2 (4 pages: Home, Boutique, AI Synthesis, Archive) |
+| 站点 | Allscented — AI-Powered Fragrance Platform |
+| 源设计 | Stitch 0729-v2 (4 pages: Home, The Atelier, AI Synthesis, Archive) |
 | 主题类型 | Hello Elementor Child Theme |
+| 品牌名 | Allscented（AuraAI → Allscented 已重命名） |
+| 商城 | WooCommerce (The Atelier, 6 产品/页 + 自动分页) |
 | 多语言 | 单语言 (English) |
 | 检查日期 | 2026-07-29 |
 | 检查人 | Codex / auto-site-builder |
+
+## 文件清单
+
+| 文件 | 说明 |
+|------|------|
+| `style.css` | 全部 CSS 内联，CSS 变量设计系统，WooCommerce 表单项适配 |
+| `functions.php` | WP enqueue + WooCommerce 支持 (6/页分页) + ACF 字段组 (Home/The Atelier) + 页面模板注册 |
+| `header.php` | 固定导航 + 毛玻璃 + 移动端汉堡菜单 + 活性高亮 + 购物袋图标 |
+| `footer.php` | 页脚 + scroll-reveal + aura-mist 鼠标追踪 |
+| `front-page.php` | 首页：AI 推荐 Hero → Bento Grid Archive → 产品预览 |
+| `page-the-atelier.php` | The Atelier：WooCommerce 产品循环 (WP_Query, 6/页, paginate_links) + 分类过滤 Tab + CTA |
+| `page-ai-synthesis.php` | AI 合成：三路径推荐 + Profile 模拟 + 产品推荐 |
+| `page-archive.php` | 百科：Personal/Home/Commercial 三大板块 |
+| `woocommerce/archive-product.php` | WooCommerce 商店页面回退模板 |
+| `woocommerce/content-product.php` | 产品卡片模板（匹配 Digital Romanticism 设计） |
+| `woocommerce/single-product.php` | 产品详情页（画廊 + 价格 + 标签 + Add to Cart） |
+| `page.php` | 通用页面回退 |
+| `404.php` | 404 页面 |
 
 ## 检查结果
 
 | 维度 | 状态 | 备注 |
 |------|------|------|
-| 🎨 视觉统一 | ✅ | 所有 CSS 变量定义在 :root，Playfair Display + Hanken Grotesk（SIL OFL 免费字体） |
-| 📐 代码正确 | ✅ | WP 规范遵循，wp_head/footer 正确，enqueue 加载，ACF 字段注册 |
-| 🔗 功能完整 | ✅/⚠️ | 基础导航/页面/ACF 完整；WooCommerce 集成标记为可选 |
-| ⚖️ 合规检查 | ⚠️ | 隐私/条款/联系页面需用户自行创建并填充内容；图片用 Unsplash 免费图 |
-| 🌐 多语言 | N/A | 纯英文站，无 Polylang 需求 |
-
-## 文件清单
-
-| 文件 | 行数 | 说明 |
-|------|------|------|
-| `style.css` | ~600 | 全部 CSS 内联，无 Tailwind CDN，使用 CSS 变量设计系统 |
-| `functions.php` | 140 | WP enqueue + ACF 字段组（Home / Boutique）+ 页面模板注册 |
-| `header.php` | 58 | 固定导航栏，移动端汉堡菜单，活性导航高亮 |
-| `footer.php` | 42 | 底部版权 + 社交链接 + scroll-reveal + aura-mist JS |
-| `front-page.php` | 142 | Home: ① AI 推荐 Hero → ② Bento Grid Archive → ③ 产品预览 |
-| `page-boutique.php` | 255 | Boutique: ① Hero → ② 分类过滤 Tab → ③ 6 产品网格 → ④ CTA |
-| `page-ai-synthesis.php` | 148 | AI Synthesis: ① 三路径卡片 → ② 模拟 Profile → ③ 推荐产品 → ④ CTA |
-| `page-archive.php` | 216 | Archive: ① 分类导航 → ② Personal 编辑卡片 → ③ Home 网格 → ④ Commercial |
-| `page.php` | 18 | 通用页面回退 |
-| `404.php` | 14 | 404 页面 |
-| `screenshot.png` | — | 1200×900 主题截图 |
+| 🎨 视觉统一 | ✅ | CSS 变量，Playfair Display + Hanken Grotesk (SIL OFL) |
+| 📐 代码正确 | ✅ | WP 规范，wp_head/footer，enqueue，ACF 字段注册 |
+| 🔗 功能完整 | ✅/⚠️ | WooCommerce + ACF 字段 + 分页完整；产品图片需用户上传 |
+| ⚖️ 合规检查 | ⚠️ | 隐私/条款/联系页面需用户创建；图片为 Unsplash 占位符 |
+| 🌐 多语言 | N/A | 纯英文站 |
 
 ## 发现的问题
 
-### [P2] 图片使用 Unsplash 占位图
+### [P2] 产品图片为 Unsplash 占位符
 - **位置**：所有页面模板
-- **问题**：Stitch 设计中使用 Google AIDA 生成图，无法直接链接。已替换为 Unsplash 免费图充数
-- **修复**：用户需替换为自己的产品图。ACF 字段已预留图片上传（front-page 产品有 ACF 图片字段，
+- **修复**：用户需在 WP 后台上传产品图片。WooCommerce 产品 → 设置特色图像
 
-但 Boutique 产品暂用硬编码，如需可加 ACF）
+### [P2] WooCommerce 需安装配置
+- **位置**：整个主题
+- **修复**：用户需安装 WooCommerce 插件 → 设置 → Products → Shop page 选 "The Atelier"
 
-### [P2] WooCommerce 集成未完整实现
-- **位置**：functions.php
-- **问题**：当前产品网格为静态 HTML 而非 WooCommerce 产品循环
-- **修复**：如需 WooCommerce，后续可以 `wc_get_products()` 替换静态数据
-
-### [P3] 中国访问的图片加载
-- **位置**：所有图片
-- **问题**：Unsplash 和 Google Fonts 在中国可能加载慢
-- **修复**：建议将图片部署到站点本地（香港服务器），Google Fonts 已通过 enqueue 加载
+### [P2] WooCommerce 分类过滤
+- **位置**：page-the-atelier.php
+- **修复**：分类 Tab 使用 WooCommerce 产品分类 (product_cat)，需管理员在后台创建
 
 ## 最终结论
 
 **通过 ✓** — 可推送 GitHub
 
-未修复项：
-- P2 图片占位 → 用户自行替换
-- P2 WooCommerce 集成 → 根据需求后续迭代
+部署后用户操作：
+1. 安装 WooCommerce + ACF Pro 插件
+2. WP 后台 → 页面 → 创建 The Atelier → 选 "The Atelier" 模板
+3. WooCommerce 设置 → 产品 → 展示 → Shop page = The Atelier
+4. 添加产品 → 设置分类和标签 → 上传图片
+5. 可选：在首页通过 ACF 的 Featured Products 添加展示产品

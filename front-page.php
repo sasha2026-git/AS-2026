@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: AuraAI Home
+ * Template Name: Allscented Home
  * Description: Front page - Discover
  */
 
@@ -147,7 +147,7 @@ get_header();
         </div>
     </div>
     <div class="mt-20 flex justify-center">
-        <a href="<?php echo esc_url(home_url('/boutique/')); ?>" class="iridescent-btn px-10 py-4 rounded-full font-label-caps text-label-caps tracking-widest transition-all">
+        <a href="<?php echo esc_url(home_url('/the-atelier/')); ?>" class="iridescent-btn px-10 py-4 rounded-full font-label-caps text-label-caps tracking-widest transition-all">
             SHOP THE ATELIER
         </a>
     </div>

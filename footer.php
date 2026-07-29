@@ -3,7 +3,7 @@
 <!-- Footer -->
 <footer class="w-full py-16 mt-32 bg-surface-container-lowest border-t border-outline-variant/10">
     <div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop gap-gutter container-max">
-        <div class="font-headline-md text-headline-md text-on-surface tracking-tighter">AuraAI</div>
+        <div class="font-headline-md text-headline-md text-on-surface tracking-tighter">Allscented</div>
         <div class="flex gap-8 my-8 md:my-0">
             <a class="font-label-caps text-label-caps text-on-surface-variant/60 hover:text-secondary transition-colors" href="#">Privacy</a>
             <a class="font-label-caps text-label-caps text-on-surface-variant/60 hover:text-secondary transition-colors" href="#">Terms</a>
@@ -11,7 +11,7 @@
             <a class="font-label-caps text-label-caps text-on-surface-variant/60 hover:text-secondary transition-colors" href="#">Contact</a>
         </div>
         <div class="font-label-caps text-label-caps text-on-surface-variant/60">
-            &copy; <?php echo date('Y'); ?> AuraAI. The Future of Fragrance.
+            &copy; <?php echo date('Y'); ?> Allscented. The Future of Fragrance.
         </div>
     </div>
 </footer>

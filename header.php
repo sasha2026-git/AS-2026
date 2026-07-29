@@ -14,11 +14,11 @@
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-b border-outline-variant/20 shadow-sm">
     <div class="flex justify-between items-center px-margin-desktop py-4 container-max">
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="font-headline-md text-headline-md text-on-surface tracking-tighter">AuraAI</a>
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="font-headline-md text-headline-md text-on-surface tracking-tighter">Allscented</a>
         <div class="hidden md:flex gap-gutter items-center">
             <a class="font-body-md text-body-md tracking-wide <?php echo is_front_page() ? 'text-secondary border-b border-secondary pb-1' : 'text-on-surface-variant hover:text-primary transition-colors'; ?>" href="<?php echo esc_url(home_url('/')); ?>">Discover</a>
             <a class="font-body-md text-body-md tracking-wide <?php echo is_page_template('page-ai-synthesis.php') ? 'text-secondary border-b border-secondary pb-1' : 'text-on-surface-variant hover:text-primary transition-colors'; ?>" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">AI Synthesis</a>
-            <a class="font-body-md text-body-md tracking-wide <?php echo is_page_template('page-boutique.php') ? 'text-secondary border-b border-secondary pb-1' : 'text-on-surface-variant hover:text-primary transition-colors'; ?>" href="<?php echo esc_url(home_url('/boutique/')); ?>">The Atelier</a>
+            <a class="font-body-md text-body-md tracking-wide <?php echo is_page_template('page-the-atelier.php') ? 'text-secondary border-b border-secondary pb-1' : 'text-on-surface-variant hover:text-primary transition-colors'; ?>" href="<?php echo esc_url(home_url('/the-atelier/')); ?>">The Atelier</a>
             <a class="font-body-md text-body-md tracking-wide <?php echo is_page_template('page-archive.php') ? 'text-secondary border-b border-secondary pb-1' : 'text-on-surface-variant hover:text-primary transition-colors'; ?>" href="<?php echo esc_url(home_url('/archive/')); ?>">Archive</a>
         </div>
         <div class="flex items-center gap-6">
@@ -39,7 +39,7 @@
         <div class="flex flex-col gap-4 mt-4">
             <a class="font-body-md text-body-md text-on-surface-variant" href="<?php echo esc_url(home_url('/')); ?>">Discover</a>
             <a class="font-body-md text-body-md text-on-surface-variant" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">AI Synthesis</a>
-            <a class="font-body-md text-body-md text-on-surface-variant" href="<?php echo esc_url(home_url('/boutique/')); ?>">The Atelier</a>
+            <a class="font-body-md text-body-md text-on-surface-variant" href="<?php echo esc_url(home_url('/the-atelier/')); ?>">The Atelier</a>
             <a class="font-body-md text-body-md text-on-surface-variant" href="<?php echo esc_url(home_url('/archive/')); ?>">Archive</a>
         </div>
     </div>

@@ -199,7 +199,7 @@ get_header();
     <div class="bg-on-surface text-surface p-12 md:p-24 rounded-3xl relative overflow-hidden text-center">
         <div class="relative z-10 text-center max-w-3xl mx-auto">
             <h2 class="font-headline-lg text-headline-lg mb-8 italic">Can't find your scent?</h2>
-            <p class="font-body-lg text-body-lg mb-12 text-surface-variant">Our AuraAI engine can reverse-engineer any profile to find its spiritual successor or a perfect twin for your specific environment.</p>
+            <p class="font-body-lg text-body-lg mb-12 text-surface-variant">Our Allscented engine can reverse-engineer any profile to find its spiritual successor or a perfect twin for your specific environment.</p>
             <div class="flex flex-col md:flex-row justify-center gap-6">
                 <input class="bg-surface/10 border-b border-surface/30 px-6 py-4 font-body-md text-surface focus:outline-none focus:border-secondary transition-colors w-full md:w-96 placeholder:text-surface/40" placeholder="Enter a fragrance name..." type="text">
                 <button class="iridescent-btn px-12 py-4 rounded-full font-label-caps text-label-caps tracking-widest uppercase">Analyze Now</button>
