@@ -938,3 +938,185 @@ a:hover {
 .woocommerce-checkout h3 {
     font-family: var(--font-headline);
 }
+
+/* =============================================
+   Atelier (Wishlist) – Save Button Styles
+   ============================================= */
+.atelier-save-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 2;
+    color: var(--color-on-surface-variant);
+}
+
+.atelier-save-btn:hover {
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(100, 87, 135, 0.3);
+}
+
+.atelier-save-btn.saved {
+    background: var(--color-secondary);
+    color: var(--color-on-secondary);
+    border-color: var(--color-secondary);
+}
+
+.atelier-save-btn.saved:hover {
+    background: var(--color-on-secondary-container);
+    color: var(--color-secondary);
+}
+
+/* =============================================
+   Glass Surface & Aura Effects (Stitch Design)
+   ============================================= */
+.glass-surface {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-surface-strong {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.aura-glow {
+    filter: blur(80px);
+    background: radial-gradient(circle at center, #D8C7FF 0%, transparent 70%);
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.aura-glow-iris {
+    filter: blur(80px);
+    background: radial-gradient(circle at center, #B7C9D5 0%, transparent 70%);
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.iridescent-btn {
+    background: linear-gradient(135deg, #D8C7FF 0%, #B7C9D5 100%);
+    color: white;
+    transition: all 0.4s ease;
+    font-family: var(--font-body);
+    font-size: var(--text-label-caps);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.iridescent-btn:hover {
+    box-shadow: 0 0 25px rgba(216, 199, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+/* =============================================
+   Atelier Grid – Saved Items Section
+   ============================================= */
+.atelier-section-title {
+    font-family: var(--font-headline);
+    font-size: var(--text-headline-md);
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+#atelier-grid.has-items .atelier-empty-state {
+    display: none;
+}
+
+/* Responsive Atelier actions */
+.atelier-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 32px;
+    flex-wrap: wrap;
+}
+
+/* =============================================
+   Page Header Overrides for Atelier
+   ============================================= */
+.page-template-page-the-atelier .site-header {
+    background: rgba(252, 249, 248, 0.7);
+}
+
+/* =============================================
+   Active nav state – highlight current page
+   ============================================= */
+.primary-nav a.active,
+.primary-nav a[aria-current="page"] {
+    color: var(--color-secondary);
+    border-bottom: 1px solid var(--color-secondary);
+}
+
+/* =============================================
+   Bento Grid (Homepage) – Stitch Alignment
+   ============================================= */
+.bento-card {
+    border-radius: 2.5rem;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.bento-card:hover {
+    transform: scale(1.01);
+}
+
+.bento-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+.bento-card:hover .bento-card-image {
+    transform: scale(1.05);
+}
+
+/* =============================================
+   Hero Section – Stitch Alignment
+   ============================================= */
+.hero-ai-prompt {
+    border-radius: 2rem;
+    transition: all 0.5s ease;
+}
+
+.hero-ai-prompt:hover {
+    transform: scale(1.01);
+}
+
+/* =============================================
+   Iridescent border accent
+   ============================================= */
+.border-aura {
+    border: 1px solid rgba(216, 199, 255, 0.3);
+}
+
+.iridescent-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #D8C7FF, #B7C9D5, transparent);
+    border: none;
+}

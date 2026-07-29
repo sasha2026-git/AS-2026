@@ -11,6 +11,7 @@
         </a>
         <nav class="footer-nav">
             <a href="<?php echo esc_url(home_url('/archive')); ?>"><?php esc_html_e('Archives', 'allscents'); ?></a>
+            <a href="<?php echo esc_url(home_url('/the-atelier')); ?>"><?php esc_html_e('The Atelier', 'allscents'); ?></a>
             <a href="<?php echo esc_url(home_url('/compare')); ?>"><?php esc_html_e('Comparison Hub', 'allscents'); ?></a>
             <a href="<?php echo esc_url(home_url('/shop')); ?>"><?php esc_html_e('Our Scents', 'allscents'); ?></a>
             <a href="<?php echo esc_url(home_url('/privacy')); ?>"><?php esc_html_e('Privacy', 'allscents'); ?></a>
