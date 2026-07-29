@@ -1,96 +1,230 @@
 <?php
 /**
- * Allscented Child Theme Functions
- * Digital Romanticism for Hello Elementor
- * 
- * Brand: Allscented
- * Design: AuraAI → Allscented adapted
+ * AuraAI Child Theme Functions
+ * Parent: Hello Elementor
  */
 
 // Enqueue parent + child styles
-add_action('wp_enqueue_scripts', 'allscents_enqueue_assets');
-function allscents_enqueue_assets() {
+function auraai_enqueue_styles() {
     // Parent style
-    wp_enqueue_style('hello-elementor-parent', get_template_directory_uri() . '/style.css');
+    wp_enqueue_style(
+        'hello-elementor',
+        get_template_directory_uri() . '/style.min.css'
+    );
 
-    // Google Fonts: Playfair Display + Hanken Grotesk
-    wp_enqueue_style('allscents-fonts', 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Hanken+Grotesk:wght@300;400;500;600&display=swap', [], null);
+    // Child theme style (all CSS in one file)
+    wp_enqueue_style(
+        'auraai-child',
+        get_stylesheet_uri(),
+        array('hello-elementor'),
+        wp_get_theme()->get('Version')
+    );
+
+    // Google Fonts (also loaded via @import in style.css, but this is for reliability)
+    wp_enqueue_style(
+        'auraai-fonts',
+        'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Hanken+Grotesk:wght@100..900&display=swap',
+        array(),
+        null
+    );
 
     // Material Symbols
-    wp_enqueue_style('allscents-icons', 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap', [], null);
+    wp_enqueue_style(
+        'auraai-icons',
+        'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap',
+        array(),
+        null
+    );
+}
+add_action('wp_enqueue_scripts', 'auraai_enqueue_styles');
 
-    // Main child theme CSS
-    wp_enqueue_style('allscents-style', get_stylesheet_directory_uri() . '/assets/css/allscents.css', ['hello-elementor-parent'], '1.0.0');
+// Remove Hello Elementor header/footer so we can use custom ones
+add_action('after_setup_theme', function() {
+    // Tell Hello Elementor we handle the header/footer ourselves
+    add_theme_support('hello-elementor-header-footer');
+});
 
-    // Theme JS
-    wp_enqueue_script('allscents-scripts', get_stylesheet_directory_uri() . '/assets/js/scripts.js', [], '1.0.0', true);
+// ============================================
+// ACF Field Registration
+// ============================================
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
+        'key' => 'group_auraai_home',
+        'title' => 'AuraAI Home Page',
+        'fields' => array(
+            array(
+                'key' => 'field_auraai_hero_title',
+                'label' => 'Hero Title',
+                'name' => 'auraai_hero_title',
+                'type' => 'text',
+                'default_value' => 'Describe the scent of your deepest memory.',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_auraai_hero_subtitle',
+                'label' => 'Hero Subtitle',
+                'name' => 'auraai_hero_subtitle',
+                'type' => 'text',
+                'default_value' => 'SENSORY INTELLIGENCE',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_auraai_hero_placeholder',
+                'label' => 'Textarea Placeholder',
+                'name' => 'auraai_hero_placeholder',
+                'type' => 'text',
+                'default_value' => 'Tell me a story... \'A rainy afternoon in Kyoto, cedarwood and wet stone...\'',
+            ),
+            array(
+                'key' => 'field_auraai_featured_products',
+                'label' => 'Featured Products (Home)',
+                'name' => 'auraai_featured_products',
+                'type' => 'repeater',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_auraai_fp_name',
+                        'label' => 'Product Name',
+                        'name' => 'auraai_fp_name',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_auraai_fp_price',
+                        'label' => 'Price',
+                        'name' => 'auraai_fp_price',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_auraai_fp_mood',
+                        'label' => 'Mood Tag',
+                        'name' => 'auraai_fp_mood',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_auraai_fp_scene',
+                        'label' => 'Scene Tag',
+                        'name' => 'auraai_fp_scene',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_auraai_fp_note',
+                        'label' => 'Note Tag',
+                        'name' => 'auraai_fp_note',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_auraai_fp_image',
+                        'label' => 'Product Image',
+                        'name' => 'auraai_fp_image',
+                        'type' => 'image',
+                        'return_format' => 'array',
+                    ),
+                ),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ),
+            ),
+        ),
+    ));
 
-    // Localize for AJAX if needed
-    wp_localize_script('allscents-scripts', 'allscentsData', [
-        'ajaxUrl' => admin_url('admin-ajax.php'),
-        'nonce'   => wp_create_nonce('allscents_nonce'),
-        'homeUrl' => home_url(),
-    ]);
+    acf_add_local_field_group(array(
+        'key' => 'group_auraai_boutique',
+        'title' => 'AuraAI Boutique',
+        'fields' => array(
+            array(
+                'key' => 'field_auraai_boutique_hero_title',
+                'label' => 'Hero Title',
+                'name' => 'auraai_boutique_hero_title',
+                'type' => 'text',
+                'default_value' => 'Curated for your DNA. Every bottle, an echo of your digital aura.',
+            ),
+            array(
+                'key' => 'field_auraai_boutique_products',
+                'label' => 'Product Grid',
+                'name' => 'auraai_boutique_products',
+                'type' => 'repeater',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_auraai_bp_brand',
+                        'label' => 'Brand',
+                        'name' => 'auraai_bp_brand',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_auraai_bp_name',
+                        'label' => 'Product Name',
+                        'name' => 'auraai_bp_name',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_auraai_bp_category',
+                        'label' => 'Category',
+                        'name' => 'auraai_bp_category',
+                        'type' => 'text',
+                        'instructions' => 'For Personal, For Home, or For Commercial',
+                    ),
+                    array(
+                        'key' => 'field_auraai_bp_price',
+                        'label' => 'Price',
+                        'name' => 'auraai_bp_price',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_auraai_bp_buy_link',
+                        'label' => 'Buy Link',
+                        'name' => 'auraai_bp_buy_link',
+                        'type' => 'url',
+                    ),
+                    array(
+                        'key' => 'field_auraai_bp_image',
+                        'label' => 'Product Image',
+                        'name' => 'auraai_bp_image',
+                        'type' => 'image',
+                        'return_format' => 'array',
+                    ),
+                ),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'page-boutique.php',
+                ),
+            ),
+        ),
+    ));
 }
 
-// Theme setup
-add_action('after_setup_theme', 'allscents_theme_setup');
-function allscents_theme_setup() {
-    // Support for WooCommerce
-    add_theme_support('woocommerce');
-    add_theme_support('wc-product-gallery-zoom');
-    add_theme_support('wc-product-gallery-lightbox');
-    add_theme_support('wc-product-gallery-slider');
-
-    // Support for ACF
-    add_theme_support('acf');
-
-    // Register nav menus
-    register_nav_menus([
-        'primary' => __('Primary Menu', 'allscents'),
-        'footer'  => __('Footer Menu', 'allscents'),
-    ]);
+// Add custom page templates
+function auraai_page_templates($templates) {
+    $templates['page-boutique.php'] = 'Boutique';
+    $templates['page-ai-synthesis.php'] = 'AI Synthesis';
+    $templates['page-archive.php'] = 'Archive';
+    return $templates;
 }
+add_filter('theme_page_templates', 'auraai_page_templates');
 
-// Load ACF field groups from JSON
-add_filter('acf/settings/load_json', 'allscents_acf_json_load_point');
-function allscents_acf_json_load_point($paths) {
-    $paths[] = get_stylesheet_directory() . '/acf-json';
-    return $paths;
+// Template include
+function auraai_template_include($template) {
+    if (is_page_template('page-boutique.php')) {
+        $new_template = locate_template(array('page-boutique.php'));
+        if ($new_template) return $new_template;
+    }
+    if (is_page_template('page-ai-synthesis.php')) {
+        $new_template = locate_template(array('page-ai-synthesis.php'));
+        if ($new_template) return $new_template;
+    }
+    if (is_page_template('page-archive.php')) {
+        $new_template = locate_template(array('page-archive.php'));
+        if ($new_template) return $new_template;
+    }
+    return $template;
 }
-
-// Save ACF field groups to JSON
-add_filter('acf/settings/save_json', 'allscents_acf_json_save_point');
-function allscents_acf_json_save_point($path) {
-    return get_stylesheet_directory() . '/acf-json';
-}
-
-// =============================================
-// WooCommerce Overrides
-// =============================================
-
-// Remove default WooCommerce styles
-add_filter('woocommerce_enqueue_styles', '__return_empty_array');
-
-// Custom shop page (if not using Elementor)
-add_action('after_setup_theme', 'allscents_add_woocommerce_support');
-
-/**
- * Add SVG and webp support
- */
-add_filter('upload_mimes', 'allscents_mime_types');
-function allscents_mime_types($mimes) {
-    $mimes['svg'] = 'image/svg+xml';
-    $mimes['webp'] = 'image/webp';
-    return $mimes;
-}
-
-/**
- * Custom body classes
- */
-add_filter('body_class', 'allscents_body_classes');
-function allscents_body_classes($classes) {
-    $classes[] = 'allscents-theme';
-    $classes[] = 'digital-romanticism';
-    return $classes;
-}
+add_filter('template_include', 'auraai_template_include');
