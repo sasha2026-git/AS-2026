@@ -1,155 +1,124 @@
 <?php
 /**
- * Template Name: Allscented Home
- * Description: Front page - Discover
+ * Front Page — AllScented "Discover"
+ * Brand: AllScented — AI-Powered Fragrance
+ * Design: Digital Romanticism
  */
 
 get_header();
 ?>
 
-<!-- Hero Section: AI Recommendation Entry -->
-<section class="px-margin-desktop container-max mb-32 relative min-h-[70vh] flex flex-col justify-center">
-    <div class="max-w-3xl">
-        <span class="font-label-caps text-label-caps text-secondary mb-4 block">SENSORY INTELLIGENCE</span>
-        <h1 class="font-headline-xl text-headline-xl mb-8 leading-tight">Describe the scent of your <span class="italic text-secondary">deepest memory.</span></h1>
-        <div class="aura-glass p-8 rounded-xl">
-            <div class="flex flex-col gap-6">
-                <div class="flex gap-4">
-                    <button class="px-6 py-2 rounded-full border border-secondary text-secondary font-label-caps text-label-caps hover:bg-secondary/10 transition-all">Personal</button>
-                    <button class="px-6 py-2 rounded-full border border-outline-variant text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all">Home</button>
-                    <button class="px-6 py-2 rounded-full border border-outline-variant text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all">Commercial</button>
-                </div>
-                <div class="relative">
-                    <textarea class="w-full bg-transparent border-b border-on-surface/20 focus:border-secondary outline-none py-4 text-body-lg font-body-lg resize-none min-h-[100px] transition-all" placeholder="Tell me a story... 'A rainy afternoon in Kyoto, cedarwood and wet stone...'"></textarea>
-                    <div class="absolute bottom-4 right-0">
-                        <button class="iridescent-btn flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-all" aria-label="Generate">
-                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
-                        </button>
+<!-- ============================================ -->
+<!-- HERO BANNER                                  -->
+<!-- ============================================ -->
+<section class="relative w-full overflow-hidden scroll-reveal" style="min-height:70vh;display:flex;align-items:center">
+    <!-- Background image -->
+    <div class="absolute inset-0 z-0">
+        <img
+            class="w-full h-full object-cover"
+            src="https://images.unsplash.com/photo-1607349919526-3c42d1a43f3f?w=1600&q=80"
+            alt="AllScented — AI Fragrance"
+            loading="eager"
+            style="filter:brightness(0.6)"
+        >
+        <!-- Gradient overlay -->
+        <div class="absolute inset-0" style="background:linear-gradient(to top,rgb(252,249,248) 0%,rgba(252,249,248,0.15) 100%);"></div>
+    </div>
+
+    <div class="relative z-10 container-max px-margin-desktop w-full" style="padding-top:60px;padding-bottom:100px;">
+        <div class="max-w-3xl">
+            <span class="font-label-caps text-label-caps text-secondary mb-4 block" style="color:var(--secondary);text-shadow:0 2px 8px rgba(0,0,0,0.2);">ALLSCENTED · SENSORY INTELLIGENCE</span>
+            <h1 class="font-headline-xl text-headline-xl mb-6" style="color:#fff;text-shadow:0 4px 20px rgba(0,0,0,0.3);font-size:clamp(2.5rem,8vw,6rem);">
+                Where Memory<br class="mobile-only"> Becomes Scent
+            </h1>
+            <p class="font-body-lg text-body-lg mb-8 max-w-xl" style="color:rgba(255,255,255,0.85);text-shadow:0 2px 8px rgba(0,0,0,0.2);">
+                Describe the scent of your deepest memory, and our neural alchemy engine renders it into molecular reality — a fragrance built by AI, for your aura.
+            </p>
+            <a href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>" class="iridescent-btn font-label-caps text-label-caps tracking-widest uppercase" style="padding:16px 40px;border-radius:9999px;font-size:13px;">
+                BEGIN YOUR AI SYNTHESIS
+                <span class="material-symbols-outlined ml-2" style="font-size:16px;">auto_awesome</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SENSORY INTELLIGENCE — Input Section        -->
+<!-- ============================================ -->
+<section class="px-margin-desktop container-max scroll-reveal" style="margin-top:-40px;margin-bottom:80px;position:relative;z-index:20;">
+    <div class="aura-glass rounded-2xl p-8 md:p-12">
+        <div class="flex flex-wrap gap-3 mb-8">
+            <?php
+            $tags = array(
+                array('label' => 'Mood Match', 'icon' => 'psychology'),
+                array('label' => 'Scent Twin Finder', 'icon' => 'search_insights'),
+                array('label' => 'Data Profile', 'icon' => 'neurology'),
+            );
+            foreach ($tags as $tag) : ?>
+                <span class="font-label-caps text-label-caps category-tag inline-flex items-center gap-2 px-4 py-2 rounded-full border" style="border-color:var(--outline-variant);color:var(--on-surface-variant);cursor:pointer;transition:all 0.3s ease;">
+                    <span class="material-symbols-outlined" style="font-size:14px;"><?php echo esc_attr($tag['icon']); ?></span>
+                    <?php echo esc_html($tag['label']); ?>
+                </span>
+            <?php endforeach; ?>
+        </div>
+
+        <textarea
+            class="w-full bg-transparent border-none outline-none resize-none font-body-lg text-body-lg"
+            style="min-height:100px;color:var(--on-surface);"
+            placeholder="<?php echo esc_attr(get_field('allscented_hero_placeholder') ?: 'Tell me a story... \'A rainy afternoon in Kyoto, cedarwood and wet stone...\''); ?>"
+        ></textarea>
+
+        <div class="flex items-center justify-between mt-6 flex-wrap gap-4">
+            <span class="font-label-caps text-label-caps" style="color:var(--on-surface-variant);">Powered by neural alchemy engine &bull; 12,000+ molecular profiles</span>
+            <button class="iridescent-btn px-6 py-3 rounded-full font-label-caps text-label-caps tracking-widest uppercase" style="font-size:12px;">
+                Synthesize
+                <span class="material-symbols-outlined ml-1" style="font-size:14px;">auto_awesome</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- THE ARCHIVE — Section Preview               -->
+<!-- ============================================ -->
+<section class="scroll-reveal" style="background:color-mix(in srgb,var(--surface) 40%,transparent);padding:80px 0;margin-bottom:80px;">
+    <div class="px-margin-desktop container-max">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter mb-12">
+            <div>
+                <span class="font-label-caps text-label-caps text-secondary mb-2 block">THE ARCHIVE</span>
+                <h2 class="font-headline-lg text-headline-lg">Curated Synthetics</h2>
+            </div>
+            <a href="<?php echo esc_url(home_url('/archive/')); ?>" class="font-label-caps text-label-caps tracking-widest iridescent-btn px-6 py-3 rounded-full" style="flex-shrink:0;font-size:12px;text-decoration:none;">
+                Explore More
+                <span class="material-symbols-outlined ml-1" style="font-size:14px;">arrow_forward</span>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <?php
+            $archive_items = array(
+                array('title' => 'Dark Alchemy', 'cat' => 'FOR HOME', 'img' => 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&q=80'),
+                array('title' => 'Vesper Muse', 'cat' => 'FOR PERSONAL', 'img' => 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&q=80'),
+                array('title' => 'Synthetic Dawn', 'cat' => 'FOR COMMERCIAL', 'img' => 'https://images.unsplash.com/photo-1615639070588-8e152bf1f0b0?w=400&q=80'),
+                array('title' => 'Nocturne Waves', 'cat' => 'FOR HOME', 'img' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80'),
+            );
+            foreach ($archive_items as $item) : ?>
+                <div class="relative rounded-xl overflow-hidden group cursor-pointer aspect-square">
+                    <img
+                        class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+                        src="<?php echo esc_url($item['img']); ?>"
+                        alt="<?php echo esc_attr($item['title']); ?>"
+                        loading="lazy"
+                    >
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div>
+                            <span class="font-label-caps text-label-caps text-secondary-fixed-dim"><?php echo esc_html($item['cat']); ?></span>
+                            <h3 class="font-headline-md text-headline-md text-surface" style="font-size:18px;"><?php echo esc_html($item['title']); ?></h3>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php endforeach; ?>
         </div>
-        <div class="mt-8 flex items-center justify-between">
-            <p class="font-body-md text-on-surface-variant max-w-md italic">Our AI analyzes emotive prose to synthesize fragrance notes that echo your internal landscape.</p>
-            <a class="font-label-caps text-label-caps border-b border-primary text-primary pb-1 hover:text-secondary hover:border-secondary transition-all" href="#">EXPLORE MORE</a>
-        </div>
-    </div>
-</section>
-
-<!-- Section 2: AI Fragrance Archive Preview (Bento Grid) -->
-<section class="px-margin-desktop container-max mb-32 scroll-reveal">
-    <div class="flex justify-between items-end mb-12">
-        <div>
-            <span class="font-label-caps text-label-caps text-secondary mb-2 block">THE ARCHIVE</span>
-            <h2 class="font-headline-lg text-headline-lg">Curated Synthetics</h2>
-        </div>
-        <a class="font-label-caps text-label-caps text-primary border-b border-primary pb-1 hover:text-secondary hover:border-secondary transition-all mb-2" href="#">VIEW ALL CASE STUDIES</a>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
-        <!-- Personal -->
-        <div class="md:col-span-7 group cursor-pointer">
-            <div class="relative h-[500px] overflow-hidden rounded-xl aura-glass">
-                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800&q=80" alt="Luxury perfume bottle on marble surface with lavender lighting" loading="lazy">
-                <div class="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent p-12 flex flex-col justify-end">
-                    <span class="font-label-caps text-label-caps text-secondary mb-2">FOR PERSONAL</span>
-                    <h3 class="font-headline-md text-headline-md mb-4 italic">The Intimate Narrative</h3>
-                    <p class="font-body-md text-on-surface-variant max-w-md">How AI decoded the scent of childhood nostalgia for a private collection.</p>
-                </div>
-            </div>
-        </div>
-        <!-- Home & Commercial Column -->
-        <div class="md:col-span-5 flex flex-col gap-gutter">
-            <div class="aura-glass p-8 flex flex-col justify-between h-64 rounded-xl group cursor-pointer">
-                <div>
-                    <span class="font-label-caps text-label-caps text-secondary mb-2 block">FOR HOME</span>
-                    <h3 class="font-headline-md text-headline-md mb-2">Atmospheric Flux</h3>
-                    <p class="font-body-md text-on-surface-variant">Adaptive scents that change based on light cycles and biometric data.</p>
-                </div>
-                <div class="w-full h-32 mt-4 rounded-lg overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
-                    <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Minimalist interior with diffuser and natural lighting" loading="lazy">
-                </div>
-            </div>
-            <div class="aura-glass p-8 flex flex-col justify-between h-64 rounded-xl group cursor-pointer">
-                <div>
-                    <span class="font-label-caps text-label-caps text-secondary mb-2 block">FOR COMMERCIAL</span>
-                    <h3 class="font-headline-md text-headline-md mb-2">Brand Osmosis</h3>
-                    <p class="font-body-md text-on-surface-variant">Architectural scenting for the 2025 Neo-Parisian Retail Experience.</p>
-                </div>
-                <div class="flex items-center gap-2 mt-4">
-                    <span class="px-3 py-1 rounded-full bg-secondary-container/30 text-secondary font-label-caps text-label-caps">LUXURY</span>
-                    <span class="px-3 py-1 rounded-full bg-secondary-container/30 text-secondary font-label-caps text-label-caps">TECH-RETAIL</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Section 3: Official Boutique Preview -->
-<section class="px-margin-desktop container-max mb-32 scroll-reveal">
-    <div class="text-center mb-16">
-        <span class="font-label-caps text-label-caps text-secondary mb-2 block">THE COLLECTION</span>
-        <h2 class="font-headline-lg text-headline-lg">Signature Molecules</h2>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-        <!-- Product 1 -->
-        <div class="flex flex-col items-center group">
-            <div class="relative w-full aspect-[4/5] aura-glass rounded-xl mb-6 overflow-hidden flex items-center justify-center">
-                <img class="w-2/3 h-2/3 object-contain transition-transform duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=600&q=80" alt="Aura No. 1 perfume bottle" loading="lazy">
-                <div class="absolute top-4 right-4">
-                    <span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity">favorite</span>
-                </div>
-            </div>
-            <div class="text-center">
-                <h4 class="font-headline-md text-headline-md mb-2 italic">Aura No. 1</h4>
-                <div class="flex justify-center gap-2 mb-4 flex-wrap px-4">
-                    <span class="font-label-caps text-[10px] tracking-widest px-2 py-1 bg-surface-container-high rounded text-on-surface-variant">MOOD: SERENE</span>
-                    <span class="font-label-caps text-[10px] tracking-widest px-2 py-1 bg-surface-container-high rounded text-on-surface-variant">SCENE: MORNING</span>
-                    <span class="font-label-caps text-[10px] tracking-widest px-2 py-1 bg-surface-container-high rounded text-on-surface-variant">NOTE: OZONIC</span>
-                </div>
-                <span class="font-body-md text-primary">$185.00</span>
-            </div>
-        </div>
-        <!-- Product 2 -->
-        <div class="flex flex-col items-center group">
-            <div class="relative w-full aspect-[4/5] aura-glass rounded-xl mb-6 overflow-hidden flex items-center justify-center">
-                <img class="w-2/3 h-2/3 object-contain transition-transform duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&q=80" alt="Aura No. 2 perfume bottle" loading="lazy">
-                <div class="absolute top-4 right-4">
-                    <span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity">favorite</span>
-                </div>
-            </div>
-            <div class="text-center">
-                <h4 class="font-headline-md text-headline-md mb-2 italic">Aura No. 2</h4>
-                <div class="flex justify-center gap-2 mb-4 flex-wrap px-4">
-                    <span class="font-label-caps text-[10px] tracking-widest px-2 py-1 bg-surface-container-high rounded text-on-surface-variant">MOOD: SEDUCTIVE</span>
-                    <span class="font-label-caps text-[10px] tracking-widest px-2 py-1 bg-surface-container-high rounded text-on-surface-variant">SCENE: TWILIGHT</span>
-                    <span class="font-label-caps text-[10px] tracking-widest px-2 py-1 bg-surface-container-high rounded text-on-surface-variant">NOTE: OUD</span>
-                </div>
-                <span class="font-body-md text-primary">$210.00</span>
-            </div>
-        </div>
-        <!-- Product 3 -->
-        <div class="flex flex-col items-center group">
-            <div class="relative w-full aspect-[4/5] aura-glass rounded-xl mb-6 overflow-hidden flex items-center justify-center">
-                <img class="w-2/3 h-2/3 object-contain transition-transform duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1615639070588-8e152bf1f0b0?w=600&q=80" alt="Aura No. 3 perfume bottle" loading="lazy">
-                <div class="absolute top-4 right-4">
-                    <span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity">favorite</span>
-                </div>
-            </div>
-            <div class="text-center">
-                <h4 class="font-headline-md text-headline-md mb-2 italic">Aura No. 3</h4>
-                <div class="flex justify-center gap-2 mb-4 flex-wrap px-4">
-                    <span class="font-label-caps text-[10px] tracking-widest px-2 py-1 bg-surface-container-high rounded text-on-surface-variant">MOOD: VIBRANT</span>
-                    <span class="font-label-caps text-[10px] tracking-widest px-2 py-1 bg-surface-container-high rounded text-on-surface-variant">SCENE: ATELIER</span>
-                    <span class="font-label-caps text-[10px] tracking-widest px-2 py-1 bg-surface-container-high rounded text-on-surface-variant">NOTE: CITRUS</span>
-                </div>
-                <span class="font-body-md text-primary">$165.00</span>
-            </div>
-        </div>
-    </div>
-    <div class="mt-20 flex justify-center">
-        <a href="<?php echo esc_url(home_url('/the-atelier/')); ?>" class="iridescent-btn px-10 py-4 rounded-full font-label-caps text-label-caps tracking-widest transition-all">
-            SHOP THE ATELIER
-        </a>
     </div>
 </section>
 

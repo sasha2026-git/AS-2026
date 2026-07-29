@@ -3,8 +3,8 @@ Theme Name: Allscented
 Theme URI: https://allscented.com
 Author: Codex
 Author URI: https://codex.ai
-Description: Allscented — Digital Romanticism child theme for Hello Elementor. AI-powered fragrance curation platform.
-Version: 1.0.0
+Description: Allscented — Digital Romanticism child theme for Hello Elementor. AI-powered fragrance curation platform. v15 final.
+Version: 1.1.0
 Requires at least: 6.0
 Tested up to: 6.4
 Requires PHP: 7.4
@@ -18,6 +18,7 @@ Text Domain: allscented
    DESIGN SYSTEM: Digital Romanticism
    Fonts: Playfair Display + Hanken Grotesk
    Core: Glassmorphism, Iridescence, Soft Aura
+   v15 — Atelier uniform grid + mobile refinements
    ======================================== */
 
 /* --- Google Fonts --- */
@@ -285,6 +286,8 @@ input, textarea, button {
 .text-[10px] { font-size: 10px; }
 .text-[11px] { font-size: 11px; }
 .text-[14px] { font-size: 14px; }
+.text-[16px] { font-size: 16px; }
+.text-[18px] { font-size: 18px; }
 .text-[20px] { font-size: 20px; }
 .text-[24px] { font-size: 24px; }
 .text-[28px] { font-size: 28px; }
@@ -376,6 +379,7 @@ input, textarea, button {
 .items-stretch { align-items: stretch; }
 .self-start { align-self: flex-start; }
 .self-end { align-self: flex-end; }
+.self-center { align-self: center; }
 
 /* Grid */
 .grid { display: grid; }
@@ -420,6 +424,7 @@ input, textarea, button {
 .px-2 { padding-left: 8px; padding-right: 8px; }
 .px-3 { padding-left: 12px; padding-right: 12px; }
 .px-4 { padding-left: 16px; padding-right: 16px; }
+.px-5 { padding-left: 20px; padding-right: 20px; }
 .px-6 { padding-left: 24px; padding-right: 24px; }
 .px-8 { padding-left: 32px; padding-right: 32px; }
 .px-10 { padding-left: 40px; padding-right: 40px; }
@@ -476,12 +481,17 @@ input, textarea, button {
 .w-2\/3 { width: 66.666%; }
 .w-8 { width: 32px; }
 .w-12 { width: 48px; }
+.w-24 { width: 96px; }
+.w-28 { width: 112px; }
+.w-48 { width: 192px; }
 .w-64 { width: 256px; }
 .h-full { height: 100%; }
 .h-auto { height: auto; }
 .h-8 { height: 32px; }
 .h-12 { height: 48px; }
+.h-28 { height: 112px; }
 .h-32 { height: 128px; }
+.h-48 { height: 192px; }
 .h-64 { height: 256px; }
 .h-\[500px\] { height: 500px; }
 .h-\[600px\] { height: 600px; }
@@ -492,6 +502,11 @@ input, textarea, button {
 .aspect-\[3\/4\] { aspect-ratio: 3/4; }
 .aspect-\[4\/5\] { aspect-ratio: 4/5; }
 .aspect-square { aspect-ratio: 1/1; }
+
+/* Max width */
+.max-w-xl { max-width: 576px; }
+.max-w-2xl { max-width: 672px; }
+.max-w-3xl { max-width: 768px; }
 
 /* Position */
 .fixed { position: fixed; }
@@ -519,6 +534,7 @@ input, textarea, button {
 /* Z-index */
 .z-0 { z-index: 0; }
 .z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
 .z-40 { z-index: 40; }
 .z-50 { z-index: 50; }
 
@@ -641,6 +657,82 @@ input, textarea, button {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+/* ============================================ */
+/* v15-specific styles                          */
+/* ============================================ */
+
+/* --- Filter Buttons (Archive + Atelier) --- */
+.filter-btn {
+    font-family: 'Hanken Grotesk', sans-serif;
+    transition: all 0.3s ease;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+}
+.filter-btn:hover {
+    border-color: var(--secondary) !important;
+    color: var(--secondary) !important;
+}
+.filter-btn.active,
+.filter-btn[style*="border-color:var(--secondary)"] {
+    border-color: var(--secondary) !important;
+    color: var(--secondary) !important;
+}
+
+/* --- Category Tags (Home Input) --- */
+.category-tag {
+    font-family: 'Hanken Grotesk', sans-serif;
+    background: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.category-tag:hover {
+    border-color: var(--secondary) !important;
+    color: var(--secondary) !important;
+    background: rgba(215, 198, 254, 0.1);
+}
+
+/* --- Archive Items (list style) --- */
+.archive-item {
+    font-family: 'Hanken Grotesk', sans-serif;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* --- Woocommerce pagination --- */
+.woocommerce nav.woocommerce-pagination ul {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    flex-wrap: wrap;
+}
+.woocommerce nav.woocommerce-pagination ul li {
+    border: none;
+    float: none;
+}
+.woocommerce nav.woocommerce-pagination ul li a,
+.woocommerce nav.woocommerce-pagination ul li span {
+    padding: 10px 16px;
+    border-radius: 9999px;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--on-surface-variant);
+    background: transparent;
+    border: 1px solid var(--outline-variant);
+}
+.woocommerce nav.woocommerce-pagination ul li a:hover {
+    border-color: var(--secondary);
+    color: var(--secondary);
+}
+.woocommerce nav.woocommerce-pagination ul li span.current {
+    background: linear-gradient(135deg, #e9ddff 0%, #d3e5f1 100%);
+    color: var(--on-secondary-container);
+    border-color: transparent;
+}
+
 /* --- Responsive --- */
 @media (min-width: 768px) {
     .md\:flex { display: flex; }
@@ -667,13 +759,13 @@ input, textarea, button {
     .md\:my-0 { margin-top: 0; margin-bottom: 0; }
     .md\:px-margin-desktop { padding-left: var(--margin-desktop); padding-right: var(--margin-desktop); }
     .md\:h-\[600px\] { height: 600px; }
+    .md\:p-12 { padding: 48px; }
+    .md\:p-16 { padding: 64px; }
+    .md\:p-24 { padding: 96px; }
 }
 
-@media (max-width: 767px) {
-    .px-margin-desktop { padding-left: var(--margin-mobile); padding-right: var(--margin-mobile); }
-    .text-headline-xl { font-size: 40px; }
-    .md\:flex { display: none; }
-}
+/* Mobile only */
+.mobile-only { display: none; }
 
 @media (max-width: 767px) {
     /* --- Layout & Containers --- */
@@ -713,12 +805,13 @@ input, textarea, button {
     /* --- Hero Section --- */
     section.flex-col.justify-center.min-h-\[70vh\] { padding-top: 40px; padding-bottom: 40px; }
     .max-w-3xl { max-width: 100%; }
+    .max-w-2xl { max-width: 100%; }
+    .max-w-xl { max-width: 100%; }
 
     /* Filter Button Group — horizontal scroll */
-    .flex.gap-4 > button.rounded-full { flex-shrink: 0; }
-    .flex.gap-4.flex-wrap, .flex.gap-4 { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; padding-bottom: 8px; }
-    .flex.gap-4::-webkit-scrollbar { height: 2px; }
-    .flex.gap-4::-webkit-scrollbar-thumb { background: var(--outline-variant); border-radius: 4px; }
+    .flex.gap-3.flex-wrap, .flex.gap-3 { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; padding-bottom: 8px; }
+    .flex.gap-3::-webkit-scrollbar { height: 2px; }
+    .flex.gap-3::-webkit-scrollbar-thumb { background: var(--outline-variant); border-radius: 4px; }
 
     /* --- Grid Adjustments --- */
     .grid-cols-1 { grid-template-columns: 1fr; }
@@ -729,6 +822,9 @@ input, textarea, button {
     .md\:col-span-1, .md\:col-span-2, .md\:col-span-3,
     .md\:col-span-4, .md\:col-span-5, .md\:col-span-7,
     .md\:col-span-8 { grid-column: span 1; }
+
+    /* --- Atelier grid — always 2 cols on mobile for uniform layout --- */
+    .woocommerce ul.products.columns-4 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 
     /* --- Image Container Fixes --- */
     .object-cover { width: 100%; }
@@ -754,9 +850,10 @@ input, textarea, button {
     .pt-32 { padding-top: 72px; }
     nav .px-margin-desktop { padding-left: 16px; padding-right: 16px; }
     nav .gap-gutter { gap: 12px; }
+    nav .text-headline-md { font-size: 18px; }
+    nav .flex.items-center.gap-6 { gap: 12px; }
 
     /* --- The Atelier Shop --- */
-    .woocommerce ul.products.columns-4 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .woocommerce ul.products li.product { width: 100% !important; }
     .woocommerce ul.products li.product .button { font-size: 13px; padding: 8px 16px; }
 
@@ -764,8 +861,9 @@ input, textarea, button {
     .woocommerce nav.woocommerce-pagination ul li a,
     .woocommerce nav.woocommerce-pagination ul li span { padding: 6px 10px; font-size: 13px; }
 
-    /* --- AI Synthesis Cards --- */
-    .md\:grid-cols-3.gap-gutter > * { margin-bottom: 16px; }
+    /* --- Archive Items --- */
+    .archive-item.flex-col.md\:flex-row { flex-direction: row; gap: 12px; }
+    .archive-item .w-full.md\:w-28 { width: 80px; height: 80px; flex-shrink: 0; }
 
     /* --- Hero CTA Row --- */
     .flex.items-center.justify-between.flex-col.md\:flex-row { flex-direction: column; gap: 16px; align-items: flex-start; }
@@ -776,11 +874,10 @@ input, textarea, button {
     /* --- Scroll Reveal --- */
     .scroll-reveal { opacity: 1 !important; transform: none !important; }
 
-    /* --- Mobile Header Logo --- */
-    nav .text-headline-md { font-size: 18px; }
-
-    /* --- Shopping icons --- */
-    nav .flex.items-center.gap-6 { gap: 12px; }
+    /* --- Font downscale for hero clamp fallback --- */
+    h1.font-headline-xl.text-headline-xl[style*="clamp"] {
+        font-size: 2.5rem !important;
+    }
 }
 
 /* --- Extra small phones (max-width: 480px) --- */
