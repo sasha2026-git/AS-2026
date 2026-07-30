@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Allscented — v20 Preview (AI Consultation Flow + Smart Pagination)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Hanken+Grotesk:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<style>
+:root {
+    --secondary-container: #d7c6fe;
+    --primary-fixed: #e2e2e9;
+    --surface: #fcf9f8;
+    --on-surface: #1c1b1b;
+    --surface-container-high: #eae7e7;
+    --on-secondary-fixed-variant: #4c3f6e;
+    --secondary-fixed: #e9ddff;
+    --primary-container: #f8f7ff;
+    --primary: #5d5e65;
+    --on-surface-variant: #46464b;
+    --inverse-primary: #c6c6cd;
+    --surface-bright: #fcf9f8;
+    --inverse-on-surface: #f3f0ef;
+    --on-primary-container: #707178;
+    --tertiary-container: #f1f9ff;
+    --surface-variant: #e5e2e1;
+    --surface-dim: #dcd9d9;
+    --on-error-container: #93000a;
+    --tertiary-fixed: #d3e5f1;
+    --background: #fcf9f8;
+    --on-tertiary: #ffffff;
+    --on-primary-fixed-variant: #45464d;
+    --outline: #77777b;
+    --error-container: #ffdad6;
+    --surface-tint: #5d5e65;
+    --surface-container-low: #f6f3f2;
+    --tertiary-fixed-dim: #b7c9d5;
+    --on-primary: #ffffff;
+    --on-error: #ffffff;
+    --tertiary: #50616b;
+    --primary-fixed-dim: #c6c6cd;
+    --on-tertiary-fixed-variant: #384953;
+    --on-background: #1c1b1b;
+    --secondary-fixed-dim: #cfbef5;
+    --secondary: #645787;
+    --on-tertiary-fixed: #0c1e26;
+    --on-secondary-container: #5e5080;
+    --surface-container-highest: #e5e2e1;
+    --outline-variant: #c7c6cb;
+    --on-secondary-fixed: #20133f;
+    --error: #ba1a1a;
+    --surface-container: #f0eded;
+    --on-tertiary-container: #63747e;
+    --on-secondary: #ffffff;
+    --inverse-surface: #313030;
+    --surface-container-lowest: #ffffff;
+    --margin-mobile: 16px;
+    --margin-desktop: 64px;
+    --gutter: 24px;
+    --container-max: 1280px;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;background:var(--surface);color:var(--on-surface);font-family:'Hanken Grotesk',sans-serif;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+.skip-to-content{position:absolute;top:-100%;left:8px;z-index:100;padding:8px 16px;border-radius:0 0 8px 8px;background:var(--on-surface);color:var(--surface);font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:500;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;background:none;border:none;padding:0;font:inherit;color:inherit}
+.container-max{margin-left:auto;margin-right:auto;max-width:var(--container-max)}
+.px-margin-desktop{padding-left:var(--margin-desktop);padding-right:var(--margin-desktop)}
+.fixed{position:fixed}.relative{position:relative}.absolute{position:absolute}
+.inset-0{top:0;right:0;bottom:0;left:0}
+.top-0{top:0}.w-full{width:100%}.z-50{z-index:50}
+.flex{display:flex}.inline-flex{display:inline-flex}.flex-col{flex-direction:column}
+.items-center{align-items:center}.items-end{align-items:flex-end}.justify-between{justify-content:space-between}.justify-center{justify-content:center}.text-center{text-align:center}
+.gap-gutter{gap:var(--gutter)}.gap-2{gap:8px}.gap-4{gap:16px}.gap-6{gap:24px}.gap-12{gap:48px}
+.grid{display:grid}.grid-cols-1{grid-template-columns:1fr}.grid-cols-2{grid-template-columns:repeat(2,1fr)}
+.block{display:block}
+.overflow-hidden{overflow:hidden}
+.rounded-xl{border-radius:12px}.rounded-2xl{border-radius:16px}.rounded-3xl{border-radius:24px}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:8px}
+.border{border:1px solid}.border-b{border-bottom:1px solid}.border-t{border-top:1px solid}
+.border-secondary{border-color:var(--secondary)}.border-outline-variant{border-color:var(--outline-variant)}
+.text-on-surface{color:var(--on-surface)}.text-on-surface-variant{color:var(--on-surface-variant)}
+.text-secondary{color:var(--secondary)}.text-primary{color:var(--primary)}.text-tertiary{color:var(--tertiary)}
+.text-surface{color:var(--surface)}.text-on-primary{color:var(--on-primary)}
+.text-surface-variant{color:var(--surface-variant)}
+.bg-surface{background:var(--surface)}.bg-surface-container-high{background:var(--surface-container-high)}
+.bg-surface-container-low{background:var(--surface-container-low)}
+.bg-surface-container-lowest{background:var(--surface-container-lowest)}
+.bg-on-surface{background:var(--on-surface)}
+.bg-secondary-container\/30{background:color-mix(in srgb,var(--secondary-container)30%,transparent)}
+.bg-tertiary-container\/40{background:color-mix(in srgb,var(--tertiary-container)40%,transparent)}
+.bg-primary-container\/40{background:color-mix(in srgb,var(--primary-container)40%,transparent)}
+.backdrop-blur-xl{backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.shadow-sm{box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.shadow-lg{box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.font-headline-xl{font-family:'Playfair Display',serif;font-weight:400}
+.font-headline-lg{font-family:'Playfair Display',serif;font-weight:400}
+.font-headline-md{font-family:'Playfair Display',serif;font-weight:400}
+.font-headline-sm{font-family:'Playfair Display',serif;font-weight:400}
+.font-body-lg{font-family:'Hanken Grotesk',sans-serif;font-weight:400}
+.font-body-md{font-family:'Hanken Grotesk',sans-serif;font-weight:400}
+.font-label-caps{font-family:'Hanken Grotesk',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.1em}
+.text-headline-xl{font-size:64px;line-height:1.1;letter-spacing:-0.02em}
+.text-headline-lg{font-size:48px;line-height:1.2;letter-spacing:-0.01em}
+.text-headline-md{font-size:32px;line-height:1.3}
+.text-body-lg{font-size:18px;line-height:1.6}
+.text-body-md{font-size:16px;line-height:1.6}
+.text-label-caps{font-size:12px;line-height:1}
+.mx-auto{margin-left:auto;margin-right:auto}
+.mt-auto{margin-top:auto}.mt-2{margin-top:8px}.mt-4{margin-top:16px}.mt-6{margin-top:24px}.mt-8{margin-top:32px}.mt-20{margin-top:80px}.mt-32{margin-top:128px}
+.mb-1{margin-bottom:4px}.mb-2{margin-bottom:8px}.mb-4{margin-bottom:16px}.mb-6{margin-bottom:24px}.mb-8{margin-bottom:32px}.mb-12{margin-bottom:48px}.mb-16{margin-bottom:64px}.mb-24{margin-bottom:96px}.mb-32{margin-bottom:128px}
+.my-8{margin-top:32px;margin-bottom:32px}
+.p-8{padding:32px}.p-12{padding:48px}.p-6{padding:24px}.px-6{padding-left:24px;padding-right:24px}.px-8{padding-left:32px;padding-right:32px}.px-3{padding-left:12px;padding-right:12px}
+.py-3{padding-top:12px;padding-bottom:12px}.py-4{padding-top:16px;padding-bottom:16px}.py-8{padding-top:32px;padding-bottom:32px}.py-16{padding-top:64px;padding-bottom:64px}.py-32{padding-top:128px;padding-bottom:128px}
+.pt-32{padding-top:128px}
+.w-12{width:48px}.h-12{height:48px}.w-48{width:192px}.h-48{height:192px}.w-2\/3{width:66.666%}.w-full{width:100%}
+.max-w-2xl{max-width:672px}.max-w-3xl{max-width:768px}.max-w-md{max-width:448px}.max-w-xl{max-width:576px}
+.aspect-\[4\/5\]{aspect-ratio:4/5}.aspect-\[1\/1\]{aspect-ratio:1/1}.aspect-\[16\/9\]{aspect-ratio:16/9}
+.leading-tight{line-height:1.15}.leading-relaxed{line-height:1.7}
+.italic{font-style:italic}
+.cursor-pointer{cursor:pointer}
+.transition-all{transition:all 0.3s ease}.transition-transform{transition:transform 0.3s ease}.transition-colors{transition:color 0.3s ease}
+.group:hover .group-hover\:scale-105{transform:scale(1.05)}.group:hover .group-hover\:scale-110{transform:scale(1.1)}
+.hover\:bg-secondary\/10:hover{background:color-mix(in srgb,var(--secondary)10%,transparent)}
+.hover\:text-secondary:hover{color:var(--secondary)}.hover\:border-secondary:hover{border-color:var(--secondary)}
+.active\:scale-95:active{transform:scale(0.95)}
+.uppercase{text-transform:uppercase}
+.hidden{display:none!important}
+.aura-glass{background:color-mix(in srgb,var(--surface-bright)60%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);box-shadow:0 8px 32px rgba(0,0,0,.04)}
+.iridescent-btn{background:linear-gradient(135deg,var(--secondary),var(--tertiary),var(--secondary-fixed));color:var(--on-secondary);border:none;font-weight:600;letter-spacing:0.12em;transition:all 0.4s ease;box-shadow:0 4px 16px color-mix(in srgb,var(--secondary)30%,transparent);display:inline-flex;align-items:center;justify-content:center}
+.iridescent-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px color-mix(in srgb,var(--secondary)40%,transparent)}
+.iridescent-btn:active{transform:translateY(0)}
+.aura-mist{position:fixed;inset:0;z-index:-1;pointer-events:none;transition:background 0.5s ease;opacity:0.5}
+.page-tab{display:none}.page-tab.active{display:block}
+.hidden-product{display:none!important}
+.nav-link{color:var(--on-surface-variant);padding-bottom:2px;cursor:pointer;transition:color 0.2s;font-size:13px;letter-spacing:.025em}
+.nav-link.active-nav{color:var(--secondary);border-bottom:2px solid var(--secondary)}
+@media(min-width:768px){
+    .mobile-only{display:none!important}
+}
+@media(max-width:767px){
+    .desktop-only{display:none!important}
+    .px-margin-desktop{padding-left:var(--margin-mobile);padding-right:var(--margin-mobile)}
+    .pt-32{padding-top:56px}
+    .text-headline-xl{font-size:22px!important;line-height:1.2}
+    .text-headline-lg{font-size:20px!important;line-height:1.25}
+    .text-headline-md{font-size:18px!important;line-height:1.3}
+    .text-body-lg{font-size:14px;line-height:1.5}
+    .text-body-md{font-size:13px;line-height:1.5}
+    .text-label-caps{font-size:9px;line-height:1}
+    .mb-32{margin-bottom:36px!important}
+    .mb-24{margin-bottom:20px!important}
+    .mb-16{margin-bottom:24px!important}
+    .mb-12{margin-bottom:20px!important}
+    .mb-8{margin-bottom:12px!important}
+    .mb-6{margin-bottom:10px!important}
+    .mb-4{margin-bottom:8px!important}
+    .mb-2{margin-bottom:6px!important}
+    .mt-8{margin-top:20px!important}
+    .mt-20{margin-top:40px!important}
+    .mt-32{margin-top:48px!important}
+    .gap-gutter{gap:12px}
+    .gap-12{gap:24px}
+    .gap-8{gap:16px}
+    .md\:grid-cols-2,.md\:grid-cols-3,.md\:grid-cols-4{grid-template-columns:1fr}
+    .md\:col-span-5,.md\:col-span-7,.md\:col-span-8,.md\:col-span-4{grid-column:span 1}
+    .flex-col.md\:flex-row{flex-direction:column}
+    .md\:w-96{width:100%}
+    .p-8,.p-10,.p-12{padding:16px!important}
+    .p-6{padding:12px!important}
+    .min-h-\[70vh\]{min-height:0!important}
+    .h-\[500px\]{height:200px!important}
+    .h-64{height:auto!important;min-height:120px}
+    .py-32{padding-top:40px!important;padding-bottom:40px!important}
+    .py-16{padding-top:32px!important;padding-bottom:32px!important}
+    .flex.gap-4.flex-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;padding-bottom:4px;gap:8px}
+    .flex.gap-4::-webkit-scrollbar{height:2px}
+    .flex.gap-4::-webkit-scrollbar-thumb{background:var(--outline-variant);border-radius:4px}
+    section.mb-24,section.mb-32{scroll-margin-top:60px}
+}
+@media(max-width:480px){
+    .px-margin-desktop{padding-left:12px;padding-right:12px}
+    .text-headline-xl{font-size:20px!important}
+    .text-headline-lg{font-size:18px!important}
+    .text-headline-md{font-size:16px!important}
+    .text-body-lg{font-size:13px}
+    .text-body-md{font-size:12px}
+    .p-8,.p-10{padding:12px!important}
+    .mb-32{margin-bottom:28px!important}
+    .mb-24{margin-bottom:16px!important}
+    .gap-gutter{gap:8px}
+}
+/* The Atelier: 2-col mobile, 3-col desktop */
+#atelier-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+@media(min-width:768px){#atelier-grid{grid-template-columns:repeat(3,1fr)!important;gap:16px}}
+/* Archive section hero: 1-col mobile, 3-col desktop */
+.archive-card-grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:768px){.archive-card-grid{grid-template-columns:repeat(3,1fr)!important;gap:16px}}
+/* Archive product items: 1-col mobile */
+.archive-items-grid{display:grid;grid-template-columns:1fr;gap:12px}
+/* Archive item card layout on desktop */
+@media(min-width:768px){.archive-items-grid{grid-template-columns:repeat(2,1fr)!important;gap:16px}}
+/* Home page: The Archive section cards - 1-col mobile, 3-col desktop */
+#home-archive-grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:768px){#home-archive-grid{grid-template-columns:repeat(3,1fr)!important}}
+/* Featured products on home - 2-col mobile, maybe 4-col desktop */
+.home-product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(min-width:768px){.home-product-grid{grid-template-columns:repeat(4,1fr)!important;gap:20px}}
+/* AI Synthesis character cards: mobile stacked, desktop 3-col */
+.char-cards-grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:768px){.char-cards-grid{grid-template-columns:repeat(3,1fr)!important;gap:16px}}
+/* Character card common */
+.char-card{position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.char-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.08)!important}
+.char-avatar{width:56px;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:10px}
+.char-avatar .material-symbols-outlined{font-size:26px}
+@media(min-width:768px){.char-avatar{width:64px;height:64px}.char-avatar .material-symbols-outlined{font-size:30px}}
+.scroll-reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.scroll-reveal.visible{opacity:1;transform:translateY(0)}
+.skip-link{position:absolute;top:-100px;left:16px;z-index:100;padding:8px 16px;border-radius:0 0 8px 8px;background:var(--secondary);color:var(--on-secondary);font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;text-decoration:none;transition:top 0.2s}
+.skip-link:focus{top:0}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="aura-mist" id="aura-mist"></div>
+<!-- TopNav -->
+<nav class="fixed top-0 w-full z-50" style="background:rgba(252,249,248,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent)">
+    <div class="flex justify-between items-center px-margin-desktop" style="padding-top:10px;padding-bottom:10px;max-width:var(--container-max);margin:0 auto">
+        <a href="#" onclick="switchPage('discover');return false" class="font-headline-md" style="font-size:20px;letter-spacing:-.05em;color:var(--on-surface);text-decoration:none">Allscented</a>
+        <div class="desktop-only flex gap-gutter items-center">
+            <a href="#" onclick="switchPage('discover');return false" class="nav-link active-nav font-body-md" data-page="discover">Discover</a>
+            <a href="#" onclick="switchPage('ai-synthesis');return false" class="nav-link font-body-md" data-page="ai-synthesis">AI Synthesis</a>
+            <a href="#" onclick="switchPage('archive');return false" class="nav-link font-body-md" data-page="archive">Archive</a>
+            <a href="#" onclick="switchPage('the-atelier');return false" class="nav-link font-body-md" data-page="the-atelier">The Atelier</a>
+        </div>
+        <div class="flex items-center" style="gap:12px">
+            <button class="active:scale-95 transition-transform" aria-label="Cart" style="background:none;border:none;cursor:pointer;color:var(--on-surface-variant);padding:4px">
+                <span class="material-symbols-outlined" style="font-size:22px">shopping_bag</span>
+            </button>
+            <button class="active:scale-95 transition-transform" aria-label="Account" style="background:none;border:none;cursor:pointer;color:var(--on-surface-variant);padding:4px">
+                <span class="material-symbols-outlined" style="font-size:22px">account_circle</span>
+            </button>
+            <button class="mobile-only active:scale-95 transition-transform" id="mobile-menu-toggle" aria-label="Menu" style="background:none;border:none;cursor:pointer;color:var(--on-surface-variant);padding:4px">
+                <span class="material-symbols-outlined" style="font-size:22px" id="menu-icon">menu</span>
+            </button>
+        </div>
+    </div>
+    <div class="mobile-only hidden" id="mobile-menu" style="padding:0 16px 12px">
+        <div class="flex flex-col" style="gap:4px;border-top:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);padding-top:10px">
+            <a href="#" onclick="switchPage('discover');return false" class="mobile-nav-link font-body-md" style="padding:8px 0;font-size:15px;color:var(--on-surface-variant);text-decoration:none;display:block">Discover</a>
+            <a href="#" onclick="switchPage('ai-synthesis');return false" class="mobile-nav-link font-body-md" style="padding:8px 0;font-size:15px;color:var(--on-surface-variant);text-decoration:none;display:block">AI Synthesis</a>
+            <a href="#" onclick="switchPage('archive');return false" class="mobile-nav-link font-body-md" style="padding:8px 0;font-size:15px;color:var(--on-surface-variant);text-decoration:none;display:block">Archive</a>
+            <a href="#" onclick="switchPage('the-atelier');return false" class="mobile-nav-link font-body-md" style="padding:8px 0;font-size:15px;color:var(--on-surface-variant);text-decoration:none;display:block">The Atelier</a>
+        </div>
+    </div>
+</nav>
+<main style="padding-top:50px" id="main-content">
+<!-- ===== DISCOVER (Home) ===== -->
+<div class="page-tab active" id="page-discover">
+    <section class="hero-section" style="position:relative;width:100%;overflow:hidden;margin-bottom:12px">
+        <div class="hero-bg" style="width:100%;height:clamp(240px,50vh,500px);position:relative;display:flex;align-items:center;justify-content:center">
+            <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=1500&q=85" alt="Artisanal fragrance concept" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" class="hero-image">
+            <div style="position:absolute;inset:0;background:linear-gradient(135deg, rgba(28,27,27,0.55) 0%, rgba(28,27,27,0.2) 50%, rgba(28,27,27,0.55) 100%);z-index:1"></div>
+            <div style="position:relative;z-index:2;text-align:center;padding:24px 16px;max-width:600px">
+                <span class="font-label-caps" style="font-size:clamp(10px,2vw,13px);letter-spacing:.15em;color:rgba(255,255,255,0.7);display:block;margin-bottom:8px;text-transform:uppercase">ALLSCENTED · SENSORY INTELLIGENCE</span>
+                <h1 class="hero-title" style="font-family:'Playfair Display',serif;font-weight:500;font-style:italic;font-size:clamp(28px,5vw,56px);line-height:1.1;color:#fff;margin:0 0 12px">Where Memory<br class="mobile-only"> <span class="desktop-only"> </span>Becomes Scent</h1>
+                <p class="hero-subtitle" style="font-family:'Hanken Grotesk',sans-serif;font-weight:300;font-size:clamp(13px,1.5vw,16px);color:rgba(255,255,255,0.8);margin:0 0 20px;max-width:480px;margin-left:auto;margin-right:auto">AI-powered fragrance synthesis from your most intimate narratives</p>
+                <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+                    <a href="#" onclick="switchPage('ai-synthesis');return false" class="iridescent-btn" style="padding:10px 28px;border-radius:999px;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:500;letter-spacing:.06em;color:#fff;text-decoration:none">
+                        BEGIN YOUR AI SYNTHESIS
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div style="position:relative;z-index:3;margin-top:-2px;line-height:0">
+            <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="width:100%;height:clamp(24px,4vw,60px);display:block">
+                <path d="M0,40 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z" fill="var(--surface)"/>
+            </svg>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-top:12px;padding-bottom:12px">
+        <div class="max-w-3xl">
+            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px;font-size:8px;letter-spacing:.12em">MEET YOUR GUIDES</span>
+            <h2 class="font-headline-lg text-headline-lg" style="margin-bottom:16px">Three ways to <span class="italic text-secondary">find your scent.</span></h2>
+        </div>
+        <div class="char-cards-grid" style="margin-bottom:0">
+            <!-- Card A: Healer -->
+            <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;cursor:pointer" onclick="switchPage('ai-synthesis');return false">
+                <div class="char-avatar" style="background:color-mix(in srgb,var(--secondary-container)40%,transparent);width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;margin-bottom:10px">
+                    <span class="material-symbols-outlined" style="color:var(--secondary);font-size:24px">spa</span>
+                </div>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:9px;margin-bottom:2px;letter-spacing:.12em">AI SCENT THERAPIST · LUNÁ</span>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic">The Healer</h3>
+                <p class="font-body-md" style="font-size:12px;color:var(--on-surface-variant);flex:1;margin-bottom:10px">Tell me how you feel today. I listen, I understand — and I find a fragrance that speaks to your heart.</p>
+                <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
+                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">EMOTIONAL</span>
+                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">THERAPEUTIC</span>
+                </div>
+                <button class="font-label-caps" onclick="switchPage('ai-synthesis');return false" style="font-size:9px;color:var(--secondary);display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="Start AI scent therapy consultation with Luná">Start consultation <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></button>
+            </div>
+            <!-- Card B: Mystic -->
+            <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;cursor:pointer" onclick="switchPage('ai-synthesis');return false">
+                <div class="char-avatar" style="background:color-mix(in srgb,var(--tertiary-container)40%,transparent);width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;margin-bottom:10px">
+                    <span class="material-symbols-outlined" style="color:var(--tertiary);font-size:24px">auto_awesome</span>
+                </div>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:9px;margin-bottom:2px;letter-spacing:.12em">AI SCENT FORTUNE TELLER · ECHO</span>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic">The Mystic</h3>
+                <p class="font-body-md" style="font-size:12px;color:var(--on-surface-variant);flex:1;margin-bottom:10px">Curious what the universe has in store for you? Let the stars guide your scent — for fun, for hope, for destiny.</p>
+                <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
+                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">DIVINATION</span>
+                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">RITUAL</span>
+                </div>
+                <button class="font-label-caps" onclick="switchPage('ai-synthesis');return false" style="font-size:9px;color:var(--tertiary);display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="Cast your scent fortune with Echo">Cast your fortune <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></button>
+            </div>
+            <!-- Card C: Strategist -->
+            <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;cursor:pointer" onclick="switchPage('ai-synthesis');return false">
+                <div class="char-avatar" style="background:color-mix(in srgb,var(--primary-container)40%,transparent);width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;margin-bottom:10px">
+                    <span class="material-symbols-outlined" style="color:var(--primary);font-size:24px">business_center</span>
+                </div>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:9px;margin-bottom:2px;letter-spacing:.12em">SCENT MEMORY CONSULTANT · SAGE</span>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic">The Strategist</h3>
+                <p class="font-body-md" style="font-size:12px;color:var(--on-surface-variant);flex:1;margin-bottom:10px">For hotels, boutiques, and brands. I design a scent strategy that becomes part of your identity and drives results.</p>
+                <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
+                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">COMMERCIAL</span>
+                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">BRANDING</span>
+                </div>
+                <button class="font-label-caps" onclick="switchPage('ai-synthesis');return false" style="font-size:9px;color:var(--primary);display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="Request commercial scent consultation with Sage">Request consultation <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></button>
+            </div>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div style="background:color-mix(in srgb,var(--secondary-container)8%,transparent);border-radius:24px;padding:32px 16px 24px;margin-top:4px;margin-bottom:24px">
+            <div style="text-align:center">
+                <span class="font-label-caps" style="color:var(--secondary);font-size:14px;letter-spacing:.08em;display:block;margin-bottom:4px">THE ARCHIVE</span>
+                <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,4.5vw,48px);font-weight:600;color:var(--on-background);margin-top:6px">Curated <span class="italic" style="color:var(--secondary)">Synthetics</span></h2>
+            </div>
+            <div style="text-align:center;margin-bottom:16px">
+                <a href="#" onclick="switchPage('archive')" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:500;letter-spacing:.03em;transition:all .3s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--secondary)';this.style.color='var(--secondary)'">
+                    Explore More
+                    <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle">arrow_forward</span>
+                </a>
+            </div>
+            <div id="home-archive-grid">
+                <div class="aura-glass" style="border-radius:12px;overflow:hidden;cursor:pointer">
+                    <div style="height:160px;overflow:hidden;position:relative" class="group">
+                        <img style="width:100%;height:100%;object-fit:cover;transition:transform .8s" class="group-hover:scale-105" src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800&q=80" alt="Perfume bottles" loading="lazy">
+                        <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)80%,transparent),transparent);padding:20px;display:flex;flex-direction:column;justify-content:flex-end">
+                            <span class="font-label-caps text-label-caps text-secondary" style="margin-bottom:2px">FOR PERSONAL</span>
+                            <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic">The Intimate Narrative</h3>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:12px">How AI decoded the scent of childhood nostalgia for a private collection.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="aura-glass" style="border-radius:12px;overflow:hidden;cursor:pointer">
+                    <div style="height:160px;overflow:hidden;position:relative" class="group">
+                        <img style="width:100%;height:100%;object-fit:cover;transition:transform .8s" class="group-hover:scale-105" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80" alt="Home diffuser" loading="lazy">
+                        <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)80%,transparent),transparent);padding:20px;display:flex;flex-direction:column;justify-content:flex-end">
+                            <span class="font-label-caps text-label-caps text-secondary" style="margin-bottom:2px">FOR HOME</span>
+                            <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic">Atmospheric Flux</h3>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:12px">Scents that adapt to light cycles and biometric data.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="aura-glass" style="border-radius:12px;overflow:hidden;cursor:pointer">
+                    <div style="height:160px;overflow:hidden;position:relative" class="group">
+                        <img style="width:100%;height:100%;object-fit:cover;transition:transform .8s" class="group-hover:scale-105" src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=800&q=80" alt="Brand Osmosis commercial scenting" loading="lazy">
+                        <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)80%,transparent),transparent);padding:20px;display:flex;flex-direction:column;justify-content:flex-end">
+                            <span class="font-label-caps text-label-caps text-secondary" style="margin-bottom:2px">FOR COMMERCIAL</span>
+                            <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic">Brand Osmosis</h3>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:12px">Architectural scenting for luxury retail.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div style="text-align:center;margin-bottom:24px">
+            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px">THE COLLECTION</span>
+            <h2 class="font-headline-lg text-headline-lg">Signature Molecules</h2>
+        </div>
+        <div style="margin-bottom:20px;border-radius:16px;overflow:hidden;aspect-ratio:16/9;max-height:400px;position:relative">
+            <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80" alt="AllScented Collection" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)70%,transparent)0%,transparent 50%)"></div>
+            <div style="position:absolute;bottom:16px;left:16px;right:16px">
+                <span class="font-label-caps text-label-caps" style="color:var(--surface);font-size:10px;letter-spacing:.12em">THE ATELIER</span>
+                <h3 class="font-headline-lg text-headline-lg" style="color:var(--surface);font-style:italic;font-size:20px">AI-Designed for You</h3>
+            </div>
+        </div>
+        <div class="home-product-grid">
+            <div style="text-align:center" class="group">
+                <div class="aura-glass" style="aspect-ratio:3/4;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&q=80" alt="Aura No.1" style="width:60%;height:60%;object-fit:contain;transition:transform .6s" class="group-hover:scale-110" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:16px;margin-bottom:4px;font-style:italic">Aura No. 1</h4>
+                <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:4px">
+                    <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">SERENE</span>
+                    <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">MORNING</span>
+                </div>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$185.00</span>
+            </div>
+            <div style="text-align:center" class="group">
+                <div class="aura-glass" style="aspect-ratio:3/4;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&q=80" alt="Aura No.2" style="width:60%;height:60%;object-fit:contain;transition:transform .6s" class="group-hover:scale-110" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:16px;margin-bottom:4px;font-style:italic">Aura No. 2</h4>
+                <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:4px">
+                    <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">SEDUCTIVE</span>
+                    <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">TWILIGHT</span>
+                </div>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$210.00</span>
+            </div>
+        </div>
+        <div style="text-align:center;margin-top:24px">
+            <a class="iridescent-btn font-label-caps text-label-caps" style="padding:10px 28px;border-radius:999px;display:inline-block" href="#" onclick="switchPage('the-atelier');return false">SHOP THE ATELIER</a>
+        </div>
+    </section>
+</div>
+<!-- ===== AI SYNTHESIS (Three Characters) ===== -->
+<div class="page-tab" id="page-ai-synthesis">
+    <section class="px-margin-desktop container-max" style="padding-top:24px;padding-bottom:12px">
+        <div class="max-w-2xl">
+            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:6px">AI SYNTHESIS ENGINE</span>
+            <h1 class="font-headline-xl text-headline-xl" style="margin-bottom:6px">Meet your <span class="italic text-secondary">scent guides.</span></h1>
+            <p class="font-body-lg text-on-surface-variant" style="font-size:14px">Three ways to find your fragrance — each with a different purpose, a different voice.</p>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div class="char-cards-grid">
+            <!-- Card A: AI Scent Therapist (疗愈师) -->
+            <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column">
+                <div class="char-avatar" style="background:color-mix(in srgb,var(--secondary-container)40%,transparent)">
+                    <span class="material-symbols-outlined" style="color:var(--secondary)">spa</span>
+                </div>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:9px;margin-bottom:2px;letter-spacing:.12em">AI SCENT THERAPIST · LUNÁ</span>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic">The Healer</h3>
+                <span class="font-label-caps" style="font-size:12px;font-weight:500;color:var(--secondary);letter-spacing:.04em">Luná</span>
+                <p class="font-body-md" style="font-size:13px;color:var(--on-surface-variant);flex:1;margin-bottom:12px">Tell me how you feel today. I listen, I understand — and I find a fragrance that speaks to your heart. Because scent is not just smell, it's comfort.</p>
+                <div style="margin-top:auto">
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+                        <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">EMOTIONAL</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">THERAPEUTIC</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">PERSONAL</span>
+                    </div>
+                    <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);background:none;font-size:10px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--secondary)10%,transparent)'" onmouseout="this.style.background='transparent'">SHARE YOUR MOOD <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
+                </div>
+            </div>
+            <!-- Card B: AI Scent Fortune Teller (占卜师) -->
+            <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column">
+                <div class="char-avatar" style="background:color-mix(in srgb,var(--tertiary-container)40%,transparent)">
+                    <span class="material-symbols-outlined" style="color:var(--tertiary)">auto_awesome</span>
+                </div>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:9px;margin-bottom:2px;letter-spacing:.12em">AI SCENT FORTUNE TELLER · ECHO</span>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:6px;font-style:italic">The Mystic</h3>
+                <p class="font-body-md" style="font-size:13px;color:var(--on-surface-variant);flex:1;margin-bottom:12px">Curious what the universe has in store for you? Let the stars guide your scent — from incense and agarwood to sacred resins. For fun, for hope, for destiny.</p>
+                <div style="margin-top:auto">
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+                        <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">DIVINATION</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">INCENSE</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">RITUAL</span>
+                    </div>
+                    <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--tertiary);color:var(--tertiary);background:none;font-size:10px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--tertiary)10%,transparent)'" onmouseout="this.style.background='transparent'">CAST YOUR FORTUNE <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
+                </div>
+            </div>
+            <!-- Card C: Scent Memory Consultant (顾问) -->
+            <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column">
+                <div class="char-avatar" style="background:color-mix(in srgb,var(--primary-container)40%,transparent)">
+                    <span class="material-symbols-outlined" style="color:var(--primary)">business_center</span>
+                </div>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:9px;margin-bottom:2px;letter-spacing:.12em">SCENT MEMORY CONSULTANT · SAGE</span>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:6px;font-style:italic">The Strategist</h3>
+                <p class="font-body-md" style="font-size:13px;color:var(--on-surface-variant);flex:1;margin-bottom:12px">For hotels, boutiques, and brands. Backed by real case studies and AI data — I design a scent strategy that becomes part of your identity and drives results.</p>
+                <div style="margin-top:auto">
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+                        <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">COMMERCIAL</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">BRANDING</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">CONSULT</span>
+                    </div>
+                    <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--primary);color:var(--primary);background:none;font-size:10px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--primary)10%,transparent)'" onmouseout="this.style.background='transparent'">REQUEST CONSULTATION <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div style="text-align:center;margin-bottom:20px">
+            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px">CONSULTATION RESULTS</span>
+            <h2 class="font-headline-lg text-headline-lg">Sample <span class="italic text-secondary">Consultations</span></h2>
+        </div>
+        
+        <!-- Sample Consultation Tabs -->
+        <div class="sample-tabs" style="display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px">
+            <button class="sample-tab active" data-sample="healer" style="padding:6px 14px;border-radius:999px;border:1px solid var(--secondary);background:color-mix(in srgb,var(--secondary)15%,transparent);color:var(--secondary);font-size:10px;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:all .3s;flex-shrink:0">
+                <span class="material-symbols-outlined" style="font-size:14px">spa</span> Healer
+            </button>
+            <button class="sample-tab" data-sample="fortune" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);font-size:10px;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:all .3s;background:transparent;flex-shrink:0">
+                <span class="material-symbols-outlined" style="font-size:14px">auto_awesome</span> Mystic
+            </button>
+            <button class="sample-tab" data-sample="consultant" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);font-size:10px;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:all .3s;background:transparent;flex-shrink:0">
+                <span class="material-symbols-outlined" style="font-size:14px">business_center</span> Strategist
+            </button>
+        </div>
+        <div style="margin-bottom:8px">
+            <p class="font-body-md text-on-surface-variant" style="font-size:12px;font-style:italic">After 3–5 rounds of conversation, your AI guide generates a personalized summary. Browse examples below to see what's possible.</p>
+        </div>
+        <div id="consultation-summary" style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px">
+            
+            <!-- Healer Sample -->
+            <div class="sample-content" data-sample="healer" style="display:block">
+                <div class="aura-glass summary-card" style="border-radius:16px;padding:18px">
+                    <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">
+                        <div style="width:40px;height:40px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)40%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                            <span class="material-symbols-outlined" style="color:var(--secondary);font-size:20px">spa</span>
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <div style="display:flex;justify-content:space-between;align-items:center">
+                                <span class="font-label-caps text-label-caps" style="font-size:9px;letter-spacing:.12em;color:var(--secondary)">AI SCENT THERAPIST</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">96% SYNTHESIS</span>
+                            </div>
+                            <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-top:2px">"You need to feel held."</h3>
+                        </div>
+                    </div>
+                    <!-- Chat preview -->
+                    <div style="background:color-mix(in srgb,var(--surface-container-low)80%,transparent);border-radius:10px;padding:12px;margin-bottom:10px;margin-left:50px">
+                        <div style="display:flex;gap:6px;margin-bottom:6px">
+                            <span class="font-label-caps" style="font-size:7px;padding:2px 6px;border-radius:4px;background:var(--surface);color:var(--on-surface-variant)">💬 CONVERSATION SNAPSHOT</span>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:4px">
+                            <div style="display:flex;gap:6px;align-items:flex-start">
+                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--secondary)30%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:9px;color:var(--secondary);font-weight:600">A</span></div>
+                                <div><span style="font-size:9px;font-weight:600;color:var(--secondary);display:block;line-height:1.2">Alice</span><span style="font-size:10px;color:var(--on-surface-variant)">"I've been feeling the weight of autumn evenings lately. I want something that feels like a warm hug."</span></div>
+                            </div>
+                            <div style="display:flex;gap:6px;align-items:flex-start">
+                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)50%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:8px;color:var(--secondary);font-weight:600">L</span></div>
+                                <div><span style="font-size:9px;font-weight:600;color:var(--secondary);display:block;line-height:1.2">Luná · Scent Therapist</span><span style="font-size:10px;color:var(--on-surface-variant)">"I understand that feeling deeply. You need something soft, warm, and tender — chamomile to soothe, rice steam to comfort, lavender to release."</span></div>
+                            </div>
+                            <div style="display:flex;gap:6px;align-items:flex-start">
+                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--secondary)30%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:9px;color:var(--secondary);font-weight:600">A</span></div>
+                                <div><span style="font-size:9px;font-weight:600;color:var(--secondary);display:block;line-height:1.2">Alice</span><span style="font-size:10px;color:var(--on-surface-variant)">"What if I also want something that stays close to the skin? Not loud."</span></div>
+                            </div>
+                            <div style="display:flex;gap:6px;align-items:flex-start">
+                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)50%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:8px;color:var(--secondary);font-weight:600">L</span></div>
+                                <div><span style="font-size:9px;font-weight:600;color:var(--secondary);display:block;line-height:1.2">Luná · Scent Therapist</span><span style="font-size:10px;color:var(--on-surface-variant)">"Perfect — a soft musk base will keep it intimate. Here's my recommendation..."</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="font-body-md text-on-surface-variant" style="font-size:12px;margin-bottom:8px;padding-left:50px">After our conversation, I know you need something soft, warm, and tender. Chamomile to soothe. Rice steam to comfort. Lavender to release. A fragrance that stays close to the skin — like a cashmere blanket, not a spotlight.</p>
+                    <div style="display:flex;flex-wrap:wrap;gap:4px;padding-left:50px">
+                        <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Chamomile</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Rice Steam</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Lavender</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Soft Musk</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Fortune Teller Sample -->
+            <div class="sample-content" data-sample="fortune" style="display:none">
+                <div class="aura-glass summary-card" style="border-radius:16px;padding:18px">
+                    <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">
+                        <div style="width:40px;height:40px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                            <span class="material-symbols-outlined" style="color:var(--tertiary);font-size:20px">auto_awesome</span>
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <div style="display:flex;justify-content:space-between;align-items:center">
+                                <span class="font-label-caps text-label-caps" style="font-size:9px;letter-spacing:.12em;color:var(--tertiary)">AI SCENT FORTUNE TELLER · ECHO</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">92% SYNTHESIS</span>
+                            </div>
+                            <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-top:2px">"The universe whispers in amber."</h3>
+                        </div>
+                    </div>
+                    <!-- Chat preview -->
+                    <div style="background:color-mix(in srgb,var(--surface-container-low)80%,transparent);border-radius:10px;padding:12px;margin-bottom:10px;margin-left:50px">
+                        <div style="display:flex;gap:6px;margin-bottom:6px">
+                            <span class="font-label-caps" style="font-size:7px;padding:2px 6px;border-radius:4px;background:var(--surface);color:var(--on-surface-variant)">💬 CONVERSATION SNAPSHOT</span>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:4px">
+                            <div style="display:flex;gap:6px;align-items:flex-start">
+                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--tertiary)30%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:9px;color:var(--tertiary);font-weight:600">A</span></div>
+                                <div><span style="font-size:9px;font-weight:600;color:var(--tertiary);display:block;line-height:1.2">Alice</span><span style="font-size:10px;color:var(--on-surface-variant)">"I feel like something big is shifting in my life. What does the universe say?"</span></div>
+                            </div>
+                            <div style="display:flex;gap:6px;align-items:flex-start">
+                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)50%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:8px;color:var(--tertiary);font-weight:600">Ec</span></div>
+                                <div><span style="font-size:9px;font-weight:600;color:var(--tertiary);display:block;line-height:1.2">Echo · Fortune Teller</span><span style="font-size:10px;color:var(--on-surface-variant)">"Your birth chart says craving transformation under this waning crescent. The cards reveal fire and smoke — but not destruction. A burning away of the old."</span></div>
+                            </div>
+                            <div style="display:flex;gap:6px;align-items:flex-start">
+                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--tertiary)30%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:9px;color:var(--tertiary);font-weight:600">A</span></div>
+                                <div><span style="font-size:9px;font-weight:600;color:var(--tertiary);display:block;line-height:1.2">Alice</span><span style="font-size:10px;color:var(--on-surface-variant)">"I've always been drawn to sacred, meditative spaces."</span></div>
+                            </div>
+                            <div style="display:flex;gap:6px;align-items:flex-start">
+                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)50%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:8px;color:var(--tertiary);font-weight:600">Ec</span></div>
+                                <div><span style="font-size:9px;font-weight:600;color:var(--tertiary);display:block;line-height:1.2">Echo · Fortune Teller</span><span style="font-size:10px;color:var(--on-surface-variant)">"Then I see incense, oud, and amber — a fragrance that knows what it means to be both sacred and wild."</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="font-body-md text-on-surface-variant" style="font-size:12px;margin-bottom:8px;padding-left:50px">Your birth chart says you're craving transformation under this waning crescent. The cards reveal fire and smoke — but not destruction. A burning away of the old. I see incense. I see oud. I see a fragrance that knows what it means to be both sacred and wild.</p>
+                    <div style="display:flex;flex-wrap:wrap;gap:4px;padding-left:50px">
+                        <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Incense</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Oud</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Amber</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Saffron</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Consultant Sample -->
+            <div class="sample-content" data-sample="consultant" style="display:none">
+                <div class="aura-glass summary-card" style="border-radius:16px;padding:18px">
+                    <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">
+                        <div style="width:40px;height:40px;border-radius:999px;background:color-mix(in srgb,var(--primary-container)40%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                            <span class="material-symbols-outlined" style="color:var(--primary);font-size:20px">business_center</span>
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <div style="display:flex;justify-content:space-between;align-items:center">
+                                <span class="font-label-caps text-label-caps" style="font-size:9px;letter-spacing:.12em;color:var(--primary)">SCENT MEMORY CONSULTANT · SAGE</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">88% SYNTHESIS</span>
+                            </div>
+                            <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-top:2px">"Your brand needs a signature."</h3>
+                        </div>
+                    </div>
+                    <!-- Chat preview -->
+                    <div style="background:color-mix(in srgb,var(--surface-container-low)80%,transparent);border-radius:10px;padding:12px;margin-bottom:10px;margin-left:50px">
+                        <div style="display:flex;gap:6px;margin-bottom:6px">
+                            <span class="font-label-caps" style="font-size:7px;padding:2px 6px;border-radius:4px;background:var(--surface);color:var(--on-surface-variant)">💬 CONVERSATION SNAPSHOT</span>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:4px">
+                            <div style="display:flex;gap:6px;align-items:flex-start">
+                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--primary)30%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:9px;color:var(--on-primary-fixed-variant);font-weight:600">A</span></div>
+                                <div><span style="font-size:9px;font-weight:600;color:var(--on-primary-fixed-variant);display:block;line-height:1.2">Alice</span><span style="font-size:10px;color:var(--on-surface-variant)">"We're opening a 12-room boutique hotel in Dali. Whitewashed walls, jasmine in the courtyard. We need a scent identity."</span></div>
+                            </div>
+                            <div style="display:flex;gap:6px;align-items:flex-start">
+                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--primary-container)40%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:8px;color:var(--on-primary-fixed-variant);font-weight:600">Sa</span></div>
+                                <div><span style="font-size:9px;font-weight:600;color:var(--on-primary-fixed-variant);display:block;line-height:1.2">Sage · Consultant</span><span style="font-size:10px;color:var(--on-surface-variant)">"Based on 3 case studies with similar spatial profiles, I recommend an adaptive scent system. Let me break it down per zone..."</span></div>
+                            </div>
+                            <div style="display:flex;gap:6px;align-items:flex-start">
+                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--primary)30%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:9px;color:var(--on-primary-fixed-variant);font-weight:600">A</span></div>
+                                <div><span style="font-size:9px;font-weight:600;color:var(--on-primary-fixed-variant);display:block;line-height:1.2">Alice</span><span style="font-size:10px;color:var(--on-surface-variant)">"Can you also handle custom formulation?"</span></div>
+                            </div>
+                            <div style="display:flex;gap:6px;align-items:flex-start">
+                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--primary-container)40%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:8px;color:var(--on-primary-fixed-variant);font-weight:600">Sa</span></div>
+                                <div><span style="font-size:9px;font-weight:600;color:var(--on-primary-fixed-variant);display:block;line-height:1.2">Sage · Consultant</span><span style="font-size:10px;color:var(--on-surface-variant)">"Absolutely. We can create a bespoke signature blend and deliver it as a custom order."</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="font-body-md text-on-surface-variant" style="font-size:12px;margin-bottom:8px;padding-left:50px">You described a boutique hotel in Dali with 12 rooms, whitewashed walls, and a courtyard full of jasmine. Based on 3 case studies with similar spatial profiles, I recommend an adaptive scent system: calming jasmine-green tea for the rooms, a crisp petrichor-ozone for the lobby, and warm sandalwood for the lounge.</p>
+                    <div style="display:flex;flex-wrap:wrap;gap:4px;padding-left:50px">
+                        <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Jasmine</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Green Tea</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Petrichor</span>
+                        <span class="font-label-caps" style="font-size:8px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Sandalwood</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div style="text-align:center;margin-bottom:20px">
+            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px">AI RECOMMENDATIONS</span>
+            <h2 class="font-headline-lg text-headline-lg">Curated for <span class="italic text-secondary">you</span></h2>
+        </div>
+        
+        <!-- Price Tier Legend -->
+        <div style="display:flex;gap:12px;justify-content:center;margin-bottom:16px">
+            <span class="font-label-caps" style="font-size:8px;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--surface-container-high)50%,transparent);color:var(--on-surface-variant);display:flex;align-items:center;gap:4px">
+                <span style="width:6px;height:6px;border-radius:999px;background:#2e7d32;display:inline-block"></span> Under $100
+            </span>
+            <span class="font-label-caps" style="font-size:8px;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--surface-container-high)50%,transparent);color:var(--on-surface-variant);display:flex;align-items:center;gap:4px">
+                <span style="width:6px;height:6px;border-radius:999px;background:#f57f17;display:inline-block"></span> $100–$200
+            </span>
+            <span class="font-label-caps" style="font-size:8px;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--surface-container-high)50%,transparent);color:var(--on-surface-variant);display:flex;align-items:center;gap:4px">
+                <span style="width:6px;height:6px;border-radius:999px;background:#c62828;display:inline-block"></span> $200+
+            </span>
+        </div>
+        <!-- Smart Recommendations with pricing + AI reasoning -->
+        <div id="recommendations-container">
+            <!-- Page 1: Personal / Healer products -->
+            <div class="rec-page" data-page="1" data-rec-type="personal" style="display:grid;grid-template-columns:1fr;gap:14px">
+                
+                <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
+                            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300&q=80" alt="Aura No.2" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
+                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic">Aura No. 2</h4>
+                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap">$210.00</span>
+                            </div>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin-bottom:4px">Saffron, Oud, Labdanum — a smoky, deep signature for the bold spirit.</p>
+                            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px">
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#c6282815%,transparent);color:#c62828;font-weight:600">$200+</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">SMOKY</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">EVENING</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background:color-mix(in srgb,var(--secondary-container)10%,transparent);border-radius:8px;padding:10px">
+                        <span class="font-label-caps" style="font-size:7px;letter-spacing:.08em;color:var(--secondary);display:flex;align-items:center;gap:4px;margin-bottom:4px">
+                            <span class="material-symbols-outlined" style="font-size:12px;font-variation-settings:'FILL' 1">psychology</span>
+                            WHY THIS MATCHES YOU
+                        </span>
+                        <p class="font-body-md" style="font-size:10px;color:var(--on-surface-variant);line-height:1.4">The deep, smoky warmth of this fragrance mirrors your craving for security and transformation. The labdanum base creates a lingering sense of comfort that lasts through autumn evenings — like being wrapped in something both bold and tender.</p>
+                    </div>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:9px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:12px">open_in_new</span></button>
+                </div>
+                <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
+                            <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=300&q=80" alt="Comforting Embrace" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
+                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic">Comforting Embrace</h4>
+                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap">$145.00</span>
+                            </div>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin-bottom:4px">Chamomile, Lavender, Soft Musk — a warm blanket for the soul.</p>
+                            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px">
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#f57f1715%,transparent);color:#f57f17;font-weight:600">$100-200</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">SOOTHING</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">BEDTIME</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background:color-mix(in srgb,var(--secondary-container)10%,transparent);border-radius:8px;padding:10px">
+                        <span class="font-label-caps" style="font-size:7px;letter-spacing:.08em;color:var(--secondary);display:flex;align-items:center;gap:4px;margin-bottom:4px">
+                            <span class="material-symbols-outlined" style="font-size:12px;font-variation-settings:'FILL' 1">psychology</span>
+                            WHY THIS MATCHES YOU
+                        </span>
+                        <p class="font-body-md" style="font-size:10px;color:var(--on-surface-variant);line-height:1.4">The chamomile and lavender echoes your desire for softness and warmth. The soft musk base keeps the scent intimate and close to the skin — exactly what you described wanting. Think of it as a cashmere blanket, not a spotlight.</p>
+                    </div>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:9px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:12px">open_in_new</span></button>
+                </div>
+                <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
+                            <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300&q=80" alt="Vesper Muse" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
+                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic">Vesper Muse</h4>
+                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap">$85.00</span>
+                            </div>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin-bottom:4px">Night-blooming jasmine, metallic aldehydes, grey amber — an evening ritual.</p>
+                            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px">
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#2e7d3215%,transparent);color:#2e7d32;font-weight:600">Under $100</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">INTIMATE</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">NIGHT</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background:color-mix(in srgb,var(--secondary-container)10%,transparent);border-radius:8px;padding:10px">
+                        <span class="font-label-caps" style="font-size:7px;letter-spacing:.08em;color:var(--secondary);display:flex;align-items:center;gap:4px;margin-bottom:4px">
+                            <span class="material-symbols-outlined" style="font-size:12px;font-variation-settings:'FILL' 1">psychology</span>
+                            WHY THIS MATCHES YOU
+                        </span>
+                        <p class="font-body-md" style="font-size:10px;color:var(--on-surface-variant);line-height:1.4">The night-blooming jasmine speaks to the introspective side of your autumn mood, while the grey amber adds a touch of mystery. An affordable option that still carries emotional depth — perfect for your quiet evening rituals.</p>
+                    </div>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:9px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:12px">open_in_new</span></button>
+                </div>
+            </div>
+            <!-- Page 2: Fortune / Mystic products -->
+            <div class="rec-page" data-page="2" data-rec-type="fortune" style="display:none;grid-template-columns:1fr;gap:14px">
+                <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
+                            <img src="https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=300&q=80" alt="Aura No.1" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
+                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic">Aura No. 1</h4>
+                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap">$185.00</span>
+                            </div>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin-bottom:4px">Ozone, white musk, sea salt — a morning walk through coastal mist.</p>
+                            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px">
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#f57f1715%,transparent);color:#f57f17;font-weight:600">$100-200</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">SERENE</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">MORNING</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background:color-mix(in srgb,var(--tertiary-container)10%,transparent);border-radius:8px;padding:10px">
+                        <span class="font-label-caps" style="font-size:7px;letter-spacing:.08em;color:var(--tertiary);display:flex;align-items:center;gap:4px;margin-bottom:4px">
+                            <span class="material-symbols-outlined" style="font-size:12px;font-variation-settings:'FILL' 1">psychology</span>
+                            WHY THIS MATCHES YOU
+                        </span>
+                        <p class="font-body-md" style="font-size:10px;color:var(--on-surface-variant);line-height:1.4">The cleansing ozone and white musk align with the cards' message of renewal — a burning away of the old. This scent clears the energy and opens the heart to new beginnings, like walking through coastal mist at dawn after a spiritual practice.</p>
+                    </div>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--tertiary);color:var(--on-tertiary);border:none;font-size:9px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:12px">open_in_new</span></button>
+                </div>
+                <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
+                            <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300&q=80" alt="Mystic Oud" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
+                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic">Mystic Oud</h4>
+                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap">$94.00</span>
+                            </div>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin-bottom:4px">Incense, agarwood, saffron — a ritual wrapped in a bottle.</p>
+                            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px">
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#2e7d3215%,transparent);color:#2e7d32;font-weight:600">Under $100</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">INCENSE</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">SACRED</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background:color-mix(in srgb,var(--tertiary-container)10%,transparent);border-radius:8px;padding:10px">
+                        <span class="font-label-caps" style="font-size:7px;letter-spacing:.08em;color:var(--tertiary);display:flex;align-items:center;gap:4px;margin-bottom:4px">
+                            <span class="material-symbols-outlined" style="font-size:12px;font-variation-settings:'FILL' 1">psychology</span>
+                            WHY THIS MATCHES YOU
+                        </span>
+                        <p class="font-body-md" style="font-size:10px;color:var(--on-surface-variant);line-height:1.4">The incense and agarwood directly mirror the cards' divination of fire and smoke. This fragrance embodies the sacred-wild duality — affordable enough to explore without commitment, deep enough to ground your spiritual practice.</p>
+                    </div>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--tertiary);color:var(--on-tertiary);border:none;font-size:9px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:12px">open_in_new</span></button>
+                </div>
+                <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
+                            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300&q=80" alt="Sacred Night" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
+                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic">Sacred Night</h4>
+                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap">$245.00</span>
+                            </div>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin-bottom:4px">Black amber, labdanum, benzoin — the scent of midnight prayers.</p>
+                            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px">
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#c6282815%,transparent);color:#c62828;font-weight:600">$200+</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">AMBER</span>
+                                <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">RITUAL</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background:color-mix(in srgb,var(--tertiary-container)10%,transparent);border-radius:8px;padding:10px">
+                        <span class="font-label-caps" style="font-size:7px;letter-spacing:.08em;color:var(--tertiary);display:flex;align-items:center;gap:4px;margin-bottom:4px">
+                            <span class="material-symbols-outlined" style="font-size:12px;font-variation-settings:'FILL' 1">psychology</span>
+                            WHY THIS MATCHES YOU
+                        </span>
+                        <p class="font-body-md" style="font-size:10px;color:var(--on-surface-variant);line-height:1.4">The black amber and benzoin align with your craving for transformation. This is the invest-in-yourself option — a premium ritual scent that matches the depth of the shift you're experiencing. The universe whispers yes.</p>
+                    </div>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--tertiary);color:var(--on-tertiary);border:none;font-size:9px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:12px">open_in_new</span></button>
+                </div>
+            </div>
+            <!-- Page 3-5: More products (same structure, abbreviated for preview) -->
+            <div class="rec-page" data-page="3" data-rec-type="personal" style="display:none;grid-template-columns:1fr;gap:14px">
+                <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;">
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
+                            <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=300&q=80" alt="Morning Aura" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <h4 style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;margin:0 0 2px">Morning Aura</h4>
+                            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface)">$129.00</span>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin:2px 0">Bergamot, linen, white tea — a clean slate.</p>
+                            <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#f57f1715%,transparent);color:#f57f17;font-weight:600">$100-200</span>
+                        </div>
+                    </div>
+                    <div style="background:color-mix(in srgb,var(--secondary-container)10%,transparent);border-radius:8px;padding:10px">
+                        <span class="font-label-caps" style="font-size:7px;color:var(--secondary)">🧠 WHY THIS MATCHES YOU</span>
+                        <p style="font-size:10px;color:var(--on-surface-variant);margin:2px 0 0">The clean, fresh notes balance the heaviness of autumn — a bright counterpoint to your reflective mood. Think of it as a morning breath after a long night.</p>
+                    </div>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:9px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:12px">open_in_new</span></button>
+                </div>
+                <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;">
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
+                            <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300&q=80" alt="Twilight Veil" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <h4 style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;margin:0 0 2px">Twilight Veil</h4>
+                            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface)">$178.00</span>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin:2px 0">Fig, black tea, leather — contemplative depths.</p>
+                            <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#f57f1715%,transparent);color:#f57f17;font-weight:600">$100-200</span>
+                        </div>
+                    </div>
+                    <div style="background:color-mix(in srgb,var(--secondary-container)10%,transparent);border-radius:8px;padding:10px">
+                        <span class="font-label-caps" style="font-size:7px;color:var(--secondary)">🧠 WHY THIS MATCHES YOU</span>
+                        <p style="font-size:10px;color:var(--on-surface-variant);margin:2px 0 0">The fig and black tea evoke quiet afternoons with a book — perfect for the introspective season you're in. Leather adds a grounded, sensual touch.</p>
+                    </div>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:9px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:12px">open_in_new</span></button>
+                </div>
+                <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;">
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
+                            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300&q=80" alt="Aura No. 2" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <h4 style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;margin:0 0 2px">Aura No. 3</h4>
+                            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface)">$52.00</span>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin:2px 0">Pear, freesia, white cedar — fresh and approachable.</p>
+                            <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#2e7d3215%,transparent);color:#2e7d32;font-weight:600">Under $100</span>
+                        </div>
+                    </div>
+                    <div style="background:color-mix(in srgb,var(--secondary-container)10%,transparent);border-radius:8px;padding:10px">
+                        <span class="font-label-caps" style="font-size:7px;color:var(--secondary)">🧠 WHY THIS MATCHES YOU</span>
+                        <p style="font-size:10px;color:var(--on-surface-variant);margin:2px 0 0">A great entry point if you're not ready to commit to a heavy scent. Bright, uplifting, and effortless — like a gentle nudge toward joy on grey days.</p>
+                    </div>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:9px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:12px">open_in_new</span></button>
+                </div>
+            </div>
+            <!-- Page 5: B2B / Consultant (service-focused, not product retails) -->
+            <div class="rec-page" data-page="4" data-rec-type="commercial" style="display:none;grid-template-columns:1fr;gap:14px">
+                <div class="aura-glass" style="border-radius:14px;padding:20px;text-align:center">
+                    <div style="width:48px;height:48px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+                        <span class="material-symbols-outlined" style="color:var(--primary);font-size:24px;font-variation-settings:'FILL' 1">handshake</span>
+                    </div>
+                    <h3 class="font-headline-md" style="font-size:16px;font-style:italic;margin-bottom:4px">Custom Scent Strategy</h3>
+                    <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin-bottom:12px">Your business needs a unique scent identity. Our memory consultant will craft a bespoke fragrance system — from room-by-room diffusion to signature brand scent.</p>
+                    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+                        <button class="font-label-caps text-label-caps" style="padding:8px 16px;border-radius:999px;background:var(--primary);color:var(--on-primary);border:none;font-size:10px">Request Free Consultation</button>
+                        <button class="font-label-caps text-label-caps" style="padding:8px 16px;border-radius:999px;border:1px solid var(--primary);color:var(--primary);background:none;font-size:10px">Browse Case Studies</button>
+                    </div>
+                    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--outline-variant)">
+                        <p class="font-body-md text-on-surface-variant" style="font-size:10px">Not what you're looking for? <a href="#" onclick="switchPage('the-atelier');return false" style="color:var(--secondary);text-decoration:underline">Browse the Atelier</a> for ready-to-ship designer scents.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pagination (smart: auto-hides if < 3 products) -->
+        <div id="page-counter-wrapper" style="text-align:center;margin-bottom:8px;display:none">
+            <span class="font-label-caps" style="font-size:10px;color:var(--on-surface-variant);letter-spacing:.04em">Showing <span id="page-counter-start">1</span>–<span id="page-counter-end">3</span> of <span id="page-counter-total">9</span> recommendations</span>
+        </div>
+        <div id="pagination-wrapper" style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:4px;flex-wrap:wrap">
+            <button class="pagination-btn" onclick="changePage(-1)" style="padding:8px 14px;border-radius:999px;border:1px solid var(--outline-variant);background:var(--surface);color:var(--on-surface-variant);font-size:11px;display:flex;align-items:center;gap:4px;transition:all .3s" onmouseover="this.style.borderColor='var(--secondary)'" onmouseout="this.style.borderColor='var(--outline-variant)'">
+                <span class="material-symbols-outlined" style="font-size:16px">chevron_left</span>
+            </button>
+            <div id="pagination-dots" style="display:flex;gap:6px"></div>
+            <button class="pagination-btn" onclick="changePage(1)" style="padding:8px 14px;border-radius:999px;border:1px solid var(--outline-variant);background:var(--surface);color:var(--on-surface-variant);font-size:11px;display:flex;align-items:center;gap:4px;transition:all .3s" onmouseover="this.style.borderColor='var(--secondary)'" onmouseout="this.style.borderColor='var(--outline-variant)'">
+                <span class="material-symbols-outlined" style="font-size:16px">chevron_right</span>
+            </button>
+        </div>
+        <div id="page-indicator-wrapper" style="text-align:center;margin-top:8px">
+            <span class="font-label-caps" style="font-size:8px;color:var(--on-surface-variant);letter-spacing:.06em">Page <span id="page-indicator">1</span> of <span id="total-pages">4</span></span>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div class="bg-on-surface" style="border-radius:24px;padding:24px;text-align:center;color:var(--surface)">
+            <span class="font-label-caps text-label-caps" style="color:var(--secondary-fixed);margin-bottom:4px;display:block">AI CONCIERGE</span>
+            <h2 class="font-headline-lg text-headline-lg" style="margin-bottom:4px;font-style:italic">Not sure where to start?</h2>
+            <p class="font-body-md" style="margin-bottom:12px;color:var(--surface-variant);font-size:13px">Tell us a little about yourself — your mood, your curiosity, or your business. One of our guides will find the perfect match.</p>
+            <input type="text" class="font-body-md" style="width:100%;background:color-mix(in srgb,var(--surface)10%,transparent);border:none;border-bottom:1px solid color-mix(in srgb,var(--surface)30%,transparent);padding:8px 12px;outline:none;margin-bottom:10px;font-size:13px;color:var(--surface)" placeholder="Describe your ideal scent...">
+            <button class="iridescent-btn font-label-caps text-label-caps" style="padding:10px 24px;border-radius:999px;font-size:10px" onclick="switchPage('ai-synthesis');return false">Start Your Brief</button>
+        </div>
+    </section>
+</div>
+<!-- ===== ARCHIVE (Browse by Category) ===== -->
+<div class="page-tab" id="page-archive">
+    <section class="px-margin-desktop container-max" style="padding-top:24px;padding-bottom:12px">
+        <div class="max-w-2xl">
+            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px">FRAGRANCE ARCHIVE</span>
+            <h1 class="font-headline-xl text-headline-xl" style="margin-bottom:4px">Browse by <span class="italic text-secondary">Category</span></h1>
+            <p class="font-body-lg text-on-surface-variant" style="font-size:14px">Explore our complete library of AI-synthesized scents, curated for every space and experience.</p>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div style="display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;margin-bottom:20px">
+            <button class="font-label-caps text-label-caps filter-btn" style="padding:6px 14px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);background:none;white-space:nowrap;font-size:10px" data-filter="all">All</button>
+            <button class="font-label-caps text-label-caps filter-btn" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;white-space:nowrap;font-size:10px" data-filter="personal">Personal</button>
+            <button class="font-label-caps text-label-caps filter-btn" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;white-space:nowrap;font-size:10px" data-filter="home">Home</button>
+            <button class="font-label-caps text-label-caps filter-btn" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;white-space:nowrap;font-size:10px" data-filter="commercial">Commercial</button>
+        </div>
+        <div id="archive-personal" style="margin-bottom:24px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:10px">FOR PERSONAL</span>
+                <div style="flex:1;height:1px;background:color-mix(in srgb,var(--outline-variant)30%,transparent)"></div>
+            </div>
+            <div class="archive-items-grid">
+                <div class="aura-glass archive-item" style="border-radius:12px;padding:14px;display:flex;gap:12px" data-category="personal">
+                    <div style="width:80px;height:80px;border-radius:8px;overflow:hidden;flex-shrink:0">
+                        <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300&q=80" alt="Vesper Muse" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                    </div>
+                    <div style="flex:1;min-width:0">
+                        <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-bottom:2px">Vesper Muse</h3>
+                        <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin-bottom:4px">Night-blooming jasmine, metallic aldehydes, grey amber.</p>
+                        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px">
+                            <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">INTIMATE</span>
+                            <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">EVENING</span>
+                        </div>
+                        <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$185.00</span>
+                    </div>
+                </div>
+                <div class="aura-glass archive-item" style="border-radius:12px;padding:14px;display:flex;gap:12px" data-category="personal">
+                    <div style="width:80px;height:80px;border-radius:8px;overflow:hidden;flex-shrink:0">
+                        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=300&q=80" alt="Aura No.1" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                    </div>
+                    <div style="flex:1;min-width:0">
+                        <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-bottom:2px">Aura No. 1</h3>
+                        <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin-bottom:4px">Ozone, white musk, sea salt. A morning walk through coastal mist.</p>
+                        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px">
+                            <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">SERENE</span>
+                            <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">MORNING</span>
+                        </div>
+                        <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$185.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="archive-home" style="margin-bottom:24px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:10px">FOR HOME</span>
+                <div style="flex:1;height:1px;background:color-mix(in srgb,var(--outline-variant)30%,transparent)"></div>
+            </div>
+            <div class="archive-items-grid">
+                <div class="aura-glass archive-item" style="border-radius:12px;padding:14px;display:flex;gap:12px" data-category="home">
+                    <div style="width:80px;height:80px;border-radius:8px;overflow:hidden;flex-shrink:0">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300&q=80" alt="Atmospheric Flux" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                    </div>
+                    <div style="flex:1;min-width:0">
+                        <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-bottom:2px">Atmospheric Flux</h3>
+                        <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin-bottom:4px">Cedarwood, amber, petrichor. Adapts to light cycles and biometric data.</p>
+                        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px">
+                            <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">ADAPTIVE</span>
+                            <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">SPACE</span>
+                        </div>
+                        <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$240.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="archive-commercial" style="margin-bottom:24px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:10px">FOR COMMERCIAL</span>
+                <div style="flex:1;height:1px;background:color-mix(in srgb,var(--outline-variant)30%,transparent)"></div>
+            </div>
+            <div class="archive-items-grid">
+                <div class="aura-glass archive-item" style="border-radius:12px;padding:14px;display:flex;gap:12px" data-category="commercial">
+                    <div style="width:80px;height:80px;border-radius:8px;overflow:hidden;flex-shrink:0">
+                        <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=300&q=80" alt="Brand Osmosis" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                    </div>
+                    <div style="flex:1;min-width:0">
+                        <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-bottom:2px">Brand Osmosis</h3>
+                        <p class="font-body-md text-on-surface-variant" style="font-size:11px;margin-bottom:4px">Saffron, leather, smoke. Architectural scenting for luxury retail environments.</p>
+                        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px">
+                            <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">LUXURY</span>
+                            <span class="font-label-caps" style="font-size:8px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">RETAIL</span>
+                        </div>
+                        <span class="font-label-caps" style="font-size:9px;padding:2px 8px;border-radius:4px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">CUSTOM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div class="bg-on-surface" style="border-radius:24px;padding:24px;text-align:center;color:var(--surface)">
+            <span class="font-label-caps text-label-caps" style="color:var(--secondary-fixed);margin-bottom:4px;display:block">CURIOUS?</span>
+            <h2 class="font-headline-lg text-headline-lg" style="margin-bottom:6px;font-style:italic">Can't find what you're looking for?</h2>
+            <p class="font-body-md" style="margin-bottom:12px;color:var(--surface-variant);font-size:13px">Our AI can create a bespoke scent from a single word. Describe what you imagine.</p>
+            <button class="iridescent-btn font-label-caps text-label-caps" style="padding:10px 24px;border-radius:999px;font-size:10px" onclick="switchPage('ai-synthesis');return false">Begin Your Brief</button>
+        </div>
+    </section>
+</div>
+<!-- ===== THE ATELIER ===== -->
+<div class="page-tab" id="page-the-atelier">
+    <section class="px-margin-desktop container-max" style="padding-top:24px;padding-bottom:12px">
+        <div class="max-w-2xl">
+            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px">THE ATELIER</span>
+            <h1 class="font-headline-xl text-headline-xl" style="margin-bottom:4px">Shop the <span class="italic text-secondary">Collection</span></h1>
+            <p class="font-body-lg text-on-surface-variant" style="font-size:14px">Each fragrance is AI-synthesized and hand-finished. Free shipping on all orders.</p>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div style="display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;margin-bottom:20px">
+            <button class="font-label-caps text-label-caps filter-btn" style="padding:6px 14px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);background:none;white-space:nowrap;font-size:10px" data-filter="all">All</button>
+            <button class="font-label-caps text-label-caps filter-btn" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;white-space:nowrap;font-size:10px" data-filter="personal">Personal</button>
+            <button class="font-label-caps text-label-caps filter-btn" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;white-space:nowrap;font-size:10px" data-filter="home">Home</button>
+            <button class="font-label-caps text-label-caps filter-btn" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;white-space:nowrap;font-size:10px" data-filter="commercial">Commercial</button>
+        </div>
+        <!-- Uniform 2-col mobile / 3-col desktop grid -->
+        <div id="atelier-grid">
+            <div class="shop-item" data-category="personal" style="text-align:center">
+                <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&q=80" alt="Aura No.1" style="width:55%;height:55%;object-fit:contain;transition:transform .5s" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Aura No. 1</h4>
+                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:8px;margin-bottom:4px">Personal · Ozone</p>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$185.00</span>
+            </div>
+            <div class="shop-item" data-category="personal" style="text-align:center">
+                <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&q=80" alt="Aura No.2" style="width:55%;height:55%;object-fit:contain;transition:transform .5s" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Aura No. 2</h4>
+                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:8px;margin-bottom:4px">Personal · Oud</p>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$210.00</span>
+            </div>
+            <div class="shop-item" data-category="home" style="text-align:center">
+                <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Atmospheric Flux" style="width:55%;height:55%;object-fit:contain;transition:transform .5s" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Atmospheric Flux</h4>
+                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:8px;margin-bottom:4px">Home · Adaptive</p>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$240.00</span>
+            </div>
+            <div class="shop-item" data-category="commercial" style="text-align:center">
+                <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&q=80" alt="Spatial Bloom" style="width:55%;height:55%;object-fit:contain;transition:transform .5s" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Spatial Bloom</h4>
+                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:8px;margin-bottom:4px">Commercial · Ambient</p>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$320.00</span>
+            </div>
+            <div class="shop-item" data-category="personal" style="text-align:center">
+                <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&q=80" alt="Vesper Muse" style="width:55%;height:55%;object-fit:contain;transition:transform .5s" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Vesper Muse</h4>
+                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:8px;margin-bottom:4px">Personal · Floral</p>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$185.00</span>
+            </div>
+            <div class="shop-item" data-category="commercial" style="text-align:center">
+                <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Nordic Noir" style="width:55%;height:55%;object-fit:contain;transition:transform .5s" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Nordic Noir</h4>
+                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:8px;margin-bottom:4px">Commercial · Forest</p>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$280.00</span>
+            </div>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div class="bg-on-surface" style="border-radius:24px;padding:24px;text-align:center;color:var(--surface)">
+            <span class="font-label-caps text-label-caps" style="color:var(--secondary-fixed);margin-bottom:4px;display:block">WHOLESALE</span>
+            <h2 class="font-headline-lg text-headline-lg" style="margin-bottom:6px;font-style:italic">For Your Space</h2>
+            <p class="font-body-md" style="margin-bottom:12px;color:var(--surface-variant);font-size:13px">Curate a signature scent for your boutique, hotel, or private residence.</p>
+            <button class="iridescent-btn font-label-caps text-label-caps" style="padding:10px 24px;border-radius:999px;font-size:10px" onclick="switchPage('ai-synthesis');return false">Request Consultation</button>
+        </div>
+    </section>
+</div>
+</main>
+<footer style="padding:24px 16px;border-top:1px solid color-mix(in srgb,var(--outline-variant)10%,transparent);background:var(--surface-container-lowest)">
+    <div class="container-max" style="display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center">
+        <div class="font-headline-md" style="font-size:18px;letter-spacing:-.05em">Allscented</div>
+        <div style="display:flex;gap:24px">
+            <a class="font-label-caps text-label-caps" style="color:color-mix(in srgb,var(--on-surface-variant)60%,transparent);font-size:10px" href="#">Privacy</a>
+            <a class="font-label-caps text-label-caps" style="color:color-mix(in srgb,var(--on-surface-variant)60%,transparent);font-size:10px" href="#">Terms</a>
+            <a class="font-label-caps text-label-caps" style="color:color-mix(in srgb,var(--on-surface-variant)60%,transparent);font-size:10px" href="#">Shipping</a>
+            <a class="font-label-caps text-label-caps" style="color:color-mix(in srgb,var(--on-surface-variant)60%,transparent);font-size:10px" href="#">Contact</a>
+        </div>
+        <div class="font-label-caps text-label-caps" style="color:color-mix(in srgb,var(--on-surface-variant)60%,transparent);font-size:10px">&copy; 2026 Allscented. The Future of Fragrance.</div>
+    </div>
+</footer>
+<script>
+(function(){
+    function toggleMobileMenu(forceClose) {
+        if(!menu) return;
+        if(typeof forceClose === 'boolean') {
+            if(forceClose) { menu.classList.add('hidden'); }
+            else { menu.classList.remove('hidden'); }
+        } else {
+            menu.classList.toggle('hidden');
+        }
+        var isOpen = !menu.classList.contains('hidden');
+        if(icon) icon.textContent = isOpen ? 'close' : 'menu';
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+    var toggle = document.getElementById('mobile-menu-toggle');
+    var menu = document.getElementById('mobile-menu');
+    var icon = document.getElementById('menu-icon');
+    if(toggle && menu) {
+        toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleMobileMenu();
+        });
+    }
+    var mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    mobileNavLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+            toggleMobileMenu(true);
+        });
+    });
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+        if(!ticking) {
+            window.requestAnimationFrame(function() {
+                if(menu && !menu.classList.contains('hidden')) {
+                    menu.classList.add('hidden');
+                    if(icon) icon.textContent = 'menu';
+                    document.body.style.overflow = '';
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    window.switchPage = function(pageId) {
+        document.querySelectorAll('.page-tab').forEach(function(el){el.classList.remove('active')});
+        var target = document.getElementById('page-' + pageId);
+        if(target) target.classList.add('active');
+        document.querySelectorAll('.nav-link').forEach(function(el){
+            el.classList.remove('active-nav');
+        });
+        var activeLink = document.querySelector('.nav-link[data-page="' + pageId + '"]');
+        if(activeLink){
+            activeLink.classList.add('active-nav');
+        }
+        if(menu) menu.classList.add('hidden');
+        if(icon) icon.textContent = 'menu';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+    function setupFilters(containerSelector, itemSelector) {
+        var container = document.querySelector(containerSelector);
+        if(!container) return;
+        var pageTab = container.closest('.page-tab');
+        if(!pageTab) return;
+        var btns = pageTab.querySelectorAll('.filter-btn');
+        btns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                btns.forEach(function(b) {
+                    b.style.color = 'var(--on-surface-variant)';
+                    b.style.borderColor = 'var(--outline-variant)';
+                });
+                btn.style.color = 'var(--secondary)';
+                btn.style.borderColor = 'var(--secondary)';
+                var filter = btn.getAttribute('data-filter');
+                container.querySelectorAll(itemSelector).forEach(function(item) {
+                    var cat = item.getAttribute('data-category');
+                    if(filter === 'all' || cat === filter) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+    setupFilters('#page-archive', '.archive-item');
+    setupFilters('#page-the-atelier', '.shop-item');
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+        if(btn.getAttribute('data-filter') === 'all') {
+            btn.style.color = 'var(--secondary)';
+            btn.style.borderColor = 'var(--secondary)';
+        }
+    });
+    var aura = document.getElementById('aura-mist');
+    if(aura) {
+        var rafId = null;
+        var lastX = 50, lastY = 50;
+        document.addEventListener('mousemove', function(e) {
+            lastX = (e.clientX / window.innerWidth) * 100;
+            lastY = (e.clientY / window.innerHeight) * 100;
+            if (!rafId) {
+                rafId = requestAnimationFrame(function() {
+                    aura.style.background = 'radial-gradient(circle at ' + lastX + '% ' + lastY + '%, #d7c6fe 0%, transparent 40%), radial-gradient(circle at 80% 20%, #d3e5f1 0%, transparent 40%), radial-gradient(circle at 10% 80%, #f1f9ff 0%, transparent 40%)';
+                    rafId = null;
+                });
+            }
+        });
+    }
+})();
+// ── Pagination for AI recommendations (smart version) ──
+var currentPage = 1;
+var totalPages = 0;
+function initPagination() {
+    var pages = document.querySelectorAll('.rec-page');
+    totalPages = pages.length;
+    
+    // Auto-hide pagination if < 2 pages
+    var wrapper = document.getElementById('pagination-wrapper');
+    var indicator = document.getElementById('page-indicator-wrapper');
+    var counter = document.getElementById('page-counter-wrapper');
+    // Precompute cumulative offsets per page
+    pageOffsets = [];
+    var totalItems = 0;
+    pages.forEach(function(p) {
+        var cards = p.querySelectorAll('.aura-glass');
+        var count = cards.length;
+        pageOffsets.push({
+            start: totalItems + 1,
+            end: totalItems + count
+        });
+        totalItems += count;
+    });
+    
+    // If totalItems is 0, fallback to fixed 3-per-page estimate
+    if (totalItems === 0) {
+        pageOffsets = [];
+        var lastPageCards = pages[totalPages - 1] ? pages[totalPages - 1].querySelectorAll('.aura-glass').length : 3;
+        totalItems = (totalPages - 1) * 3 + lastPageCards;
+        for (var i = 0; i < totalPages; i++) {
+            var start = i * 3 + 1;
+            var end = Math.min(start + 2, totalItems);
+            pageOffsets.push({start: start, end: end});
+        }
+    }
+    
+    if (totalPages < 2) {
+        if (wrapper) wrapper.style.display = 'none';
+        if (indicator) indicator.style.display = 'none';
+        if (counter) counter.style.display = 'none';
+        return;
+    }
+    
+    // Show counter
+    if (counter) counter.style.display = 'block';
+    var totalEl = document.getElementById('page-counter-total');
+    if (totalEl) totalEl.textContent = totalItems;
+    
+    
+    // Build dots dynamically
+    var dotsContainer = document.getElementById('pagination-dots');
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    for (var i = 1; i <= totalPages; i++) {
+        var dot = document.createElement('span');
+        dot.className = 'page-dot' + (i === 1 ? ' active' : '');
+        dot.style.cssText = 'width:8px;height:8px;border-radius:999px;background:' + (i === 1 ? 'var(--secondary)' : 'var(--outline-variant)') + ';cursor:pointer;transition:all .3s';
+        dot.setAttribute('data-page', i);
+        dot.onclick = (function(p) { return function() { goToPage(p); }; })(i);
+        dotsContainer.appendChild(dot);
+    }
+    
+    // Update total pages indicator
+    var tp = document.getElementById('total-pages');
+    if (tp) tp.textContent = totalPages;
+    
+    // Initial counter update
+    updatePageCounter(1);
+}
+window.changePage = function(delta) {
+    var newPage = currentPage + delta;
+    if (newPage < 1 || newPage > totalPages) return;
+    window.goToPage(newPage);
+};
+// Precomputed offsets for each page (set by initPagination)
+var pageOffsets = [];
+function updatePageCounter(page) {
+    var start = document.getElementById('page-counter-start');
+    var end = document.getElementById('page-counter-end');
+    if (!start || !end) return;
+    var offset = pageOffsets[page - 1];
+    if (offset) {
+        start.textContent = offset.start;
+        end.textContent = offset.end;
+    } else {
+        start.textContent = ((page - 1) * 3 + 1);
+        var total = parseInt((document.getElementById('page-counter-total') || {}).textContent || '0');
+        var pageEnd = page * 3;
+        if (pageEnd > total) pageEnd = total;
+        end.textContent = pageEnd;
+    }
+}
+window.goToPage = function(page) {
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    
+    // Hide all pages
+    document.querySelectorAll('.rec-page').forEach(function(el) {
+        el.style.display = 'none';
+    });
+    
+    // Show current page
+    var target = document.querySelector('.rec-page[data-page="' + page + '"]');
+    if (target) {
+        target.style.display = 'grid';
+    }
+    
+    // Update dots
+    document.querySelectorAll('.page-dot').forEach(function(dot) {
+        var dp = parseInt(dot.getAttribute('data-page'));
+        if (dp === page) {
+            dot.style.background = 'var(--secondary)';
+            dot.style.transform = 'scale(1.2)';
+        } else {
+            dot.style.background = 'var(--outline-variant)';
+            dot.style.transform = 'scale(1)';
+        }
+    });
+    
+    // Update indicator
+    var indicator = document.getElementById('page-indicator');
+    if (indicator) indicator.textContent = page;
+    
+    // Update counter
+    updatePageCounter(page);
+};
+// ── Sample Consultation Tabs ──
+function initSampleTabs() {
+    document.querySelectorAll('.sample-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            var sample = this.getAttribute('data-sample');
+            
+            // Update tab styles
+            document.querySelectorAll('.sample-tab').forEach(function(t) {
+                t.style.borderColor = 'var(--outline-variant)';
+                t.style.color = 'var(--on-surface-variant)';
+                t.style.background = 'transparent';
+            });
+            this.style.borderColor = 'var(--secondary)';
+            this.style.color = 'var(--secondary)';
+            this.style.background = 'color-mix(in srgb,var(--secondary)15%,transparent)';
+            
+            // Toggle content
+            document.querySelectorAll('.sample-content').forEach(function(c) {
+                c.style.display = 'none';
+            });
+            var target = document.querySelector('.sample-content[data-sample="' + sample + '"]');
+            if (target) target.style.display = 'block';
+        });
+    });
+}
+// Init on load
+document.addEventListener('DOMContentLoaded', function() {
+    initPagination();
+    initSampleTabs();
+    // Scroll reveal: IntersectionObserver
+    (function() {
+        var revealEls = document.querySelectorAll('.scroll-reveal');
+        if (revealEls.length === 0) return;
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        revealEls.forEach(function(el) { observer.observe(el); });
+    })();
+    // Set active nav-link based on current page-tab
+    var firstActive = document.querySelector('.page-tab.active');
+    if(firstActive) {
+        var id = firstActive.id.replace('page-', '');
+        var link = document.querySelector('.nav-link[data-page="' + id + '"]');
+        if(link) {
+            link.classList.add('active-nav');
+        }
+    }
+});
+</script>
+</body>
+</html>
