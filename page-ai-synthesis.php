@@ -4,7 +4,7 @@
  */
 get_header();
 ?>
-id="page-ai-synthesis">
+<div id="page-ai-synthesis">
     <section class="px-margin-desktop container-max" style="padding-top:24px;padding-bottom:12px">
         <div class="max-w-2xl">
             <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:6px">AI SYNTHESIS ENGINE</span>

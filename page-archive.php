@@ -4,7 +4,7 @@
  */
 get_header();
 ?>
-id="page-archive">
+<div id="page-archive">
     <section class="px-margin-desktop container-max" style="padding-top:24px;padding-bottom:12px">
         <div class="max-w-2xl">
             <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px">FRAGRANCE ARCHIVE</span>

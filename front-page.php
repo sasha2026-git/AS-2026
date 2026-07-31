@@ -4,7 +4,7 @@
  */
 get_header();
 ?>
-id="page-discover">
+<div id="page-discover">
     <section class="hero-section" style="position:relative;width:100%;overflow:hidden;margin-bottom:12px">
         <div class="hero-bg" style="width:100%;height:clamp(240px,50vh,500px);position:relative;display:flex;align-items:center;justify-content:center">
             <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=1500&q=85" alt="Artisanal fragrance concept" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" class="hero-image">
