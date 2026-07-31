@@ -54,6 +54,21 @@ function allscented_enqueue_styles() {
     );
 }
 add_action('wp_enqueue_scripts', 'allscented_enqueue_styles');
+// ============================================
+// Enqueue Scripts
+// ============================================
+function allscented_enqueue_scripts() {
+    wp_enqueue_script(
+        'allscented-js',
+        get_stylesheet_directory_uri() . '/assets/js/allscented.js',
+        array(),
+        wp_get_theme()->get('Version'),
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'allscented_enqueue_scripts');
+
+
 
 // Remove Hello Elementor header/footer so we use custom ones
 add_action('after_setup_theme', function() {

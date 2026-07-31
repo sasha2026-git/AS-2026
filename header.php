@@ -1,73 +1,68 @@
-<!DOCTYPE html>
+<?php
+/**
+ * Allscented header — v20 design
+ */
+?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
-    <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php wp_head(); ?>
-    <style>
-        /* Prevent layout shift from scrollbar */
-        html { scrollbar-gutter: stable; }
-    </style>
+<meta charset="<?php bloginfo('charset'); ?>">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<?php wp_head(); ?>
 </head>
-<body <?php body_class('antialiased'); ?>>
+<body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<!-- Aura Mist Background -->
-<div id="aura-mist" class="aura-mist"></div>
+<a class="skip-link screen-reader-text" href="#main-content">Skip to content</a>
 
-<!-- Fixed Navigation -->
-<nav class="fixed top-0 left-0 w-full z-50" style="background:rgba(252,249,248,0.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(199,198,203,0.1);">
-    <div class="container-max mx-auto flex items-center justify-between px-margin-desktop" style="height:64px;">
-        <!-- Logo -->
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="font-headline-md text-headline-md tracking-tighter" style="text-decoration:none;color:var(--on-surface);">
-            All<span style="color:var(--secondary);">scented</span>
+<div class="aura-mist" id="aura-mist" aria-hidden="true"></div>
+
+<?php
+$current_path = trim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
+$is_active = function($key) use ($current_path) {
+    if ($key === 'discover') {
+        return (is_front_page() || is_home()) ? ' active-nav' : '';
+    }
+    return is_page($key) ? ' active-nav' : '';
+};
+$cart_url = class_exists('WooCommerce') ? wc_get_cart_url() : '#';
+$account_url = class_exists('WooCommerce') ? get_permalink(get_option('woocommerce_myaccount_page_id')) : '#';
+?>
+
+<header class="fixed top-0 left-0 right-0" style="z-index:100;background:color-mix(in srgb,var(--surface)85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid color-mix(in srgb,var(--outline-variant)25%,transparent)">
+    <nav class="container-max px-margin-desktop px-margin-mobile" style="height:50px;display:flex;align-items:center;justify-content:space-between;gap:16px" aria-label="Main navigation">
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="font-headline-md" style="font-size:17px;letter-spacing:.22em;font-weight:600;color:var(--on-surface);text-decoration:none;display:flex;align-items:center;gap:8px">
+            <span class="material-symbols-outlined" style="font-size:20px;color:var(--secondary)">auto_awesome</span>
+            ALLSCENTED
         </a>
 
-        <!-- Desktop Nav -->
-        <div class="hidden md:flex items-center gap-8">
-            <?php
-            $nav_items = array(
-                'Discover' => home_url('/'),
-                'The Atelier' => home_url('/the-atelier/'),
-                'AI Synthesis' => home_url('/ai-synthesis/'),
-                'Archive' => home_url('/archive/'),
-            );
-            $current_url = trailingslashit((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-            foreach ($nav_items as $label => $url) : 
-                $is_active = trailingslashit($url) === $current_url || (is_front_page() && $url === home_url('/'));
-                ?>
-                <a href="<?php echo esc_url($url); ?>"
-                   class="font-label-caps text-label-caps transition-all duration-300"
-                   style="text-decoration:none;color:<?php echo $is_active ? 'var(--secondary)' : 'var(--on-surface-variant)'; ?>;<?php echo $is_active ? 'border-bottom:2px solid var(--secondary);padding-bottom:2px;' : ''; ?>">
-                    <?php echo esc_html($label); ?>
-                </a>
-            <?php endforeach; ?>
+        <div class="desktop-only" style="display:flex;align-items:center;gap:22px">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('discover'); ?>" data-page="discover" style="font-size:10px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">Discover</a>
+            <a href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('ai-synthesis'); ?>" data-page="ai-synthesis" style="font-size:10px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">AI Synthesis</a>
+            <a href="<?php echo esc_url(home_url('/archive/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('archive'); ?>" data-page="archive" style="font-size:10px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">Archive</a>
+            <a href="<?php echo esc_url(home_url('/the-atelier/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('the-atelier'); ?>" data-page="the-atelier" style="font-size:10px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">The Atelier</a>
         </div>
 
-        <!-- Shopping icons + Hamburger -->
-        <div class="flex items-center gap-4 md:gap-6">
-            <a href="<?php echo function_exists('wc_get_cart_url') ? esc_url(wc_get_cart_url()) : '#'; ?>" class="text-on-surface-variant hover:text-secondary transition-colors" style="text-decoration:none;">
-                <span class="material-symbols-outlined">shopping_bag</span>
+        <div style="display:flex;align-items:center;gap:6px">
+            <a href="<?php echo esc_url($account_url); ?>" class="icon-btn" style="width:34px;height:34px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:var(--on-surface-variant);text-decoration:none;transition:all .3s" aria-label="Account">
+                <span class="material-symbols-outlined" style="font-size:20px">account_circle</span>
             </a>
-            <button id="mobile-menu-toggle" class="mobile-only flex items-center justify-center bg-transparent border-none cursor-pointer p-1" style="line-height:1;">
-                <span class="material-symbols-outlined text-on-surface" id="menu-icon" style="font-size:28px;line-height:1;">menu</span>
-            </button>
+            <a href="<?php echo esc_url($cart_url); ?>" class="icon-btn" style="width:34px;height:34px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:var(--on-surface-variant);text-decoration:none;transition:all .3s" aria-label="Cart">
+                <span class="material-symbols-outlined" style="font-size:20px">shopping_bag</span>
+            </a>
+            <a href="#" id="mobile-menu-toggle" class="mobile-only" style="width:34px;height:34px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:var(--on-surface);text-decoration:none" aria-label="Menu">
+                <span class="material-symbols-outlined" id="menu-icon" style="font-size:22px">menu</span>
+            </a>
         </div>
-    </div>
+    </nav>
+</header>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden" style="padding:16px var(--margin-mobile);border-top:1px solid rgba(199,198,203,0.1);">
-        <?php foreach ($nav_items as $label => $url) : 
-            $is_active = trailingslashit($url) === $current_url || (is_front_page() && $url === home_url('/'));
-            ?>
-            <a href="<?php echo esc_url($url); ?>"
-               class="block font-label-caps text-label-caps py-3 transition-all duration-300"
-               style="text-decoration:none;color:<?php echo $is_active ? 'var(--secondary)' : 'var(--on-surface-variant)'; ?>;">
-                <?php echo esc_html($label); ?>
-            </a>
-        <?php endforeach; ?>
-    </div>
-</nav>
+<div id="mobile-menu" class="hidden mobile-only" style="position:fixed;inset:0;top:50px;z-index:99;background:var(--surface);display:flex;flex-direction:column;padding:24px;gap:8px">
+    <a href="<?php echo esc_url(home_url('/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">Discover</a>
+    <a href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">AI Synthesis</a>
+    <a href="<?php echo esc_url(home_url('/archive/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">Archive</a>
+    <a href="<?php echo esc_url(home_url('/the-atelier/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">The Atelier</a>
+    <div style="flex:1"></div>
+    <div class="font-label-caps text-label-caps" style="font-size:9px;color:var(--on-surface-variant);letter-spacing:.18em">ALLSCENTED — SENSORY INTELLIGENCE</div>
+</div>
 
-<!-- Spacer for fixed nav -->
-<div style="height:64px;"></div>
+<main style="padding-top:50px" id="main-content">

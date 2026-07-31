@@ -1,153 +1,84 @@
 <?php
 /**
  * Template Name: The Atelier
- * Description: AllScented Shop — WooCommerce Product Grid (Uniform, v15)
  */
-
 get_header();
-
-// Get current category filter from URL
-$current_cat = !empty($_GET['category']) ? sanitize_text_field($_GET['category']) : 'all';
 ?>
-
-<!-- ============================================ -->
-<!-- ATELIER HERO                                 -->
-<!-- ============================================ -->
-<section class="px-margin-desktop container-max scroll-reveal mb-12">
-    <span class="font-label-caps text-label-caps text-secondary mb-2 block"><?php echo esc_html(get_field('allscented_atelier_hero_subtitle') ?: 'THE ATELIER'); ?></span>
-    <h1 class="font-headline-lg text-headline-lg mb-4"><?php echo esc_html(get_field('allscented_atelier_hero_title') ?: 'Shop the Collection'); ?></h1>
-    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl"><?php echo esc_html(get_field('allscented_atelier_hero_desc') ?: 'Curated for your DNA. Every bottle, an echo of your digital aura.'); ?></p>
-</section>
-
-<!-- ============================================ -->
-<!-- CATEGORY FILTER TABS                         -->
-<!-- ============================================ -->
-<section class="px-margin-desktop container-max scroll-reveal mb-8">
-    <div class="flex gap-3 flex-wrap overflow-x-auto no-scrollbar pb-2" id="atelier-filters">
-        <a href="<?php echo esc_url(get_permalink()); ?>"
-           class="font-label-caps text-label-caps px-5 py-2 rounded-full border transition-all duration-300"
-           style="border-color:<?php echo $current_cat === 'all' ? 'var(--secondary)' : 'var(--outline-variant)'; ?>;color:<?php echo $current_cat === 'all' ? 'var(--secondary)' : 'var(--on-surface-variant)'; ?>;cursor:pointer;flex-shrink:0;font-size:11px;text-decoration:none;display:inline-block;">
-            All
-        </a>
-        <?php
-        $product_categories = get_terms(array(
-            'taxonomy' => 'product_cat',
-            'hide_empty' => true,
-            'parent' => 0,
-        ));
-        foreach ($product_categories as $cat) :
-            $filter_url = add_query_arg('category', $cat->slug, get_permalink());
-            $is_active = $current_cat === $cat->slug;
-            ?>
-            <a href="<?php echo esc_url($filter_url); ?>"
-               class="font-label-caps text-label-caps px-5 py-2 rounded-full border transition-all duration-300"
-               style="border-color:<?php echo $is_active ? 'var(--secondary)' : 'var(--outline-variant)'; ?>;color:<?php echo $is_active ? 'var(--secondary)' : 'var(--on-surface-variant)'; ?>;cursor:pointer;flex-shrink:0;font-size:11px;text-decoration:none;display:inline-block;">
-                <?php echo esc_html($cat->name); ?>
-            </a>
-        <?php endforeach; ?>
-    </div>
-</section>
-
-<!-- ============================================ -->
-<!-- PRODUCT GRID — Uniform (No 1+2 Pattern)     -->
-<!-- ============================================ -->
-<section class="px-margin-desktop container-max scroll-reveal mb-32">
-    <?php
-    // WooCommerce product query
-    $paged = get_query_var('paged') ? get_query_var('paged') : 1;
-    $args = array(
-        'post_type' => 'product',
-        'posts_per_page' => 6,
-        'paged' => $paged,
-    );
-    if ($current_cat !== 'all') {
-        $args['tax_query'] = array(
-            array(
-                'taxonomy' => 'product_cat',
-                'field' => 'slug',
-                'terms' => $current_cat,
-            ),
-        );
-    }
-    $products = new WP_Query($args);
-
-    if ($products->have_posts()) : ?>
-        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="atelier-grid">
-            <?php while ($products->have_posts()) : $products->the_post();
-                global $product;
-                $product_cats = wp_get_post_terms(get_the_ID(), 'product_cat', array('fields' => 'slugs'));
-                ?>
-                <div class="shop-item flex flex-col aura-glass rounded-xl overflow-hidden transition-all hover:shadow-lg group"
-                     data-category="<?php echo esc_attr(implode(' ', $product_cats)); ?>">
-                    <div class="aspect-[3/4] overflow-hidden bg-surface-container-high">
-                        <a href="<?php the_permalink(); ?>">
-                            <?php if (has_post_thumbnail()) : ?>
-                                <?php the_post_thumbnail('medium', array('class' => 'w-full h-full object-cover transition-all duration-500 group-hover:scale-105')); ?>
-                            <?php else : ?>
-                                <div class="w-full h-full flex items-center justify-center font-label-caps text-label-caps text-on-surface-variant">No Image</div>
-                            <?php endif; ?>
-                        </a>
-                    </div>
-                    <div class="p-4 flex flex-col gap-1 flex-1">
-                        <?php
-                        $terms = get_the_terms(get_the_ID(), 'product_cat');
-                        if ($terms && !is_wp_error($terms)) :
-                            $term_names = wp_list_pluck($terms, 'name');
-                            ?>
-                            <span class="font-label-caps text-label-caps text-secondary"><?php echo esc_html(implode(', ', array_slice($term_names, 0, 2))); ?></span>
-                        <?php endif; ?>
-                        <h3 class="font-headline-md" style="font-size:18px;"><?php the_title(); ?></h3>
-                        <span class="font-headline-md text-on-surface-variant" style="font-size:16px;"><?php echo $product->get_price_html(); ?></span>
-                    </div>
+id="page-the-atelier">
+    <section class="px-margin-desktop container-max" style="padding-top:24px;padding-bottom:12px">
+        <div class="max-w-2xl">
+            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px">THE ATELIER</span>
+            <h1 class="font-headline-xl text-headline-xl" style="margin-bottom:4px">Shop the <span class="italic text-secondary">Collection</span></h1>
+            <p class="font-body-lg text-on-surface-variant" style="font-size:14px">Each fragrance is AI-synthesized and hand-finished. Free shipping on all orders.</p>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div style="display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;margin-bottom:20px">
+            <button class="font-label-caps text-label-caps filter-btn" style="padding:6px 14px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);background:none;white-space:nowrap;font-size:10px" data-filter="all">All</button>
+            <button class="font-label-caps text-label-caps filter-btn" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;white-space:nowrap;font-size:10px" data-filter="personal">Personal</button>
+            <button class="font-label-caps text-label-caps filter-btn" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;white-space:nowrap;font-size:10px" data-filter="home">Home</button>
+            <button class="font-label-caps text-label-caps filter-btn" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;white-space:nowrap;font-size:10px" data-filter="commercial">Commercial</button>
+        </div>
+        <!-- Uniform 2-col mobile / 3-col desktop grid -->
+        <div id="atelier-grid">
+            <div class="shop-item" data-category="personal" style="text-align:center">
+                <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&q=80" alt="Aura No.1" style="width:55%;height:55%;object-fit:contain;transition:transform .5s" loading="lazy">
                 </div>
-            <?php endwhile; ?>
+                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Aura No. 1</h4>
+                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:8px;margin-bottom:4px">Personal · Ozone</p>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$185.00</span>
+            </div>
+            <div class="shop-item" data-category="personal" style="text-align:center">
+                <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&q=80" alt="Aura No.2" style="width:55%;height:55%;object-fit:contain;transition:transform .5s" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Aura No. 2</h4>
+                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:8px;margin-bottom:4px">Personal · Oud</p>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$210.00</span>
+            </div>
+            <div class="shop-item" data-category="home" style="text-align:center">
+                <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Atmospheric Flux" style="width:55%;height:55%;object-fit:contain;transition:transform .5s" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Atmospheric Flux</h4>
+                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:8px;margin-bottom:4px">Home · Adaptive</p>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$240.00</span>
+            </div>
+            <div class="shop-item" data-category="commercial" style="text-align:center">
+                <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&q=80" alt="Spatial Bloom" style="width:55%;height:55%;object-fit:contain;transition:transform .5s" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Spatial Bloom</h4>
+                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:8px;margin-bottom:4px">Commercial · Ambient</p>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$320.00</span>
+            </div>
+            <div class="shop-item" data-category="personal" style="text-align:center">
+                <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&q=80" alt="Vesper Muse" style="width:55%;height:55%;object-fit:contain;transition:transform .5s" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Vesper Muse</h4>
+                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:8px;margin-bottom:4px">Personal · Floral</p>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$185.00</span>
+            </div>
+            <div class="shop-item" data-category="commercial" style="text-align:center">
+                <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Nordic Noir" style="width:55%;height:55%;object-fit:contain;transition:transform .5s" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Nordic Noir</h4>
+                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:8px;margin-bottom:4px">Commercial · Forest</p>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$280.00</span>
+            </div>
         </div>
-
-        <!-- Pagination -->
-        <div class="mt-16">
-            <?php
-            // Custom pagination
-            $total_pages = $products->max_num_pages;
-            if ($total_pages > 1) :
-                $current_page = max(1, $paged);
-                $paginate_args = array(
-                    'base' => add_query_arg('paged', '%#%'),
-                    'format' => '',
-                    'current' => $current_page,
-                    'total' => $total_pages,
-                    'prev_text' => '&larr;',
-                    'next_text' => '&rarr;',
-                    'type' => 'list',
-                );
-                echo '<nav class="woocommerce-pagination">';
-                echo paginate_links($paginate_args);
-                echo '</nav>';
-            endif;
-            ?>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div class="bg-on-surface" style="border-radius:24px;padding:24px;text-align:center;color:var(--surface)">
+            <span class="font-label-caps text-label-caps" style="color:var(--secondary-fixed);margin-bottom:4px;display:block">WHOLESALE</span>
+            <h2 class="font-headline-lg text-headline-lg" style="margin-bottom:6px;font-style:italic">For Your Space</h2>
+            <p class="font-body-md" style="margin-bottom:12px;color:var(--surface-variant);font-size:13px">Curate a signature scent for your boutique, hotel, or private residence.</p>
+            <a class="iridescent-btn font-label-caps text-label-caps" style="padding:10px 24px;border-radius:999px;font-size:10px" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">Request Consultation</a>
         </div>
-    <?php else : ?>
-        <div class="text-center py-16">
-            <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-4 block">inventory_2</span>
-            <p class="font-body-lg text-body-lg text-on-surface-variant">No products found in this category. <a href="<?php echo esc_url(get_permalink()); ?>" style="color:var(--secondary);text-decoration:underline;">View all</a></p>
-        </div>
-    <?php endif;
-    wp_reset_postdata(); ?>
-</section>
+    </section>
+</div>
 
-<!-- ============================================ -->
-<!-- CTA — AI Concierge                          -->
-<!-- ============================================ -->
-<section class="px-margin-desktop container-max mb-32 scroll-reveal">
-    <div class="bg-on-surface text-surface p-12 md:p-16 rounded-3xl text-center">
-        <span class="font-label-caps text-label-caps text-secondary-fixed mb-4 block">AI CONCIERGE</span>
-        <h2 class="font-headline-lg text-headline-lg mb-6 italic">Let AI find your signature.</h2>
-        <p class="font-body-lg text-body-lg mb-8 text-surface-variant max-w-xl mx-auto">Not sure which scent fits you? Our neural stylist analyzes your preferences in seconds — no guesswork, just molecular precision.</p>
-        <a href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>" class="iridescent-btn px-10 py-4 rounded-full font-label-caps text-label-caps tracking-widest uppercase" style="text-decoration:none;">
-            Begin AI Synthesis
-            <span class="material-symbols-outlined ml-2" style="font-size:16px;">auto_awesome</span>
-        </a>
-    </div>
-</section>
-
-<?php
-get_footer();
+<?php get_footer(); ?>

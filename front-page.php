@@ -1,126 +1,169 @@
 <?php
 /**
- * Front Page — AllScented "Discover"
- * Brand: AllScented — AI-Powered Fragrance
- * Design: Digital Romanticism
+ * Template Name: Front Page
  */
-
 get_header();
 ?>
-
-<!-- ============================================ -->
-<!-- HERO BANNER                                  -->
-<!-- ============================================ -->
-<section class="relative w-full overflow-hidden scroll-reveal" style="min-height:70vh;display:flex;align-items:center">
-    <!-- Background image -->
-    <div class="absolute inset-0 z-0">
-        <img
-            class="w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1607349919526-3c42d1a43f3f?w=1600&q=80"
-            alt="AllScented — AI Fragrance"
-            loading="eager"
-            style="filter:brightness(0.6)"
-        >
-        <!-- Gradient overlay -->
-        <div class="absolute inset-0" style="background:linear-gradient(to top,rgb(252,249,248) 0%,rgba(252,249,248,0.15) 100%);"></div>
-    </div>
-
-    <div class="relative z-10 container-max px-margin-desktop w-full" style="padding-top:60px;padding-bottom:100px;">
-        <div class="max-w-3xl">
-            <span class="font-label-caps text-label-caps text-secondary mb-4 block" style="color:var(--secondary);text-shadow:0 2px 8px rgba(0,0,0,0.2);">ALLSCENTED · SENSORY INTELLIGENCE</span>
-            <h1 class="font-headline-xl text-headline-xl mb-6" style="color:#fff;text-shadow:0 4px 20px rgba(0,0,0,0.3);font-size:clamp(2.5rem,8vw,6rem);">
-                Where Memory<br class="mobile-only"> Becomes Scent
-            </h1>
-            <p class="font-body-lg text-body-lg mb-8 max-w-xl" style="color:rgba(255,255,255,0.85);text-shadow:0 2px 8px rgba(0,0,0,0.2);">
-                Describe the scent of your deepest memory, and our neural alchemy engine renders it into molecular reality — a fragrance built by AI, for your aura.
-            </p>
-            <a href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>" class="iridescent-btn font-label-caps text-label-caps tracking-widest uppercase" style="padding:16px 40px;border-radius:9999px;font-size:13px;">
-                BEGIN YOUR AI SYNTHESIS
-                <span class="material-symbols-outlined ml-2" style="font-size:16px;">auto_awesome</span>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- ============================================ -->
-<!-- SENSORY INTELLIGENCE — Input Section        -->
-<!-- ============================================ -->
-<section class="px-margin-desktop container-max scroll-reveal" style="margin-top:-40px;margin-bottom:80px;position:relative;z-index:20;">
-    <div class="aura-glass rounded-2xl p-8 md:p-12">
-        <div class="flex flex-wrap gap-3 mb-8">
-            <?php
-            $tags = array(
-                array('label' => 'Mood Match', 'icon' => 'psychology'),
-                array('label' => 'Scent Twin Finder', 'icon' => 'search_insights'),
-                array('label' => 'Data Profile', 'icon' => 'neurology'),
-            );
-            foreach ($tags as $tag) : ?>
-                <span class="font-label-caps text-label-caps category-tag inline-flex items-center gap-2 px-4 py-2 rounded-full border" style="border-color:var(--outline-variant);color:var(--on-surface-variant);cursor:pointer;transition:all 0.3s ease;">
-                    <span class="material-symbols-outlined" style="font-size:14px;"><?php echo esc_attr($tag['icon']); ?></span>
-                    <?php echo esc_html($tag['label']); ?>
-                </span>
-            <?php endforeach; ?>
-        </div>
-
-        <textarea
-            class="w-full bg-transparent border-none outline-none resize-none font-body-lg text-body-lg"
-            style="min-height:100px;color:var(--on-surface);"
-            placeholder="<?php echo esc_attr(get_field('allscented_hero_placeholder') ?: 'Tell me a story... \'A rainy afternoon in Kyoto, cedarwood and wet stone...\''); ?>"
-        ></textarea>
-
-        <div class="flex items-center justify-between mt-6 flex-wrap gap-4">
-            <span class="font-label-caps text-label-caps" style="color:var(--on-surface-variant);">Powered by neural alchemy engine &bull; 12,000+ molecular profiles</span>
-            <button class="iridescent-btn px-6 py-3 rounded-full font-label-caps text-label-caps tracking-widest uppercase" style="font-size:12px;">
-                Synthesize
-                <span class="material-symbols-outlined ml-1" style="font-size:14px;">auto_awesome</span>
-            </button>
-        </div>
-    </div>
-</section>
-
-<!-- ============================================ -->
-<!-- THE ARCHIVE — Section Preview               -->
-<!-- ============================================ -->
-<section class="scroll-reveal" style="background:color-mix(in srgb,var(--surface) 40%,transparent);padding:80px 0;margin-bottom:80px;">
-    <div class="px-margin-desktop container-max">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter mb-12">
-            <div>
-                <span class="font-label-caps text-label-caps text-secondary mb-2 block">THE ARCHIVE</span>
-                <h2 class="font-headline-lg text-headline-lg">Curated Synthetics</h2>
+id="page-discover">
+    <section class="hero-section" style="position:relative;width:100%;overflow:hidden;margin-bottom:12px">
+        <div class="hero-bg" style="width:100%;height:clamp(240px,50vh,500px);position:relative;display:flex;align-items:center;justify-content:center">
+            <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=1500&q=85" alt="Artisanal fragrance concept" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" class="hero-image">
+            <div style="position:absolute;inset:0;background:linear-gradient(135deg, rgba(28,27,27,0.55) 0%, rgba(28,27,27,0.2) 50%, rgba(28,27,27,0.55) 100%);z-index:1"></div>
+            <div style="position:relative;z-index:2;text-align:center;padding:24px 16px;max-width:600px">
+                <span class="font-label-caps" style="font-size:clamp(10px,2vw,13px);letter-spacing:.15em;color:rgba(255,255,255,0.7);display:block;margin-bottom:8px;text-transform:uppercase">ALLSCENTED · SENSORY INTELLIGENCE</span>
+                <h1 class="hero-title" style="font-family:'Playfair Display',serif;font-weight:500;font-style:italic;font-size:clamp(28px,5vw,56px);line-height:1.1;color:#fff;margin:0 0 12px">Where Memory<br class="mobile-only"> <span class="desktop-only"> </span>Becomes Scent</h1>
+                <p class="hero-subtitle" style="font-family:'Hanken Grotesk',sans-serif;font-weight:300;font-size:clamp(13px,1.5vw,16px);color:rgba(255,255,255,0.8);margin:0 0 20px;max-width:480px;margin-left:auto;margin-right:auto">AI-powered fragrance synthesis from your most intimate narratives</p>
+                <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+                    <a href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>" class="iridescent-btn" style="padding:10px 28px;border-radius:999px;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:500;letter-spacing:.06em;color:#fff;text-decoration:none">
+                        BEGIN YOUR AI SYNTHESIS
+                    </a>
+                </div>
             </div>
-            <a href="<?php echo esc_url(home_url('/archive/')); ?>" class="font-label-caps text-label-caps tracking-widest iridescent-btn px-6 py-3 rounded-full" style="flex-shrink:0;font-size:12px;text-decoration:none;">
-                Explore More
-                <span class="material-symbols-outlined ml-1" style="font-size:14px;">arrow_forward</span>
-            </a>
         </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <?php
-            $archive_items = array(
-                array('title' => 'Dark Alchemy', 'cat' => 'FOR HOME', 'img' => 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&q=80'),
-                array('title' => 'Vesper Muse', 'cat' => 'FOR PERSONAL', 'img' => 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&q=80'),
-                array('title' => 'Synthetic Dawn', 'cat' => 'FOR COMMERCIAL', 'img' => 'https://images.unsplash.com/photo-1615639070588-8e152bf1f0b0?w=400&q=80'),
-                array('title' => 'Nocturne Waves', 'cat' => 'FOR HOME', 'img' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80'),
-            );
-            foreach ($archive_items as $item) : ?>
-                <div class="relative rounded-xl overflow-hidden group cursor-pointer aspect-square">
-                    <img
-                        class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
-                        src="<?php echo esc_url($item['img']); ?>"
-                        alt="<?php echo esc_attr($item['title']); ?>"
-                        loading="lazy"
-                    >
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <div>
-                            <span class="font-label-caps text-label-caps text-secondary-fixed-dim"><?php echo esc_html($item['cat']); ?></span>
-                            <h3 class="font-headline-md text-headline-md text-surface" style="font-size:18px;"><?php echo esc_html($item['title']); ?></h3>
+        <div style="position:relative;z-index:3;margin-top:-2px;line-height:0">
+            <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="width:100%;height:clamp(24px,4vw,60px);display:block">
+                <path d="M0,40 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z" fill="var(--surface)"/>
+            </svg>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-top:12px;padding-bottom:12px">
+        <div class="max-w-3xl">
+            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px;font-size:8px;letter-spacing:.12em">MEET YOUR GUIDES</span>
+            <h2 class="font-headline-lg text-headline-lg" style="margin-bottom:16px">Three ways to <span class="italic text-secondary">find your scent.</span></h2>
+        </div>
+        <div class="char-cards-grid" style="margin-bottom:0">
+            <!-- Card A: Healer -->
+            <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;cursor:pointer">
+                <div class="char-avatar" style="background:color-mix(in srgb,var(--secondary-container)40%,transparent);width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;margin-bottom:10px">
+                    <span class="material-symbols-outlined" style="color:var(--secondary);font-size:24px">spa</span>
+                </div>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:9px;margin-bottom:2px;letter-spacing:.12em">AI SCENT THERAPIST · LUNÁ</span>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic">The Healer</h3>
+                <p class="font-body-md" style="font-size:12px;color:var(--on-surface-variant);flex:1;margin-bottom:10px">Tell me how you feel today. I listen, I understand — and I find a fragrance that speaks to your heart.</p>
+                <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
+                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">EMOTIONAL</span>
+                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">THERAPEUTIC</span>
+                </div>
+                <a class="font-label-caps" style="font-size:9px;color:var(--secondary);display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="Start AI scent therapy consultation with Luná" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">Start consultation <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></a>
+            </div>
+            <!-- Card B: Mystic -->
+            <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;cursor:pointer">
+                <div class="char-avatar" style="background:color-mix(in srgb,var(--tertiary-container)40%,transparent);width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;margin-bottom:10px">
+                    <span class="material-symbols-outlined" style="color:var(--tertiary);font-size:24px">auto_awesome</span>
+                </div>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:9px;margin-bottom:2px;letter-spacing:.12em">AI SCENT FORTUNE TELLER · ECHO</span>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic">The Mystic</h3>
+                <p class="font-body-md" style="font-size:12px;color:var(--on-surface-variant);flex:1;margin-bottom:10px">Curious what the universe has in store for you? Let the stars guide your scent — for fun, for hope, for destiny.</p>
+                <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
+                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">DIVINATION</span>
+                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">RITUAL</span>
+                </div>
+                <a class="font-label-caps" style="font-size:9px;color:var(--tertiary);display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="Cast your scent fortune with Echo" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">Cast your fortune <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></a>
+            </div>
+            <!-- Card C: Strategist -->
+            <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;cursor:pointer">
+                <div class="char-avatar" style="background:color-mix(in srgb,var(--primary-container)40%,transparent);width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;margin-bottom:10px">
+                    <span class="material-symbols-outlined" style="color:var(--primary);font-size:24px">business_center</span>
+                </div>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:9px;margin-bottom:2px;letter-spacing:.12em">SCENT MEMORY CONSULTANT · SAGE</span>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic">The Strategist</h3>
+                <p class="font-body-md" style="font-size:12px;color:var(--on-surface-variant);flex:1;margin-bottom:10px">For hotels, boutiques, and brands. I design a scent strategy that becomes part of your identity and drives results.</p>
+                <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
+                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">COMMERCIAL</span>
+                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">BRANDING</span>
+                </div>
+                <a class="font-label-caps" style="font-size:9px;color:var(--primary);display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="Request commercial scent consultation with Sage" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">Request consultation <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></a>
+            </div>
+        </div>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div style="background:color-mix(in srgb,var(--secondary-container)8%,transparent);border-radius:24px;padding:32px 16px 24px;margin-top:4px;margin-bottom:24px">
+            <div style="text-align:center">
+                <span class="font-label-caps" style="color:var(--secondary);font-size:14px;letter-spacing:.08em;display:block;margin-bottom:4px">THE ARCHIVE</span>
+                <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,4.5vw,48px);font-weight:600;color:var(--on-background);margin-top:6px">Curated <span class="italic" style="color:var(--secondary)">Synthetics</span></h2>
+            </div>
+            <div style="text-align:center;margin-bottom:16px">
+                <a href="<?php echo esc_url(home_url('/archive/')); ?>" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:500;letter-spacing:.03em;transition:all .3s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--secondary)';this.style.color='var(--secondary)'">
+                    Explore More
+                    <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle">arrow_forward</span>
+                </a>
+            </div>
+            <div id="home-archive-grid">
+                <div class="aura-glass" style="border-radius:12px;overflow:hidden;cursor:pointer">
+                    <div style="height:160px;overflow:hidden;position:relative" class="group">
+                        <img style="width:100%;height:100%;object-fit:cover;transition:transform .8s" class="group-hover:scale-105" src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800&q=80" alt="Perfume bottles" loading="lazy">
+                        <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)80%,transparent),transparent);padding:20px;display:flex;flex-direction:column;justify-content:flex-end">
+                            <span class="font-label-caps text-label-caps text-secondary" style="margin-bottom:2px">FOR PERSONAL</span>
+                            <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic">The Intimate Narrative</h3>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:12px">How AI decoded the scent of childhood nostalgia for a private collection.</p>
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
+                <div class="aura-glass" style="border-radius:12px;overflow:hidden;cursor:pointer">
+                    <div style="height:160px;overflow:hidden;position:relative" class="group">
+                        <img style="width:100%;height:100%;object-fit:cover;transition:transform .8s" class="group-hover:scale-105" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80" alt="Home diffuser" loading="lazy">
+                        <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)80%,transparent),transparent);padding:20px;display:flex;flex-direction:column;justify-content:flex-end">
+                            <span class="font-label-caps text-label-caps text-secondary" style="margin-bottom:2px">FOR HOME</span>
+                            <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic">Atmospheric Flux</h3>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:12px">Scents that adapt to light cycles and biometric data.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="aura-glass" style="border-radius:12px;overflow:hidden;cursor:pointer">
+                    <div style="height:160px;overflow:hidden;position:relative" class="group">
+                        <img style="width:100%;height:100%;object-fit:cover;transition:transform .8s" class="group-hover:scale-105" src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=800&q=80" alt="Brand Osmosis commercial scenting" loading="lazy">
+                        <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)80%,transparent),transparent);padding:20px;display:flex;flex-direction:column;justify-content:flex-end">
+                            <span class="font-label-caps text-label-caps text-secondary" style="margin-bottom:2px">FOR COMMERCIAL</span>
+                            <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic">Brand Osmosis</h3>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:12px">Architectural scenting for luxury retail.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+    <section class="px-margin-desktop container-max" style="padding-bottom:36px">
+        <div style="text-align:center;margin-bottom:24px">
+            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px">THE COLLECTION</span>
+            <h2 class="font-headline-lg text-headline-lg">Signature Molecules</h2>
+        </div>
+        <div style="margin-bottom:20px;border-radius:16px;overflow:hidden;aspect-ratio:16/9;max-height:400px;position:relative">
+            <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80" alt="AllScented Collection" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)70%,transparent)0%,transparent 50%)"></div>
+            <div style="position:absolute;bottom:16px;left:16px;right:16px">
+                <span class="font-label-caps text-label-caps" style="color:var(--surface);font-size:10px;letter-spacing:.12em">THE ATELIER</span>
+                <h3 class="font-headline-lg text-headline-lg" style="color:var(--surface);font-style:italic;font-size:20px">AI-Designed for You</h3>
+            </div>
+        </div>
+        <div class="home-product-grid">
+            <div style="text-align:center" class="group">
+                <div class="aura-glass" style="aspect-ratio:3/4;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&q=80" alt="Aura No.1" style="width:60%;height:60%;object-fit:contain;transition:transform .6s" class="group-hover:scale-110" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:16px;margin-bottom:4px;font-style:italic">Aura No. 1</h4>
+                <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:4px">
+                    <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">SERENE</span>
+                    <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">MORNING</span>
+                </div>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$185.00</span>
+            </div>
+            <div style="text-align:center" class="group">
+                <div class="aura-glass" style="aspect-ratio:3/4;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&q=80" alt="Aura No.2" style="width:60%;height:60%;object-fit:contain;transition:transform .6s" class="group-hover:scale-110" loading="lazy">
+                </div>
+                <h4 class="font-headline-md" style="font-size:16px;margin-bottom:4px;font-style:italic">Aura No. 2</h4>
+                <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:4px">
+                    <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">SEDUCTIVE</span>
+                    <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">TWILIGHT</span>
+                </div>
+                <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$210.00</span>
+            </div>
+        </div>
+        <div style="text-align:center;margin-top:24px">
+            <a class="iridescent-btn font-label-caps text-label-caps" style="padding:10px 28px;border-radius:999px;display:inline-block" href="<?php echo esc_url(home_url('/the-atelier/')); ?>">SHOP THE ATELIER</a>
+        </div>
+    </section>
+</div>
+<!-- ===== AI SYNTHESIS (Three Characters) ===== -->
 
-<?php
-get_footer();
+<?php get_footer(); ?>
