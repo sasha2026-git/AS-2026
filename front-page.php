@@ -89,34 +89,34 @@ get_header();
                 </a>
             </div>
             <div id="home-archive-grid">
-                <div class="aura-glass" style="border-radius:12px;overflow:hidden;cursor:pointer">
-                    <div style="height:160px;overflow:hidden;position:relative" class="group">
+                <div class="aura-glass archive-card" style="border-radius:12px;overflow:hidden;cursor:pointer">
+                    <div style="aspect-ratio:4/3;overflow:hidden" class="group">
                         <img style="width:100%;height:100%;object-fit:cover;transition:transform .8s" class="group-hover:scale-105" src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800&q=80" alt="Perfume bottles" loading="lazy">
-                        <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)80%,transparent),transparent);padding:20px;display:flex;flex-direction:column;justify-content:flex-end">
-                            <span class="font-label-caps text-label-caps text-secondary" style="margin-bottom:2px">FOR PERSONAL</span>
-                            <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic">The Intimate Narrative</h3>
-                            <p class="font-body-md text-on-surface-variant" style="font-size:12px">How AI decoded the scent of childhood nostalgia for a private collection.</p>
-                        </div>
+                    </div>
+                    <div class="archive-card-body" style="padding:16px 18px 18px">
+                        <span class="font-label-caps text-label-caps text-secondary" style="display:block;margin-bottom:4px">FOR PERSONAL</span>
+                        <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic">The Intimate Narrative</h3>
+                        <p class="font-body-md text-on-surface-variant" style="font-size:12px;line-height:1.5">How AI decoded the scent of childhood nostalgia for a private collection.</p>
                     </div>
                 </div>
-                <div class="aura-glass" style="border-radius:12px;overflow:hidden;cursor:pointer">
-                    <div style="height:160px;overflow:hidden;position:relative" class="group">
+                <div class="aura-glass archive-card" style="border-radius:12px;overflow:hidden;cursor:pointer">
+                    <div style="aspect-ratio:4/3;overflow:hidden" class="group">
                         <img style="width:100%;height:100%;object-fit:cover;transition:transform .8s" class="group-hover:scale-105" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80" alt="Home diffuser" loading="lazy">
-                        <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)80%,transparent),transparent);padding:20px;display:flex;flex-direction:column;justify-content:flex-end">
-                            <span class="font-label-caps text-label-caps text-secondary" style="margin-bottom:2px">FOR HOME</span>
-                            <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic">Atmospheric Flux</h3>
-                            <p class="font-body-md text-on-surface-variant" style="font-size:12px">Scents that adapt to light cycles and biometric data.</p>
-                        </div>
+                    </div>
+                    <div class="archive-card-body" style="padding:16px 18px 18px">
+                        <span class="font-label-caps text-label-caps text-secondary" style="display:block;margin-bottom:4px">FOR HOME</span>
+                        <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic">Atmospheric Flux</h3>
+                        <p class="font-body-md text-on-surface-variant" style="font-size:12px;line-height:1.5">Scents that adapt to light cycles and biometric data.</p>
                     </div>
                 </div>
-                <div class="aura-glass" style="border-radius:12px;overflow:hidden;cursor:pointer">
-                    <div style="height:160px;overflow:hidden;position:relative" class="group">
+                <div class="aura-glass archive-card" style="border-radius:12px;overflow:hidden;cursor:pointer">
+                    <div style="aspect-ratio:4/3;overflow:hidden" class="group">
                         <img style="width:100%;height:100%;object-fit:cover;transition:transform .8s" class="group-hover:scale-105" src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=800&q=80" alt="Brand Osmosis commercial scenting" loading="lazy">
-                        <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)80%,transparent),transparent);padding:20px;display:flex;flex-direction:column;justify-content:flex-end">
-                            <span class="font-label-caps text-label-caps text-secondary" style="margin-bottom:2px">FOR COMMERCIAL</span>
-                            <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic">Brand Osmosis</h3>
-                            <p class="font-body-md text-on-surface-variant" style="font-size:12px">Architectural scenting for luxury retail.</p>
-                        </div>
+                    </div>
+                    <div class="archive-card-body" style="padding:16px 18px 18px">
+                        <span class="font-label-caps text-label-caps text-secondary" style="display:block;margin-bottom:4px">FOR COMMERCIAL</span>
+                        <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic">Brand Osmosis</h3>
+                        <p class="font-body-md text-on-surface-variant" style="font-size:12px;line-height:1.5">Architectural scenting for luxury retail.</p>
                     </div>
                 </div>
             </div>
@@ -127,15 +127,16 @@ get_header();
             <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px">THE COLLECTION</span>
             <h2 class="font-headline-lg text-headline-lg">Signature Molecules</h2>
         </div>
-        <div style="margin-bottom:20px;border-radius:16px;overflow:hidden;aspect-ratio:16/9;max-height:400px;position:relative">
-            <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80" alt="AllScented Collection" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)70%,transparent)0%,transparent 50%)"></div>
-            <div style="position:absolute;bottom:16px;left:16px;right:16px">
-                <span class="font-label-caps text-label-caps" style="color:var(--surface);font-size:10px;letter-spacing:.12em">THE ATELIER</span>
-                <h3 class="font-headline-lg text-headline-lg" style="color:var(--surface);font-style:italic;font-size:20px">AI-Designed for You</h3>
+        <div class="collection-layout" style="display:flex;flex-direction:column;gap:16px">
+            <div class="collection-main" style="border-radius:16px;overflow:hidden;position:relative">
+                <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80" alt="AllScented Collection" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">
+                <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)70%,transparent)0%,transparent 50%)"></div>
+                <div style="position:absolute;bottom:16px;left:16px;right:16px">
+                    <span class="font-label-caps text-label-caps" style="color:var(--surface);font-size:10px;letter-spacing:.12em">THE ATELIER</span>
+                    <h3 class="font-headline-lg text-headline-lg" style="color:var(--surface);font-style:italic;font-size:20px">AI-Designed for You</h3>
+                </div>
             </div>
-        </div>
-        <div class="home-product-grid">
+            <div class="collection-side" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
             <div style="text-align:center" class="group">
                 <div class="aura-glass" style="aspect-ratio:3/4;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
                     <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&q=80" alt="Aura No.1" style="width:60%;height:60%;object-fit:contain;transition:transform .6s" class="group-hover:scale-110" loading="lazy">
@@ -157,6 +158,7 @@ get_header();
                     <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">TWILIGHT</span>
                 </div>
                 <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$210.00</span>
+            </div>
             </div>
         </div>
         <div style="text-align:center;margin-top:24px">

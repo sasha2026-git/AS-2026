@@ -4,7 +4,11 @@
     <div class="container-max px-margin-desktop px-margin-mobile" style="display:flex;flex-direction:column;gap:28px">
         <div style="display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between">
             <div style="max-width:280px">
-                <div class="font-headline-md" style="font-size:16px;letter-spacing:.22em;font-weight:600;color:var(--on-surface)">ALLSCENTED</div>
+                <?php if (file_exists(get_stylesheet_directory() . '/assets/images/logo.png')) : ?>
+                    <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/logo.png'); ?>" alt="Allscented" style="height:22px;width:auto;display:block">
+                <?php else : ?>
+                    <div class="font-headline-md" style="font-size:16px;letter-spacing:.22em;font-weight:600;color:var(--on-surface)">ALLSCENTED</div>
+                <?php endif; ?>
                 <div class="font-body-md text-body-md" style="font-size:12px;color:var(--on-surface-variant);margin-top:10px;line-height:1.7">Sensory intelligence, bottled. AI-synthesized fragrances from your most intimate narratives.</div>
             </div>
             <div style="display:flex;gap:48px;flex-wrap:wrap">

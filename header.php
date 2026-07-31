@@ -31,8 +31,15 @@ $account_url = class_exists('WooCommerce') ? get_permalink(get_option('woocommer
 <header style="z-index:100;background:color-mix(in srgb,var(--surface)85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid color-mix(in srgb,var(--outline-variant)25%,transparent)">
     <nav class="px-margin-desktop px-margin-mobile" style="width:100%;height:50px;display:flex;align-items:center;justify-content:space-between;gap:16px" aria-label="Main navigation">
         <a href="<?php echo esc_url(home_url('/')); ?>" class="font-headline-md" style="font-size:17px;letter-spacing:.22em;font-weight:600;color:var(--on-surface);text-decoration:none;display:flex;align-items:center;gap:8px">
-            <span class="material-symbols-outlined" style="font-size:20px;color:var(--secondary)">auto_awesome</span>
-            ALLSCENTED
+            <?php
+            $allscented_logo = get_stylesheet_directory() . '/assets/images/logo.png';
+            if (file_exists($allscented_logo)) :
+            ?>
+                <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/logo.png'); ?>" alt="Allscented" style="height:30px;width:auto;display:block">
+            <?php else : ?>
+                <span class="material-symbols-outlined" style="font-size:20px;color:var(--secondary)">auto_awesome</span>
+                ALLSCENTED
+            <?php endif; ?>
         </a>
 
         <div class="desktop-only" style="display:flex;align-items:center;gap:22px">
