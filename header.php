@@ -28,7 +28,7 @@ $cart_url = class_exists('WooCommerce') ? wc_get_cart_url() : '#';
 $account_url = class_exists('WooCommerce') ? get_permalink(get_option('woocommerce_myaccount_page_id')) : '#';
 ?>
 
-<header class="fixed top-0 left-0 right-0" style="z-index:100;background:color-mix(in srgb,var(--surface)85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid color-mix(in srgb,var(--outline-variant)25%,transparent)">
+<header style="z-index:100;background:color-mix(in srgb,var(--surface)85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid color-mix(in srgb,var(--outline-variant)25%,transparent)">
     <nav class="px-margin-desktop px-margin-mobile" style="width:100%;height:50px;display:flex;align-items:center;justify-content:space-between;gap:16px" aria-label="Main navigation">
         <a href="<?php echo esc_url(home_url('/')); ?>" class="font-headline-md" style="font-size:17px;letter-spacing:.22em;font-weight:600;color:var(--on-surface);text-decoration:none;display:flex;align-items:center;gap:8px">
             <span class="material-symbols-outlined" style="font-size:20px;color:var(--secondary)">auto_awesome</span>
@@ -65,4 +65,4 @@ $account_url = class_exists('WooCommerce') ? get_permalink(get_option('woocommer
     <div class="font-label-caps text-label-caps" style="font-size:9px;color:var(--on-surface-variant);letter-spacing:.18em">ALLSCENTED — SENSORY INTELLIGENCE</div>
 </div>
 
-<main style="padding-top:50px" id="main-content">
+<main id="main-content">
