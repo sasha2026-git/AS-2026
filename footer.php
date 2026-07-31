@@ -13,7 +13,7 @@
             </div>
             <div style="display:flex;gap:48px;flex-wrap:wrap">
                 <div>
-                    <div class="font-label-caps text-label-caps" style="font-size:9px;letter-spacing:.16em;color:var(--on-surface-variant);margin-bottom:12px">EXPLORE</div>
+                    <div class="font-label-caps text-label-caps" style="font-size:11px;letter-spacing:.16em;color:var(--on-surface-variant);margin-bottom:12px">EXPLORE</div>
                     <div style="display:flex;flex-direction:column;gap:8px">
                         <a href="<?php echo esc_url(home_url('/')); ?>" style="font-size:12px;color:var(--on-surface-variant);text-decoration:none">Discover</a>
                         <a href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>" style="font-size:12px;color:var(--on-surface-variant);text-decoration:none">AI Synthesis</a>
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div>
-                    <div class="font-label-caps text-label-caps" style="font-size:9px;letter-spacing:.16em;color:var(--on-surface-variant);margin-bottom:12px">LEGAL</div>
+                    <div class="font-label-caps text-label-caps" style="font-size:11px;letter-spacing:.16em;color:var(--on-surface-variant);margin-bottom:12px">LEGAL</div>
                     <div style="display:flex;flex-direction:column;gap:8px">
                         <a href="#" style="font-size:12px;color:var(--on-surface-variant);text-decoration:none">Privacy Policy</a>
                         <a href="#" style="font-size:12px;color:var(--on-surface-variant);text-decoration:none">Terms of Service</a>
@@ -32,8 +32,8 @@
             </div>
         </div>
         <div style="border-top:1px solid color-mix(in srgb,var(--outline-variant)15%,transparent);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-            <span class="font-label-caps text-label-caps" style="font-size:9px;color:var(--on-surface-variant);letter-spacing:.12em">© <?php echo esc_html(date('Y')); ?> ALLSCENTED — ALL RIGHTS RESERVED</span>
-            <span class="font-label-caps text-label-caps" style="font-size:9px;color:var(--on-surface-variant);letter-spacing:.12em">CRAFTED WITH AI INTELLIGENCE</span>
+            <span class="font-label-caps text-label-caps" style="font-size:11px;color:var(--on-surface-variant);letter-spacing:.12em">© <?php echo esc_html(date('Y')); ?> ALLSCENTED — ALL RIGHTS RESERVED</span>
+            <span class="font-label-caps text-label-caps" style="font-size:11px;color:var(--on-surface-variant);letter-spacing:.12em">CRAFTED WITH AI INTELLIGENCE</span>
         </div>
     </div>
 </footer>

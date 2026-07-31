@@ -43,10 +43,10 @@ $account_url = class_exists('WooCommerce') ? get_permalink(get_option('woocommer
         </a>
 
         <div class="desktop-only" style="display:flex;align-items:center;gap:22px">
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('discover'); ?>" data-page="discover" style="font-size:10px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">Discover</a>
-            <a href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('ai-synthesis'); ?>" data-page="ai-synthesis" style="font-size:10px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">AI Synthesis</a>
-            <a href="<?php echo esc_url(home_url('/archive/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('archive'); ?>" data-page="archive" style="font-size:10px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">Archive</a>
-            <a href="<?php echo esc_url(home_url('/the-atelier/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('the-atelier'); ?>" data-page="the-atelier" style="font-size:10px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">The Atelier</a>
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('discover'); ?>" data-page="discover" style="font-size:12px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">Discover</a>
+            <a href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('ai-synthesis'); ?>" data-page="ai-synthesis" style="font-size:12px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">AI Synthesis</a>
+            <a href="<?php echo esc_url(home_url('/archive/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('archive'); ?>" data-page="archive" style="font-size:12px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">Archive</a>
+            <a href="<?php echo esc_url(home_url('/the-atelier/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('the-atelier'); ?>" data-page="the-atelier" style="font-size:12px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">The Atelier</a>
         </div>
 
         <div style="display:flex;align-items:center;gap:6px">
@@ -69,7 +69,7 @@ $account_url = class_exists('WooCommerce') ? get_permalink(get_option('woocommer
     <a href="<?php echo esc_url(home_url('/archive/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">Archive</a>
     <a href="<?php echo esc_url(home_url('/the-atelier/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">The Atelier</a>
     <div style="flex:1"></div>
-    <div class="font-label-caps text-label-caps" style="font-size:9px;color:var(--on-surface-variant);letter-spacing:.18em">ALLSCENTED — SENSORY INTELLIGENCE</div>
+    <div class="font-label-caps text-label-caps" style="font-size:11px;color:var(--on-surface-variant);letter-spacing:.18em">ALLSCENTED — SENSORY INTELLIGENCE</div>
 </div>
 
 <main id="main-content">

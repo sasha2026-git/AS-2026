@@ -28,7 +28,7 @@ get_header();
     </section>
     <section class="px-margin-desktop container-max" style="padding-top:12px;padding-bottom:12px">
         <div class="max-w-3xl">
-            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px;font-size:8px;letter-spacing:.12em">MEET YOUR GUIDES</span>
+            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px;font-size:11px;letter-spacing:.12em">MEET YOUR GUIDES</span>
             <h2 class="font-headline-lg text-headline-lg" style="margin-bottom:16px">Three ways to <span class="italic text-secondary">find your scent.</span></h2>
         </div>
         <div class="char-cards-grid" style="margin-bottom:0">
@@ -37,42 +37,42 @@ get_header();
                 <div class="char-avatar" style="background:color-mix(in srgb,var(--secondary-container)40%,transparent);width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;margin-bottom:10px">
                     <span class="material-symbols-outlined" style="color:var(--secondary);font-size:24px">spa</span>
                 </div>
-                <span class="font-label-caps text-label-caps text-secondary" style="font-size:9px;margin-bottom:2px;letter-spacing:.12em">AI SCENT THERAPIST · LUNÁ</span>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em">AI SCENT THERAPIST · LUNÁ</span>
                 <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic">The Healer</h3>
                 <p class="font-body-md" style="font-size:12px;color:var(--on-surface-variant);flex:1;margin-bottom:10px">Tell me how you feel today. I listen, I understand — and I find a fragrance that speaks to your heart.</p>
                 <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
-                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">EMOTIONAL</span>
-                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">THERAPEUTIC</span>
+                    <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">EMOTIONAL</span>
+                    <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">THERAPEUTIC</span>
                 </div>
-                <a class="font-label-caps" style="font-size:9px;color:var(--secondary);display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="Start AI scent therapy consultation with Luná" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">Start consultation <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></a>
+                <a class="font-label-caps" style="font-size:12px;color:var(--secondary);display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="Start AI scent therapy consultation with Luná" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">Start consultation <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></a>
             </div>
             <!-- Card B: Mystic -->
             <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;cursor:pointer">
                 <div class="char-avatar" style="background:color-mix(in srgb,var(--tertiary-container)40%,transparent);width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;margin-bottom:10px">
                     <span class="material-symbols-outlined" style="color:var(--tertiary);font-size:24px">auto_awesome</span>
                 </div>
-                <span class="font-label-caps text-label-caps text-secondary" style="font-size:9px;margin-bottom:2px;letter-spacing:.12em">AI SCENT FORTUNE TELLER · ECHO</span>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em">AI SCENT FORTUNE TELLER · ECHO</span>
                 <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic">The Mystic</h3>
                 <p class="font-body-md" style="font-size:12px;color:var(--on-surface-variant);flex:1;margin-bottom:10px">Curious what the universe has in store for you? Let the stars guide your scent — for fun, for hope, for destiny.</p>
                 <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
-                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">DIVINATION</span>
-                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">RITUAL</span>
+                    <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">DIVINATION</span>
+                    <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">RITUAL</span>
                 </div>
-                <a class="font-label-caps" style="font-size:9px;color:var(--tertiary);display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="Cast your scent fortune with Echo" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">Cast your fortune <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></a>
+                <a class="font-label-caps" style="font-size:12px;color:var(--tertiary);display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="Cast your scent fortune with Echo" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">Cast your fortune <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></a>
             </div>
             <!-- Card C: Strategist -->
             <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;cursor:pointer">
                 <div class="char-avatar" style="background:color-mix(in srgb,var(--primary-container)40%,transparent);width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;margin-bottom:10px">
                     <span class="material-symbols-outlined" style="color:var(--primary);font-size:24px">business_center</span>
                 </div>
-                <span class="font-label-caps text-label-caps text-secondary" style="font-size:9px;margin-bottom:2px;letter-spacing:.12em">SCENT MEMORY CONSULTANT · SAGE</span>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em">SCENT MEMORY CONSULTANT · SAGE</span>
                 <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic">The Strategist</h3>
                 <p class="font-body-md" style="font-size:12px;color:var(--on-surface-variant);flex:1;margin-bottom:10px">For hotels, boutiques, and brands. I design a scent strategy that becomes part of your identity and drives results.</p>
                 <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
-                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">COMMERCIAL</span>
-                    <span class="font-label-caps" style="font-size:8px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">BRANDING</span>
+                    <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">COMMERCIAL</span>
+                    <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">BRANDING</span>
                 </div>
-                <a class="font-label-caps" style="font-size:9px;color:var(--primary);display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="Request commercial scent consultation with Sage" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">Request consultation <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></a>
+                <a class="font-label-caps" style="font-size:12px;color:var(--primary);display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="Request commercial scent consultation with Sage" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">Request consultation <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></a>
             </div>
         </div>
     </section>
@@ -132,7 +132,7 @@ get_header();
                 <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80" alt="AllScented Collection" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">
                 <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)70%,transparent)0%,transparent 50%)"></div>
                 <div style="position:absolute;bottom:16px;left:16px;right:16px">
-                    <span class="font-label-caps text-label-caps" style="color:var(--surface);font-size:10px;letter-spacing:.12em">THE ATELIER</span>
+                    <span class="font-label-caps text-label-caps" style="color:var(--surface);font-size:12px;letter-spacing:.12em">THE ATELIER</span>
                     <h3 class="font-headline-lg text-headline-lg" style="color:var(--surface);font-style:italic;font-size:20px">AI-Designed for You</h3>
                 </div>
             </div>
@@ -143,8 +143,8 @@ get_header();
                 </div>
                 <h4 class="font-headline-md" style="font-size:16px;margin-bottom:4px;font-style:italic">Aura No. 1</h4>
                 <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:4px">
-                    <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">SERENE</span>
-                    <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">MORNING</span>
+                    <span class="font-label-caps" style="font-size:11px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">SERENE</span>
+                    <span class="font-label-caps" style="font-size:11px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">MORNING</span>
                 </div>
                 <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$185.00</span>
             </div>
@@ -154,8 +154,8 @@ get_header();
                 </div>
                 <h4 class="font-headline-md" style="font-size:16px;margin-bottom:4px;font-style:italic">Aura No. 2</h4>
                 <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:4px">
-                    <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">SEDUCTIVE</span>
-                    <span class="font-label-caps" style="font-size:8px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">TWILIGHT</span>
+                    <span class="font-label-caps" style="font-size:11px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">SEDUCTIVE</span>
+                    <span class="font-label-caps" style="font-size:11px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)">TWILIGHT</span>
                 </div>
                 <span class="font-body-md" style="color:var(--on-surface);font-size:13px">$210.00</span>
             </div>
