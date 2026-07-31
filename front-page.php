@@ -127,7 +127,7 @@ get_header();
             <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px">THE COLLECTION</span>
             <h2 class="font-headline-lg text-headline-lg">Signature Molecules</h2>
         </div>
-        <div class="collection-layout" style="display:flex;flex-direction:column;gap:16px">
+        <div class="collection-layout">
             <div class="collection-main" style="border-radius:16px;overflow:hidden;position:relative">
                 <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80" alt="AllScented Collection" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">
                 <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)70%,transparent)0%,transparent 50%)"></div>
@@ -136,7 +136,7 @@ get_header();
                     <h3 class="font-headline-lg text-headline-lg" style="color:var(--surface);font-style:italic;font-size:20px">AI-Designed for You</h3>
                 </div>
             </div>
-            <div class="collection-side" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
+            <div class="collection-side">
             <div style="text-align:center" class="group">
                 <div class="aura-glass" style="aspect-ratio:3/4;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
                     <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&q=80" alt="Aura No.1" style="width:60%;height:60%;object-fit:contain;transition:transform .6s" class="group-hover:scale-110" loading="lazy">
