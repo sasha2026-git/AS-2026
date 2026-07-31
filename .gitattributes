@@ -1,0 +1,6 @@
+# Exclude dev/reference files from GitHub release zips
+reference/ export-ignore
+qa-report.md export-ignore
+.gitignore export-ignore
+*.log export-ignore
+.DS_Store export-ignore

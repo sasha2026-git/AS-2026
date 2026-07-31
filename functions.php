@@ -7,6 +7,19 @@
  */
 
 // ============================================
+// GitHub Auto-Updater (Plugin Update Checker)
+// Push to GitHub → tag → Release → WP 后台一键更新
+// ============================================
+require_once __DIR__ . '/lib/plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$allscented_update_checker = PucFactory::buildUpdateChecker(
+    'https://github.com/sasha2026-git/allscented/',
+    get_stylesheet_directory() . '/style.css',
+    'allscented'
+);
+
+// ============================================
 // Enqueue Styles
 // ============================================
 function allscented_enqueue_styles() {
