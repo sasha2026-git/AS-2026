@@ -46,7 +46,7 @@
 
         <!-- Shopping icons + Hamburger -->
         <div class="flex items-center gap-4 md:gap-6">
-            <a href="<?php echo wc_get_cart_url ? esc_url(wc_get_cart_url()) : '#'; ?>" class="text-on-surface-variant hover:text-secondary transition-colors" style="text-decoration:none;">
+            <a href="<?php echo function_exists('wc_get_cart_url') ? esc_url(wc_get_cart_url()) : '#'; ?>" class="text-on-surface-variant hover:text-secondary transition-colors" style="text-decoration:none;">
                 <span class="material-symbols-outlined">shopping_bag</span>
             </a>
             <button id="mobile-menu-toggle" class="mobile-only flex items-center justify-center bg-transparent border-none cursor-pointer p-1" style="line-height:1;">
