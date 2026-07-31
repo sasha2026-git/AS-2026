@@ -3,13 +3,49 @@
  * Template Name: AI Synthesis
  */
 get_header();
+
+// ===== ACF fields =====
+$s_eyebrow = allscented_field('allscented_ai_eyebrow', 'AI SYNTHESIS');
+$s_title   = allscented_field('allscented_ai_title', 'Meet your scent guides.');
+$s_desc    = allscented_field('allscented_ai_desc', 'Three ways to find your fragrance — each with a different purpose, a different voice.');
+$g1_name   = allscented_field('allscented_ai_g1_name', 'The Healer');
+$g1_desc   = allscented_field('allscented_ai_g1_desc', "Tell me how you feel today. I listen, I understand — and I find a fragrance that speaks to your heart. Because scent is not just smell, it's comfort.");
+$g2_name   = allscented_field('allscented_ai_g2_name', 'The Mystic');
+$g2_desc   = allscented_field('allscented_ai_g2_desc', 'Curious what the universe has in store for you? Let the stars guide your scent — from incense and agarwood to sacred resins. For fun, for hope, for destiny.');
+$g3_name   = allscented_field('allscented_ai_g3_name', 'The Strategist');
+$g3_desc   = allscented_field('allscented_ai_g3_desc', 'For hotels, boutiques, and brands. Backed by real case studies and AI data — I design a scent strategy that becomes part of your identity and drives results.');
+
+// Products (9 cards across 3 pages)
+$prod_defaults = array(
+    'p1_1' => array('img' => 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=300&q=80', 'name' => 'Aura No. 2', 'price' => '$210.00', 'notes' => 'Saffron, Oud, Labdanum — a smoky, deep signature for the bold spirit.', 'why' => 'The deep, smoky warmth of this fragrance mirrors your craving for security and transformation. The labdanum base creates a lingering sense of comfort that lasts through autumn evenings — like being wrapped in something both bold and tender.', 'btn' => 'View on Amazon'),
+    'p1_2' => array('img' => 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=300&q=80', 'name' => 'Comforting Embrace', 'price' => '$145.00', 'notes' => 'Chamomile, Lavender, Soft Musk — a warm blanket for the soul.', 'why' => 'The chamomile and lavender echoes your desire for softness and warmth. The soft musk base keeps the scent intimate and close to the skin — exactly what you described wanting. Think of it as a cashmere blanket, not a spotlight.', 'btn' => 'View on Amazon'),
+    'p1_3' => array('img' => 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300&q=80', 'name' => 'Vesper Muse', 'price' => '$85.00', 'notes' => 'Night-blooming jasmine, metallic aldehydes, grey amber — an evening ritual.', 'why' => 'The night-blooming jasmine speaks to the introspective side of your autumn mood, while the grey amber adds a touch of mystery. An affordable option that still carries emotional depth — perfect for your quiet evening rituals.', 'btn' => 'View on Amazon'),
+    'p2_1' => array('img' => 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=300&q=80', 'name' => 'Aura No. 1', 'price' => '$185.00', 'notes' => 'Ozone, white musk, sea salt — a morning walk through coastal mist.', 'why' => "The cleansing ozone and white musk align with the cards' message of renewal — a burning away of the old. This scent clears the energy and opens the heart to new beginnings, like walking through coastal mist at dawn after a spiritual practice.", 'btn' => 'View on Amazon'),
+    'p2_2' => array('img' => 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=300&q=80', 'name' => 'Mystic Oud', 'price' => '$94.00', 'notes' => 'Incense, agarwood, saffron — a ritual wrapped in a bottle.', 'why' => 'The incense and agarwood directly mirror the divination of fire and smoke. This fragrance embodies the sacred-wild duality — affordable enough to explore without commitment, deep enough to ground your spiritual practice.', 'btn' => 'View on Amazon'),
+    'p2_3' => array('img' => 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=300&q=80', 'name' => 'Sacred Night', 'price' => '$245.00', 'notes' => 'Black amber, labdanum, benzoin — the scent of midnight prayers.', 'why' => "The black amber and benzoin align with your craving for transformation. This is the invest-in-yourself option — a premium ritual scent that matches the depth of the shift you're experiencing. The universe whispers yes.", 'btn' => 'View on Amazon'),
+    'p3_1' => array('img' => 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=300&q=80', 'name' => 'Morning Aura', 'price' => '$129.00', 'notes' => 'Bergamot, linen, white tea — a clean slate.', 'why' => 'The clean, fresh notes balance the heaviness of autumn — a bright counterpoint to your reflective mood. Think of it as a morning breath after a long night.', 'btn' => 'View on Amazon'),
+    'p3_2' => array('img' => 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300&q=80', 'name' => 'Twilight Veil', 'price' => '$178.00', 'notes' => 'Fig, black tea, leather — contemplative depths.', 'why' => "The fig and black tea evoke quiet afternoons with a book — perfect for the introspective season you're in. Leather adds a grounded, sensual touch.", 'btn' => 'View on Amazon'),
+    'p3_3' => array('img' => 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=300&q=80', 'name' => 'Aura No. 3', 'price' => '$52.00', 'notes' => 'Pear, freesia, white cedar — fresh and approachable.', 'why' => "A great entry point if you're not ready to commit to a heavy scent. Bright, uplifting, and effortless — like a gentle nudge toward joy on grey days.", 'btn' => 'View on Amazon'),
+);
+foreach ($prod_defaults as $k => $d) {
+    ${$k . '_img'}   = allscented_image_url("allscented_ai_{$k}_img", $d['img']);
+    ${$k . '_name'}  = allscented_field("allscented_ai_{$k}_name", $d['name']);
+    ${$k . '_price'} = allscented_field("allscented_ai_{$k}_price", $d['price']);
+    ${$k . '_notes'} = allscented_field("allscented_ai_{$k}_notes", $d['notes']);
+    ${$k . '_why'}   = allscented_field("allscented_ai_{$k}_why", $d['why']);
+    ${$k . '_btn'}   = allscented_field("allscented_ai_{$k}_btn", $d['btn']);
+}
+
+$s_cta_title = allscented_field('allscented_ai_cta_title', 'Not sure where to start?');
+$s_cta_desc  = allscented_field('allscented_ai_cta_desc', 'Tell us a little about yourself — your mood, your curiosity, or your business. One of our guides will find the perfect match.');
 ?>
+
 <div id="page-ai-synthesis">
     <section class="px-margin-desktop container-max" style="padding-top:24px;padding-bottom:12px">
         <div class="max-w-2xl">
             <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:6px">AI SYNTHESIS ENGINE</span>
             <h1 class="font-headline-xl text-headline-xl" style="margin-bottom:6px">Meet your <span class="italic text-secondary">scent guides.</span></h1>
-            <p class="font-body-lg text-on-surface-variant" style="font-size:14px">Three ways to find your fragrance — each with a different purpose, a different voice.</p>
+            <p class="font-body-lg text-on-surface-variant" style="font-size:14px"><?php echo esc_html($s_desc); ?></p>
         </div>
     </section>
     <section class="px-margin-desktop container-max" style="padding-bottom:36px">
@@ -20,9 +56,9 @@ get_header();
                     <span class="material-symbols-outlined" style="color:var(--secondary)">spa</span>
                 </div>
                 <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em">AI SCENT THERAPIST · LUNÁ</span>
-                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic">The Healer</h3>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic"><?php echo esc_html($g1_name); ?></h3>
                 <span class="font-label-caps" style="font-size:14px;font-weight:500;color:var(--secondary);letter-spacing:.04em">Luná</span>
-                <p class="font-body-md" style="font-size:15px;color:var(--on-surface-variant);flex:1;margin-bottom:12px">Tell me how you feel today. I listen, I understand — and I find a fragrance that speaks to your heart. Because scent is not just smell, it's comfort.</p>
+                <p class="font-body-md" style="font-size:15px;color:var(--on-surface-variant);flex:1;margin-bottom:12px"><?php echo esc_html($g1_desc); ?> Because scent is not just smell, it's comfort.</p>
                 <div style="margin-top:auto">
                     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
                         <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">EMOTIONAL</span>
@@ -38,8 +74,8 @@ get_header();
                     <span class="material-symbols-outlined" style="color:var(--tertiary)">auto_awesome</span>
                 </div>
                 <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em">AI SCENT FORTUNE TELLER · ECHO</span>
-                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:6px;font-style:italic">The Mystic</h3>
-                <p class="font-body-md" style="font-size:15px;color:var(--on-surface-variant);flex:1;margin-bottom:12px">Curious what the universe has in store for you? Let the stars guide your scent — from incense and agarwood to sacred resins. For fun, for hope, for destiny.</p>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:6px;font-style:italic"><?php echo esc_html($g2_name); ?></h3>
+                <p class="font-body-md" style="font-size:15px;color:var(--on-surface-variant);flex:1;margin-bottom:12px"><?php echo esc_html($g2_desc); ?> For fun, for hope, for destiny.</p>
                 <div style="margin-top:auto">
                     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
                         <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">DIVINATION</span>
@@ -55,8 +91,8 @@ get_header();
                     <span class="material-symbols-outlined" style="color:var(--primary)">business_center</span>
                 </div>
                 <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em">SCENT MEMORY CONSULTANT · SAGE</span>
-                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:6px;font-style:italic">The Strategist</h3>
-                <p class="font-body-md" style="font-size:15px;color:var(--on-surface-variant);flex:1;margin-bottom:12px">For hotels, boutiques, and brands. Backed by real case studies and AI data — I design a scent strategy that becomes part of your identity and drives results.</p>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:6px;font-style:italic"><?php echo esc_html($g3_name); ?></h3>
+                <p class="font-body-md" style="font-size:15px;color:var(--on-surface-variant);flex:1;margin-bottom:12px"><?php echo esc_html($g3_desc); ?></p>
                 <div style="margin-top:auto">
                     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
                         <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">COMMERCIAL</span>
@@ -263,14 +299,14 @@ get_header();
                 <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
                     <div style="display:flex;align-items:center;gap:12px">
                         <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
-                            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300&q=80" alt="Aura No.2" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                            <img src="<?php echo esc_url($p1_1_img); ?>" alt="Aura No.2" style="width:100%;height:100%;object-fit:cover" loading="lazy">
                         </div>
                         <div style="flex:1;min-width:0">
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
-                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic">Aura No. 2</h4>
-                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap">$210.00</span>
+                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic"><?php echo esc_html($p1_1_name); ?></h4>
+                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap"><?php echo esc_html($p1_1_price); ?></span>
                             </div>
-                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;margin-bottom:4px">Saffron, Oud, Labdanum — a smoky, deep signature for the bold spirit.</p>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;line-height:1.5;margin-bottom:6px"><?php echo esc_html($p1_1_notes); ?></p>
                             <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px">
                                 <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#c6282815%,transparent);color:#c62828;font-weight:600">$200+</span>
                                 <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">SMOKY</span>
@@ -283,21 +319,21 @@ get_header();
                             <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1">psychology</span>
                             WHY THIS MATCHES YOU
                         </span>
-                        <p class="font-body-md" style="font-size:13px;color:var(--on-surface-variant);line-height:1.4">The deep, smoky warmth of this fragrance mirrors your craving for security and transformation. The labdanum base creates a lingering sense of comfort that lasts through autumn evenings — like being wrapped in something both bold and tender.</p>
+                        <p class="font-body-md" style="font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--on-surface-variant)"><?php echo esc_html($p1_1_why); ?></p>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'"><?php echo esc_html($p1_1_btn); ?> <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
                 </div>
                 <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
                     <div style="display:flex;align-items:center;gap:12px">
                         <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
-                            <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=300&q=80" alt="Comforting Embrace" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                            <img src="<?php echo esc_url($p1_2_img); ?>" alt="Comforting Embrace" style="width:100%;height:100%;object-fit:cover" loading="lazy">
                         </div>
                         <div style="flex:1;min-width:0">
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
-                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic">Comforting Embrace</h4>
-                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap">$145.00</span>
+                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic"><?php echo esc_html($p1_2_name); ?></h4>
+                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap"><?php echo esc_html($p1_2_price); ?></span>
                             </div>
-                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;margin-bottom:4px">Chamomile, Lavender, Soft Musk — a warm blanket for the soul.</p>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;line-height:1.5;margin-bottom:6px"><?php echo esc_html($p1_2_notes); ?></p>
                             <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px">
                                 <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#f57f1715%,transparent);color:#f57f17;font-weight:600">$100-200</span>
                                 <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">SOOTHING</span>
@@ -310,21 +346,21 @@ get_header();
                             <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1">psychology</span>
                             WHY THIS MATCHES YOU
                         </span>
-                        <p class="font-body-md" style="font-size:13px;color:var(--on-surface-variant);line-height:1.4">The chamomile and lavender echoes your desire for softness and warmth. The soft musk base keeps the scent intimate and close to the skin — exactly what you described wanting. Think of it as a cashmere blanket, not a spotlight.</p>
+                        <p class="font-body-md" style="font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--on-surface-variant)"><?php echo esc_html($p1_2_why); ?></p>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'"><?php echo esc_html($p1_2_btn); ?> <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
                 </div>
                 <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
                     <div style="display:flex;align-items:center;gap:12px">
                         <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
-                            <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300&q=80" alt="Vesper Muse" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                            <img src="<?php echo esc_url($p1_3_img); ?>" alt="Vesper Muse" style="width:100%;height:100%;object-fit:cover" loading="lazy">
                         </div>
                         <div style="flex:1;min-width:0">
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
-                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic">Vesper Muse</h4>
-                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap">$85.00</span>
+                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic"><?php echo esc_html($p1_3_name); ?></h4>
+                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap"><?php echo esc_html($p1_3_price); ?></span>
                             </div>
-                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;margin-bottom:4px">Night-blooming jasmine, metallic aldehydes, grey amber — an evening ritual.</p>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;line-height:1.5;margin-bottom:6px"><?php echo esc_html($p1_3_notes); ?></p>
                             <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px">
                                 <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#2e7d3215%,transparent);color:#2e7d32;font-weight:600">Under $100</span>
                                 <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">INTIMATE</span>
@@ -337,9 +373,9 @@ get_header();
                             <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1">psychology</span>
                             WHY THIS MATCHES YOU
                         </span>
-                        <p class="font-body-md" style="font-size:13px;color:var(--on-surface-variant);line-height:1.4">The night-blooming jasmine speaks to the introspective side of your autumn mood, while the grey amber adds a touch of mystery. An affordable option that still carries emotional depth — perfect for your quiet evening rituals.</p>
+                        <p class="font-body-md" style="font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--on-surface-variant)"><?php echo esc_html($p1_3_why); ?></p>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'"><?php echo esc_html($p1_3_btn); ?> <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
                 </div>
             </div>
             <!-- Page 2: Fortune / Mystic products -->
@@ -347,14 +383,14 @@ get_header();
                 <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
                     <div style="display:flex;align-items:center;gap:12px">
                         <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
-                            <img src="https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=300&q=80" alt="Aura No.1" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                            <img src="<?php echo esc_url($p2_1_img); ?>" alt="Aura No.1" style="width:100%;height:100%;object-fit:cover" loading="lazy">
                         </div>
                         <div style="flex:1;min-width:0">
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
-                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic">Aura No. 1</h4>
-                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap">$185.00</span>
+                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic"><?php echo esc_html($p2_1_name); ?></h4>
+                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap"><?php echo esc_html($p2_1_price); ?></span>
                             </div>
-                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;margin-bottom:4px">Ozone, white musk, sea salt — a morning walk through coastal mist.</p>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;line-height:1.5;margin-bottom:6px"><?php echo esc_html($p2_1_notes); ?></p>
                             <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px">
                                 <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#f57f1715%,transparent);color:#f57f17;font-weight:600">$100-200</span>
                                 <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">SERENE</span>
@@ -367,21 +403,21 @@ get_header();
                             <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1">psychology</span>
                             WHY THIS MATCHES YOU
                         </span>
-                        <p class="font-body-md" style="font-size:13px;color:var(--on-surface-variant);line-height:1.4">The cleansing ozone and white musk align with the cards' message of renewal — a burning away of the old. This scent clears the energy and opens the heart to new beginnings, like walking through coastal mist at dawn after a spiritual practice.</p>
+                        <p class="font-body-md" style="font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--on-surface-variant)"><?php echo esc_html($p2_1_why); ?></p>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--tertiary);color:var(--on-tertiary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--tertiary);color:var(--on-tertiary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'"><?php echo esc_html($p2_1_btn); ?> <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
                 </div>
                 <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
                     <div style="display:flex;align-items:center;gap:12px">
                         <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
-                            <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300&q=80" alt="Mystic Oud" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                            <img src="<?php echo esc_url($p2_2_img); ?>" alt="Mystic Oud" style="width:100%;height:100%;object-fit:cover" loading="lazy">
                         </div>
                         <div style="flex:1;min-width:0">
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
-                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic">Mystic Oud</h4>
-                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap">$94.00</span>
+                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic"><?php echo esc_html($p2_2_name); ?></h4>
+                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap"><?php echo esc_html($p2_2_price); ?></span>
                             </div>
-                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;margin-bottom:4px">Incense, agarwood, saffron — a ritual wrapped in a bottle.</p>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;line-height:1.5;margin-bottom:6px"><?php echo esc_html($p2_2_notes); ?></p>
                             <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px">
                                 <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#2e7d3215%,transparent);color:#2e7d32;font-weight:600">Under $100</span>
                                 <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">INCENSE</span>
@@ -394,21 +430,21 @@ get_header();
                             <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1">psychology</span>
                             WHY THIS MATCHES YOU
                         </span>
-                        <p class="font-body-md" style="font-size:13px;color:var(--on-surface-variant);line-height:1.4">The incense and agarwood directly mirror the cards' divination of fire and smoke. This fragrance embodies the sacred-wild duality — affordable enough to explore without commitment, deep enough to ground your spiritual practice.</p>
+                        <p class="font-body-md" style="font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--on-surface-variant)"><?php echo esc_html($p2_2_why); ?></p>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--tertiary);color:var(--on-tertiary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--tertiary);color:var(--on-tertiary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'"><?php echo esc_html($p2_2_btn); ?> <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
                 </div>
                 <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
                     <div style="display:flex;align-items:center;gap:12px">
                         <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
-                            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300&q=80" alt="Sacred Night" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                            <img src="<?php echo esc_url($p2_3_img); ?>" alt="Sacred Night" style="width:100%;height:100%;object-fit:cover" loading="lazy">
                         </div>
                         <div style="flex:1;min-width:0">
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
-                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic">Sacred Night</h4>
-                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap">$245.00</span>
+                                <h4 class="font-headline-md" style="font-size:16px;font-style:italic"><?php echo esc_html($p2_3_name); ?></h4>
+                                <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface);white-space:nowrap"><?php echo esc_html($p2_3_price); ?></span>
                             </div>
-                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;margin-bottom:4px">Black amber, labdanum, benzoin — the scent of midnight prayers.</p>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;line-height:1.5;margin-bottom:6px"><?php echo esc_html($p2_3_notes); ?></p>
                             <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:2px">
                                 <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#c6282815%,transparent);color:#c62828;font-weight:600">$200+</span>
                                 <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:var(--surface-container-high);color:var(--on-surface-variant)">AMBER</span>
@@ -421,9 +457,9 @@ get_header();
                             <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1">psychology</span>
                             WHY THIS MATCHES YOU
                         </span>
-                        <p class="font-body-md" style="font-size:13px;color:var(--on-surface-variant);line-height:1.4">The black amber and benzoin align with your craving for transformation. This is the invest-in-yourself option — a premium ritual scent that matches the depth of the shift you're experiencing. The universe whispers yes.</p>
+                        <p class="font-body-md" style="font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--on-surface-variant)"><?php echo esc_html($p2_3_why); ?></p>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--tertiary);color:var(--on-tertiary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--tertiary);color:var(--on-tertiary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'"><?php echo esc_html($p2_3_btn); ?> <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
                 </div>
             </div>
             <!-- Page 3-5: More products (same structure, abbreviated for preview) -->
@@ -431,56 +467,56 @@ get_header();
                 <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;">
                     <div style="display:flex;align-items:center;gap:12px">
                         <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
-                            <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=300&q=80" alt="Morning Aura" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                            <img src="<?php echo esc_url($p3_1_img); ?>" alt="Morning Aura" style="width:100%;height:100%;object-fit:cover" loading="lazy">
                         </div>
                         <div style="flex:1;min-width:0">
-                            <h4 style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;margin:0 0 2px">Morning Aura</h4>
-                            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface)">$129.00</span>
-                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;margin:2px 0">Bergamot, linen, white tea — a clean slate.</p>
+                            <h4 style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;margin:0 0 2px"><?php echo esc_html($p3_1_name); ?></h4>
+                            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface)"><?php echo esc_html($p3_1_price); ?></span>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;line-height:1.5;margin-bottom:6px"><?php echo esc_html($p3_1_notes); ?></p>
                             <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#f57f1715%,transparent);color:#f57f17;font-weight:600">$100-200</span>
                         </div>
                     </div>
                     <div style="background:color-mix(in srgb,var(--secondary-container)10%,transparent);border-radius:8px;padding:10px">
                         <span class="font-label-caps" style="font-size:11px;color:var(--secondary)">🧠 WHY THIS MATCHES YOU</span>
-                        <p style="font-size:13px;color:var(--on-surface-variant);margin:2px 0 0">The clean, fresh notes balance the heaviness of autumn — a bright counterpoint to your reflective mood. Think of it as a morning breath after a long night.</p>
+                        <p class="font-body-md" style="font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--on-surface-variant)"><?php echo esc_html($p3_1_why); ?></p>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'"><?php echo esc_html($p3_1_btn); ?> <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
                 </div>
                 <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;">
                     <div style="display:flex;align-items:center;gap:12px">
                         <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
-                            <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300&q=80" alt="Twilight Veil" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                            <img src="<?php echo esc_url($p3_2_img); ?>" alt="Twilight Veil" style="width:100%;height:100%;object-fit:cover" loading="lazy">
                         </div>
                         <div style="flex:1;min-width:0">
-                            <h4 style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;margin:0 0 2px">Twilight Veil</h4>
-                            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface)">$178.00</span>
-                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;margin:2px 0">Fig, black tea, leather — contemplative depths.</p>
+                            <h4 style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;margin:0 0 2px"><?php echo esc_html($p3_2_name); ?></h4>
+                            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface)"><?php echo esc_html($p3_2_price); ?></span>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;line-height:1.5;margin-bottom:6px"><?php echo esc_html($p3_2_notes); ?></p>
                             <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#f57f1715%,transparent);color:#f57f17;font-weight:600">$100-200</span>
                         </div>
                     </div>
                     <div style="background:color-mix(in srgb,var(--secondary-container)10%,transparent);border-radius:8px;padding:10px">
                         <span class="font-label-caps" style="font-size:11px;color:var(--secondary)">🧠 WHY THIS MATCHES YOU</span>
-                        <p style="font-size:13px;color:var(--on-surface-variant);margin:2px 0 0">The fig and black tea evoke quiet afternoons with a book — perfect for the introspective season you're in. Leather adds a grounded, sensual touch.</p>
+                        <p class="font-body-md" style="font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--on-surface-variant)"><?php echo esc_html($p3_2_why); ?></p>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'"><?php echo esc_html($p3_2_btn); ?> <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
                 </div>
                 <div class="aura-glass" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;">
                     <div style="display:flex;align-items:center;gap:12px">
                         <div style="width:80px;height:80px;border-radius:10px;overflow:hidden;flex-shrink:0">
-                            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=300&q=80" alt="Aura No. 2" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+                            <img src="<?php echo esc_url($p3_3_img); ?>" alt="Aura No. 2" style="width:100%;height:100%;object-fit:cover" loading="lazy">
                         </div>
                         <div style="flex:1;min-width:0">
-                            <h4 style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;margin:0 0 2px">Aura No. 3</h4>
-                            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface)">$52.00</span>
-                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;margin:2px 0">Pear, freesia, white cedar — fresh and approachable.</p>
+                            <h4 style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;margin:0 0 2px"><?php echo esc_html($p3_3_name); ?></h4>
+                            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--on-surface)"><?php echo esc_html($p3_3_price); ?></span>
+                            <p class="font-body-md text-on-surface-variant" style="font-size:13px;line-height:1.5;margin-bottom:6px"><?php echo esc_html($p3_3_notes); ?></p>
                             <span class="font-label-caps" style="font-size:11px;padding:2px 6px;border-radius:4px;background:color-mix(in srgb,#2e7d3215%,transparent);color:#2e7d32;font-weight:600">Under $100</span>
                         </div>
                     </div>
                     <div style="background:color-mix(in srgb,var(--secondary-container)10%,transparent);border-radius:8px;padding:10px">
                         <span class="font-label-caps" style="font-size:11px;color:var(--secondary)">🧠 WHY THIS MATCHES YOU</span>
-                        <p style="font-size:13px;color:var(--on-surface-variant);margin:2px 0 0">A great entry point if you're not ready to commit to a heavy scent. Bright, uplifting, and effortless — like a gentle nudge toward joy on grey days.</p>
+                        <p class="font-body-md" style="font-size:13px;line-height:1.5;margin-bottom:6px;color:var(--on-surface-variant)"><?php echo esc_html($p3_3_why); ?></p>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">View on Amazon <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
+                    <button class="font-label-caps text-label-caps" style="padding:6px 12px;border-radius:999px;background:var(--secondary);color:var(--on-secondary);border:none;font-size:12px;align-self:flex-end;display:flex;align-items:center;gap:4px;transition:opacity .3s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'"><?php echo esc_html($p3_3_btn); ?> <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span></button>
                 </div>
             </div>
             <!-- Page 5: B2B / Consultant (service-focused, not product retails) -->
@@ -521,8 +557,8 @@ get_header();
     <section class="px-margin-desktop container-max" style="padding-bottom:36px">
         <div class="bg-on-surface" style="border-radius:24px;padding:24px;text-align:center;color:var(--surface)">
             <span class="font-label-caps text-label-caps" style="color:var(--secondary-fixed);margin-bottom:4px;display:block">AI CONCIERGE</span>
-            <h2 class="font-headline-lg text-headline-lg" style="margin-bottom:4px;font-style:italic">Not sure where to start?</h2>
-            <p class="font-body-md" style="margin-bottom:12px;color:var(--surface-variant);font-size:15px">Tell us a little about yourself — your mood, your curiosity, or your business. One of our guides will find the perfect match.</p>
+            <h2 class="font-headline-lg text-headline-lg" style="margin-bottom:4px;font-style:italic"><?php echo esc_html($s_cta_title); ?></h2>
+            <p class="font-body-md" style="margin-bottom:12px;color:var(--surface-variant);font-size:15px"><?php echo esc_html($s_cta_desc); ?></p>
             <input type="text" class="font-body-md" style="width:100%;background:color-mix(in srgb,var(--surface)10%,transparent);border:none;border-bottom:1px solid color-mix(in srgb,var(--surface)30%,transparent);padding:8px 12px;outline:none;margin-bottom:10px;font-size:15px;color:var(--surface)" placeholder="Describe your ideal scent...">
             <a class="iridescent-btn font-label-caps text-label-caps" style="padding:10px 24px;border-radius:999px;font-size:13px" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>">Start Your Brief</a>
         </div>
