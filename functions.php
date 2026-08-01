@@ -69,6 +69,42 @@ function allscented_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'allscented_enqueue_scripts');
 
 
+// ============================================
+// ACF Field Helpers (text + image, with fallback defaults)
+// Safe when ACF plugin is missing or field is empty
+// ============================================
+function allscented_field($name, $default = '') {
+    if (function_exists('get_field')) {
+        $val = get_field($name);
+        if ($val !== null && $val !== '' && $val !== false) {
+            return $val;
+        }
+    }
+    return $default;
+}
+
+function allscented_image_url($name, $default = '') {
+    if (function_exists('get_field')) {
+        $val = get_field($name);
+        if (!empty($val)) {
+            if (is_array($val) && !empty($val['url'])) {
+                return $val['url'];
+            }
+            if (is_numeric($val)) {
+                $src = wp_get_attachment_image_url((int) $val, 'full');
+                if ($src) {
+                    return $src;
+                }
+            }
+            if (is_string($val) && filter_var($val, FILTER_VALIDATE_URL)) {
+                return $val;
+            }
+        }
+    }
+    return $default;
+}
+
+
 
 // Remove Hello Elementor header/footer so we use custom ones
 add_action('after_setup_theme', function() {
@@ -131,7 +167,6 @@ add_filter('woocommerce_pagination_args', function($args) {
 // ============================================
 // ACF Field Registration (ACF Free compatible)
 // ============================================
-<?php
 /**
  * Allscented — ACF Field Groups (ACF Free compatible: text/textarea/image/group/select/tab only)
  * Registered via PHP so fields appear automatically after theme activation.
@@ -661,6 +696,27 @@ if (function_exists('acf_add_local_field_group')) {
                     'param' => 'page_type',
                     'operator' => '==',
                     'value' => 'front_page',
+                ),
+            ),
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'front-page.php',
+                ),
+            ),
+            array(
+                array(
+                    'param' => 'page',
+                    'operator' => '==',
+                    'value' => 'home',
+                ),
+            ),
+            array(
+                array(
+                    'param' => 'page',
+                    'operator' => '==',
+                    'value' => 'front-page',
                 ),
             ),
         ),
@@ -1477,7 +1533,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => '顾问 1 描述',
                 'name' => 'allscented_ai_g1_desc',
                 'type' => 'textarea',
-                'default_value' => 'Tell me how you feel today. I listen, I understand — and I find a fragrance that speaks to your heart. Because scent is not just smell, it's comfort.',
+                'default_value' => 'Tell me how you feel today. I listen, I understand — and I find a fragrance that speaks to your heart. Because scent is not just smell, it\'s comfort.',
                 'rows' => 3,
                 'new_lines' => 'br',
                 'wrapper' => array('width' => 50),
@@ -1735,7 +1791,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => '产品 1 WHY THIS MATCHES YOU',
                 'name' => 'allscented_ai_p2_1_why',
                 'type' => 'textarea',
-                'default_value' => 'The cleansing ozone and white musk align with the cards' message of renewal — a burning away of the old. This scent clears the energy and opens the heart to new beginnings, like walking through coastal mist at dawn after a spiritual practice.',
+                'default_value' => 'The cleansing ozone and white musk align with the cards\' message of renewal — a burning away of the old. This scent clears the energy and opens the heart to new beginnings, like walking through coastal mist at dawn after a spiritual practice.',
                 'rows' => 3,
                 'new_lines' => 'br',
                 'wrapper' => array('width' => 100),
@@ -1790,7 +1846,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => '产品 2 WHY THIS MATCHES YOU',
                 'name' => 'allscented_ai_p2_2_why',
                 'type' => 'textarea',
-                'default_value' => 'The incense and agarwood directly mirror the cards' divination of fire and smoke. This fragrance embodies the sacred-wild duality — affordable enough to explore without commitment, deep enough to ground your spiritual practice.',
+                'default_value' => 'The incense and agarwood directly mirror the cards\' divination of fire and smoke. This fragrance embodies the sacred-wild duality — affordable enough to explore without commitment, deep enough to ground your spiritual practice.',
                 'rows' => 3,
                 'new_lines' => 'br',
                 'wrapper' => array('width' => 100),
@@ -1845,7 +1901,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => '产品 3 WHY THIS MATCHES YOU',
                 'name' => 'allscented_ai_p2_3_why',
                 'type' => 'textarea',
-                'default_value' => 'The black amber and benzoin align with your craving for transformation. This is the invest-in-yourself option — a premium ritual scent that matches the depth of the shift you're experiencing. The universe whispers yes.',
+                'default_value' => 'The black amber and benzoin align with your craving for transformation. This is the invest-in-yourself option — a premium ritual scent that matches the depth of the shift you\'re experiencing. The universe whispers yes.',
                 'rows' => 3,
                 'new_lines' => 'br',
                 'wrapper' => array('width' => 100),
@@ -1960,7 +2016,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => '产品 2 WHY THIS MATCHES YOU',
                 'name' => 'allscented_ai_p3_2_why',
                 'type' => 'textarea',
-                'default_value' => 'The fig and black tea evoke quiet afternoons with a book — perfect for the introspective season you're in. Leather adds a grounded, sensual touch.',
+                'default_value' => 'The fig and black tea evoke quiet afternoons with a book — perfect for the introspective season you\'re in. Leather adds a grounded, sensual touch.',
                 'rows' => 3,
                 'new_lines' => 'br',
                 'wrapper' => array('width' => 100),
@@ -2015,7 +2071,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => '产品 3 WHY THIS MATCHES YOU',
                 'name' => 'allscented_ai_p3_3_why',
                 'type' => 'textarea',
-                'default_value' => 'A great entry point if you're not ready to commit to a heavy scent. Bright, uplifting, and effortless — like a gentle nudge toward joy on grey days.',
+                'default_value' => 'A great entry point if you\'re not ready to commit to a heavy scent. Bright, uplifting, and effortless — like a gentle nudge toward joy on grey days.',
                 'rows' => 3,
                 'new_lines' => 'br',
                 'wrapper' => array('width' => 100),
