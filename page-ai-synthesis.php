@@ -99,25 +99,33 @@ $avatar_html = function ($url, $fallback, $bg, $fg, $size, $is_letter = false) {
     </section>
     <section class="px-margin-desktop container-max" style="padding-bottom:36px">
         <div class="char-cards-grid">
-            <!-- Card A: AI Scent Therapist (疗愈师) -->
-            <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column">
-                <div class="char-avatar" style="background:color-mix(in srgb,var(--secondary-container)40%,transparent);overflow:hidden">
-                    <?php if ($g1_avatar): ?><img src="<?php echo esc_url($g1_avatar); ?>" alt="Luná" style="width:100%;height:100%;object-fit:cover"><?php else: ?><span class="material-symbols-outlined" style="color:var(--secondary)">spa</span><?php endif; ?>
+                        <!-- Card A: AI Scent Therapist (疗愈师) -->
+            <div class="aura-glass char-card{{ $g1_avatar ? ' guide-hero-card' : '' }}" style="border-radius:16px;overflow:hidden;position:relative;display:flex;flex-direction:column;{{ $g1_avatar ? 'padding:0' : 'padding:20px' }}">
+                {% if ($g1_avatar): %}
+                <div style="position:absolute;inset:0">
+                    <img src="{{ esc_url($g1_avatar) }}" alt="Luná" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;transition:transform .6s">
+                    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,6,4,.02) 25%,rgba(8,6,4,.35) 52%,rgba(8,6,4,.82) 78%,rgba(8,6,4,.96) 100%)"></div>
                 </div>
-                <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em"><?php echo esc_html($g1_role); ?></span>
-                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic"><?php echo esc_html($g1_name); ?></h3>
-                <span class="font-label-caps" style="font-size:14px;font-weight:500;color:var(--secondary);letter-spacing:.04em"><?php echo esc_html($g1_short); ?></span>
-                <p class="font-body-md" style="font-size:15px;color:var(--on-surface-variant);flex:1;margin-bottom:12px"><?php echo esc_html($g1_desc); ?></p>
-                <div style="margin-top:auto">
-                    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
-                        <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">EMOTIONAL</span>
-                        <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">THERAPEUTIC</span>
-                        <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">PERSONAL</span>
+                {% endif; %}
+                <div class="guide-hero-body" style="position:relative;z-index:1;margin-top:auto;padding:22px 20px 20px;display:flex;flex-direction:column;flex:1;justify-content:flex-end">
+                    <div class="char-avatar" style="background:color-mix(in srgb,var(--secondary-container)40%,transparent);overflow:hidden;margin-bottom:10px;{{ $g1_avatar ? 'display:none' : '' }}">
+                        <span class="material-symbols-outlined" style="color:var(--secondary)">spa</span>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);background:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--secondary)10%,transparent)'" onmouseout="this.style.background='transparent'"><?php echo esc_html($g1_cta); ?> <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
+                    <span class="font-label-caps text-label-caps" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em;color:{{ $g1_avatar ? 'rgba(233,193,118,.95)' : 'var(--secondary)' }}">{{ esc_html($g1_role) }}</span>
+                    <h3 class="font-headline-md" style="font-size:20px;margin-bottom:2px;font-style:italic;{{ $g1_avatar ? 'color:#f7f1e7;' : '' }}">{{ esc_html($g1_name) }}</h3>
+                    <span class="font-label-caps" style="font-size:14px;font-weight:500;color:{{ $g1_avatar ? "rgba(233,193,118,.9)" : "var(--secondary)" }};letter-spacing:.04em">Luná</span>
+                    <p class="font-body-md" style="font-size:14px;margin:6px 0 12px;color:{{ $g1_avatar ? 'rgba(255,255,255,.85)' : 'var(--on-surface-variant)' }}">{{ esc_html($g1_desc) }}</p>
+                    <div>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+                        <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:{{ $g1_avatar ? "rgba(233,193,118,.14)" : "color-mix(in srgb,var(--secondary-container)30%,transparent)" }};color:{{ $g1_avatar ? "rgba(233,193,118,.95)" : "var(--secondary)" }}">EMOTIONAL</span>
+                        <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:{{ $g1_avatar ? "rgba(233,193,118,.14)" : "color-mix(in srgb,var(--secondary-container)30%,transparent)" }};color:{{ $g1_avatar ? "rgba(233,193,118,.95)" : "var(--secondary)" }}">THERAPEUTIC</span>
+                        <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:{{ $g1_avatar ? "rgba(233,193,118,.14)" : "color-mix(in srgb,var(--secondary-container)30%,transparent)" }};color:{{ $g1_avatar ? "rgba(233,193,118,.95)" : "var(--secondary)" }}">PERSONAL</span>
+                        
+                        </div>
+                        <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);background:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--secondary)10%,transparent)'" onmouseout="this.style.background='transparent'">{{ esc_html($g1_cta) }} <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
+                    </div>
                 </div>
-            </div>
-            <!-- Card B: AI Scent Fortune Teller (占卜师) -->
+            </div><!-- Card B: AI Scent Fortune Teller (占卜师) -->
             <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column">
                 <div class="char-avatar" style="background:color-mix(in srgb,var(--tertiary-container)40%,transparent);overflow:hidden">
                     <?php if ($g2_avatar): ?><img src="<?php echo esc_url($g2_avatar); ?>" alt="Echo" style="width:100%;height:100%;object-fit:cover"><?php else: ?><span class="material-symbols-outlined" style="color:var(--tertiary)">auto_awesome</span><?php endif; ?>
@@ -134,7 +142,33 @@ $avatar_html = function ($url, $fallback, $bg, $fg, $size, $is_letter = false) {
                     <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--tertiary);color:var(--tertiary);background:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--tertiary)10%,transparent)'" onmouseout="this.style.background='transparent'"><?php echo esc_html($g2_cta); ?> <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
                 </div>
             </div>
-            <!-- Card C: Scent Memory Consultant (顾问) -->
+                        <!-- Card B: AI Scent Fortune Teller (占卜师) -->
+            <div class="aura-glass char-card{{ $g2_avatar ? ' guide-hero-card' : '' }}" style="border-radius:16px;overflow:hidden;position:relative;display:flex;flex-direction:column;{{ $g2_avatar ? 'padding:0' : 'padding:20px' }}">
+                {% if ($g2_avatar): %}
+                <div style="position:absolute;inset:0">
+                    <img src="{{ esc_url($g2_avatar) }}" alt="Echo" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;transition:transform .6s">
+                    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,6,4,.02) 25%,rgba(8,6,4,.35) 52%,rgba(8,6,4,.82) 78%,rgba(8,6,4,.96) 100%)"></div>
+                </div>
+                {% endif; %}
+                <div class="guide-hero-body" style="position:relative;z-index:1;margin-top:auto;padding:22px 20px 20px;display:flex;flex-direction:column;flex:1;justify-content:flex-end">
+                    <div class="char-avatar" style="background:color-mix(in srgb,var(--tertiary-container)40%,transparent);overflow:hidden;margin-bottom:10px;{{ $g2_avatar ? 'display:none' : '' }}">
+                        <span class="material-symbols-outlined" style="color:var(--tertiary)">auto_awesome</span>
+                    </div>
+                    <span class="font-label-caps text-label-caps" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em;color:{{ $g2_avatar ? 'rgba(233,193,118,.95)' : 'var(--secondary)' }}">{{ esc_html($g2_role) }}</span>
+                    <h3 class="font-headline-md" style="font-size:20px;margin-bottom:2px;font-style:italic;{{ $g2_avatar ? 'color:#f7f1e7;' : '' }}">{{ esc_html($g2_name) }}</h3>
+                    
+                    <p class="font-body-md" style="font-size:14px;margin:6px 0 12px;color:{{ $g2_avatar ? 'rgba(255,255,255,.85)' : 'var(--on-surface-variant)' }}">{{ esc_html($g2_desc) }}</p>
+                    <div>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+                        <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:{{ $g2_avatar ? "rgba(233,193,118,.14)" : "color-mix(in srgb,var(--tertiary-container)40%,transparent)" }};color:{{ $g2_avatar ? "rgba(233,193,118,.95)" : "var(--tertiary)" }}">DIVINATION</span>
+                        <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:{{ $g2_avatar ? "rgba(233,193,118,.14)" : "color-mix(in srgb,var(--tertiary-container)40%,transparent)" }};color:{{ $g2_avatar ? "rgba(233,193,118,.95)" : "var(--tertiary)" }}">INCENSE</span>
+                        <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:{{ $g2_avatar ? "rgba(233,193,118,.14)" : "color-mix(in srgb,var(--tertiary-container)40%,transparent)" }};color:{{ $g2_avatar ? "rgba(233,193,118,.95)" : "var(--tertiary)" }}">RITUAL</span>
+                        
+                        </div>
+                        <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--tertiary);color:var(--tertiary);background:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--tertiary)10%,transparent)'" onmouseout="this.style.background='transparent'">{{ esc_html($g2_cta) }} <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
+                    </div>
+                </div>
+            </div><!-- Card C: Scent Memory Consultant (顾问) -->
             <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column">
                 <div class="char-avatar" style="background:color-mix(in srgb,var(--primary-container)40%,transparent);overflow:hidden">
                     <?php if ($g3_avatar): ?><img src="<?php echo esc_url($g3_avatar); ?>" alt="Sage" style="width:100%;height:100%;object-fit:cover"><?php else: ?><span class="material-symbols-outlined" style="color:var(--primary)">business_center</span><?php endif; ?>
@@ -149,6 +183,32 @@ $avatar_html = function ($url, $fallback, $bg, $fg, $size, $is_letter = false) {
                         <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">CONSULT</span>
                     </div>
                     <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--primary);color:var(--primary);background:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--primary)10%,transparent)'" onmouseout="this.style.background='transparent'"><?php echo esc_html($g3_cta); ?> <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
+                </div>
+            </div>            <!-- Card C: Scent Memory Consultant (顾问) -->
+            <div class="aura-glass char-card{{ $g3_avatar ? ' guide-hero-card' : '' }}" style="border-radius:16px;overflow:hidden;position:relative;display:flex;flex-direction:column;{{ $g3_avatar ? 'padding:0' : 'padding:20px' }}">
+                {% if ($g3_avatar): %}
+                <div style="position:absolute;inset:0">
+                    <img src="{{ esc_url($g3_avatar) }}" alt="Sage" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;transition:transform .6s">
+                    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,6,4,.02) 25%,rgba(8,6,4,.35) 52%,rgba(8,6,4,.82) 78%,rgba(8,6,4,.96) 100%)"></div>
+                </div>
+                {% endif; %}
+                <div class="guide-hero-body" style="position:relative;z-index:1;margin-top:auto;padding:22px 20px 20px;display:flex;flex-direction:column;flex:1;justify-content:flex-end">
+                    <div class="char-avatar" style="background:color-mix(in srgb,var(--primary-container)40%,transparent);overflow:hidden;margin-bottom:10px;{{ $g3_avatar ? 'display:none' : '' }}">
+                        <span class="material-symbols-outlined" style="color:var(--primary)">business_center</span>
+                    </div>
+                    <span class="font-label-caps text-label-caps" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em;color:{{ $g3_avatar ? 'rgba(233,193,118,.95)' : 'var(--secondary)' }}">{{ esc_html($g3_role) }}</span>
+                    <h3 class="font-headline-md" style="font-size:20px;margin-bottom:2px;font-style:italic;{{ $g3_avatar ? 'color:#f7f1e7;' : '' }}">{{ esc_html($g3_name) }}</h3>
+                    
+                    <p class="font-body-md" style="font-size:14px;margin:6px 0 12px;color:{{ $g3_avatar ? 'rgba(255,255,255,.85)' : 'var(--on-surface-variant)' }}">{{ esc_html($g3_desc) }}</p>
+                    <div>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+                        <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:{{ $g3_avatar ? "rgba(233,193,118,.14)" : "color-mix(in srgb,var(--primary-container)40%,transparent)" }};color:{{ $g3_avatar ? "rgba(233,193,118,.95)" : "var(--primary)" }}">COMMERCIAL</span>
+                        <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:{{ $g3_avatar ? "rgba(233,193,118,.14)" : "color-mix(in srgb,var(--primary-container)40%,transparent)" }};color:{{ $g3_avatar ? "rgba(233,193,118,.95)" : "var(--primary)" }}">BRANDING</span>
+                        <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:{{ $g3_avatar ? "rgba(233,193,118,.14)" : "color-mix(in srgb,var(--primary-container)40%,transparent)" }};color:{{ $g3_avatar ? "rgba(233,193,118,.95)" : "var(--primary)" }}">CONSULT</span>
+                        
+                        </div>
+                        <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--primary);color:var(--primary);background:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--primary)10%,transparent)'" onmouseout="this.style.background='transparent'">{{ esc_html($g3_cta) }} <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
+                    </div>
                 </div>
             </div>
         </div>
