@@ -22,14 +22,14 @@ $h_hero_img     = allscented_image_url('allscented_home_hero_image', 'https://im
 $guides = array();
 for ($i = 1; $i <= 3; $i++) {
     $guides[$i] = array(
-        'icon'  => allscented_field("allscented_home_g{$i}_icon", '', $allscented_home_id),
-        'avatar' => allscented_image_url("allscented_home_g{$i}_avatar", '', $allscented_home_id),
-        'label' => allscented_field("allscented_home_g{$i}_label", '', $allscented_home_id),
-        'name'  => allscented_field("allscented_home_g{$i}_name", '', $allscented_home_id),
-        'desc'  => allscented_field("allscented_home_g{$i}_desc", '', $allscented_home_id),
-        'tag1'  => allscented_field("allscented_home_g{$i}_tag1", '', $allscented_home_id),
-        'tag2'  => allscented_field("allscented_home_g{$i}_tag2", '', $allscented_home_id),
-        'cta'   => allscented_field("allscented_home_g{$i}_cta", '', $allscented_home_id),
+        'icon'   => allscented_group_field("allscented_home_g{$i}", 'icon', '', $allscented_home_id),
+        'avatar' => allscented_group_field("allscented_home_g{$i}", 'avatar', '', $allscented_home_id),
+        'label'  => allscented_group_field("allscented_home_g{$i}", 'label', '', $allscented_home_id),
+        'name'   => allscented_group_field("allscented_home_g{$i}", 'name', '', $allscented_home_id),
+        'desc'   => allscented_group_field("allscented_home_g{$i}", 'desc', '', $allscented_home_id),
+        'tag1'   => allscented_group_field("allscented_home_g{$i}", 'tag1', '', $allscented_home_id),
+        'tag2'   => allscented_group_field("allscented_home_g{$i}", 'tag2', '', $allscented_home_id),
+        'cta'    => allscented_group_field("allscented_home_g{$i}", 'cta', '', $allscented_home_id),
     );
 }
 // Fill fallbacks if fields empty
@@ -132,21 +132,21 @@ $guide_colors = array(
         <div class="char-cards-grid" style="margin-bottom:0">
             <?php foreach ($guides as $i => $g) : $c = $guide_colors[$i]; ?>
             <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;cursor:pointer">
-                <div class="char-avatar" style="width:48px;height:48px;border-radius:999px;overflow:hidden;margin-bottom:10px;<?php echo $g['avatar'] ? '' : 'background:color-mix(in srgb,' . $c['bg'] . '40%,transparent);display:flex;align-items:center;justify-content:center;'; ?>">
+                <div class="char-avatar" style="border-radius:999px;overflow:hidden;margin-bottom:12px;<?php echo $g['avatar'] ? '' : 'background:color-mix(in srgb,' . $c['bg'] . '40%,transparent);display:flex;align-items:center;justify-content:center;'; ?>">
                     <?php if (!empty($g['avatar'])) : ?>
                         <img src="<?php echo esc_url($g['avatar']); ?>" alt="<?php echo esc_attr($g['name']); ?>" style="width:100%;height:100%;object-fit:cover;border-radius:999px">
                     <?php else : ?>
-                        <span class="material-symbols-outlined" style="color:<?php echo $c['fg']; ?>;font-size:24px"><?php echo esc_html($g['icon']); ?></span>
+                        <span class="material-symbols-outlined" style="color:<?php echo $c['fg']; ?>"><?php echo esc_html($g['icon']); ?></span>
                     <?php endif; ?>
                 </div>
                 <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em"><?php echo esc_html($g['label']); ?></span>
-                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic"><?php echo esc_html($g['name']); ?></h3>
-                <p class="font-body-md" style="font-size:12px;color:var(--on-surface-variant);flex:1;margin-bottom:10px"><?php echo esc_html($g['desc']); ?></p>
+                <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px"><?php echo esc_html($g['name']); ?></h3>
+                <p class="font-body-md guide-desc" style="font-size:13px;color:var(--on-surface-variant);flex:1;margin-bottom:10px"><?php echo esc_html($g['desc']); ?></p>
                 <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
                     <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,<?php echo $c['bg']; ?>30%,transparent);color:<?php echo $c['chip']; ?>"><?php echo esc_html($g['tag1']); ?></span>
                     <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,<?php echo $c['bg']; ?>30%,transparent);color:<?php echo $c['chip']; ?>"><?php echo esc_html($g['tag2']); ?></span>
                 </div>
-                <a class="font-label-caps" style="font-size:12px;color:<?php echo $c['fg']; ?>;display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="<?php echo esc_attr($g['cta']); ?>" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>"><?php echo esc_html($g['cta']); ?> <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></a>
+                <a class="font-label-caps guide-cta" style="font-size:12px;color:<?php echo $c['fg']; ?>;display:inline-flex;align-items:center;gap:4px;margin-top:auto;cursor:pointer" aria-label="<?php echo esc_attr($g['cta']); ?>" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>"><?php echo esc_html($g['cta']); ?> <span class="material-symbols-outlined" style="font-size:12px">arrow_forward</span></a>
             </div>
             <?php endforeach; ?>
         </div>
