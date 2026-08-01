@@ -38,13 +38,62 @@ foreach ($prod_defaults as $k => $d) {
 
 $s_cta_title = allscented_field('allscented_ai_cta_title', 'Not sure where to start?');
 $s_cta_desc  = allscented_field('allscented_ai_cta_desc', 'Tell us a little about yourself — your mood, your curiosity, or your business. One of our guides will find the perfect match.');
+
+// ===== 数字人头像 & 对话/案例头像（v1.4.2 新增，可后台修改）=====
+$g1_avatar = allscented_image_url('allscented_ai_g1_avatar', '');
+$g1_role   = allscented_field('allscented_ai_g1_role', 'AI SCENT THERAPIST · LUNÁ');
+$g1_short  = allscented_field('allscented_ai_g1_shortname', 'Luná');
+$g1_cta    = allscented_field('allscented_ai_g1_cta', 'SHARE YOUR MOOD');
+$g2_avatar = allscented_image_url('allscented_ai_g2_avatar', '');
+$g2_role   = allscented_field('allscented_ai_g2_role', 'AI SCENT FORTUNE TELLER · ECHO');
+$g2_short  = allscented_field('allscented_ai_g2_shortname', 'Echo');
+$g2_cta    = allscented_field('allscented_ai_g2_cta', 'CAST YOUR FORTUNE');
+$g3_avatar = allscented_image_url('allscented_ai_g3_avatar', '');
+$g3_role   = allscented_field('allscented_ai_g3_role', 'SCENT MEMORY CONSULTANT · SAGE');
+$g3_short  = allscented_field('allscented_ai_g3_shortname', 'Sage');
+$g3_cta    = allscented_field('allscented_ai_g3_cta', 'REQUEST CONSULTATION');
+
+$chat_user = allscented_image_url('allscented_ai_chat_user_avatar', '');
+$chat_g1   = allscented_image_url('allscented_ai_chat_g1_avatar', '');
+$chat_g2   = allscented_image_url('allscented_ai_chat_g2_avatar', '');
+$chat_g3   = allscented_image_url('allscented_ai_chat_g3_avatar', '');
+
+$case1_avatar = allscented_image_url('allscented_ai_case1_avatar', '');
+$case1_label  = allscented_field('allscented_ai_case1_label', 'AI SCENT THERAPIST');
+$case1_pct    = allscented_field('allscented_ai_case1_pct', '96% SYNTHESIS');
+$case1_title  = allscented_field('allscented_ai_case1_title', '"You need to feel held."');
+$case1_summary = allscented_field('allscented_ai_case1_summary', 'After our conversation, I know you need something soft, warm, and tender. Chamomile to soothe. Rice steam to comfort. Lavender to release. A fragrance that stays close to the skin — like a cashmere blanket, not a spotlight.');
+$case2_avatar = allscented_image_url('allscented_ai_case2_avatar', '');
+$case2_label  = allscented_field('allscented_ai_case2_label', 'AI SCENT FORTUNE TELLER · ECHO');
+$case2_pct    = allscented_field('allscented_ai_case2_pct', '92% SYNTHESIS');
+$case2_title  = allscented_field('allscented_ai_case2_title', '"The universe whispers in amber."');
+$case2_summary = allscented_field('allscented_ai_case2_summary', "Your birth chart says you're craving transformation under this waning crescent. The cards reveal fire and smoke — but not destruction. A burning away of the old. I see incense. I see oud. I see a fragrance that knows what it means to be both sacred and wild.");
+$case3_avatar = allscented_image_url('allscented_ai_case3_avatar', '');
+$case3_label  = allscented_field('allscented_ai_case3_label', 'SCENT MEMORY CONSULTANT · SAGE');
+$case3_pct    = allscented_field('allscented_ai_case3_pct', '88% SYNTHESIS');
+$case3_title  = allscented_field('allscented_ai_case3_title', '"Your brand needs a signature."');
+$case3_summary = allscented_field('allscented_ai_case3_summary', 'You described a boutique hotel in Dali with 12 rooms, whitewashed walls, and a courtyard full of jasmine. Based on 3 case studies with similar spatial profiles, I recommend an adaptive scent system: calming jasmine-green tea for the rooms, a crisp petrichor-ozone for the lobby, and warm sandalwood for the lounge.');
+
+// 头像渲染闭包：上传了图片就显示图片，没上传则回退为图标/字母
+$avatar_html = function ($url, $fallback, $bg, $fg, $size, $is_letter = false) {
+    $sz = $size . 'px';
+    if ($url) {
+        return '<img src="' . esc_url($url) . '" alt="" style="width:' . $sz . ';height:' . $sz . ';border-radius:999px;object-fit:cover;flex-shrink:0;display:block">';
+    }
+    if ($is_letter) {
+        $inner = '<span style="font-size:12px;color:' . $fg . ';font-weight:600;line-height:1">' . esc_html($fallback) . '</span>';
+    } else {
+        $inner = '<span class="material-symbols-outlined" style="color:' . $fg . ';font-size:' . ($size >= 40 ? 20 : 14) . 'px">' . esc_html($fallback) . '</span>';
+    }
+    return '<div style="width:' . $sz . ';height:' . $sz . ';border-radius:999px;background:' . $bg . ';display:flex;align-items:center;justify-content:center;flex-shrink:0">' . $inner . '</div>';
+};
 ?>
 
 <div id="page-ai-synthesis">
     <section class="px-margin-desktop container-max" style="padding-top:24px;padding-bottom:12px">
         <div class="max-w-2xl">
-            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:6px">AI SYNTHESIS ENGINE</span>
-            <h1 class="font-headline-xl text-headline-xl" style="margin-bottom:6px">Meet your <span class="italic text-secondary">scent guides.</span></h1>
+            <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:6px"><?php echo esc_html($s_eyebrow); ?></span>
+            <h1 class="font-headline-xl text-headline-xl" style="margin-bottom:6px"><?php echo esc_html($s_title); ?></h1>
             <p class="font-body-lg text-on-surface-variant" style="font-size:14px"><?php echo esc_html($s_desc); ?></p>
         </div>
     </section>
@@ -52,45 +101,45 @@ $s_cta_desc  = allscented_field('allscented_ai_cta_desc', 'Tell us a little abou
         <div class="char-cards-grid">
             <!-- Card A: AI Scent Therapist (疗愈师) -->
             <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column">
-                <div class="char-avatar" style="background:color-mix(in srgb,var(--secondary-container)40%,transparent)">
-                    <span class="material-symbols-outlined" style="color:var(--secondary)">spa</span>
+                <div class="char-avatar" style="background:color-mix(in srgb,var(--secondary-container)40%,transparent);overflow:hidden">
+                    <?php if ($g1_avatar): ?><img src="<?php echo esc_url($g1_avatar); ?>" alt="Luná" style="width:100%;height:100%;object-fit:cover"><?php else: ?><span class="material-symbols-outlined" style="color:var(--secondary)">spa</span><?php endif; ?>
                 </div>
-                <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em">AI SCENT THERAPIST · LUNÁ</span>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em"><?php echo esc_html($g1_role); ?></span>
                 <h3 class="font-headline-md" style="font-size:18px;margin-bottom:2px;font-style:italic"><?php echo esc_html($g1_name); ?></h3>
-                <span class="font-label-caps" style="font-size:14px;font-weight:500;color:var(--secondary);letter-spacing:.04em">Luná</span>
-                <p class="font-body-md" style="font-size:15px;color:var(--on-surface-variant);flex:1;margin-bottom:12px"><?php echo esc_html($g1_desc); ?> Because scent is not just smell, it's comfort.</p>
+                <span class="font-label-caps" style="font-size:14px;font-weight:500;color:var(--secondary);letter-spacing:.04em"><?php echo esc_html($g1_short); ?></span>
+                <p class="font-body-md" style="font-size:15px;color:var(--on-surface-variant);flex:1;margin-bottom:12px"><?php echo esc_html($g1_desc); ?></p>
                 <div style="margin-top:auto">
                     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
                         <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">EMOTIONAL</span>
                         <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">THERAPEUTIC</span>
                         <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">PERSONAL</span>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);background:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--secondary)10%,transparent)'" onmouseout="this.style.background='transparent'">SHARE YOUR MOOD <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
+                    <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);background:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--secondary)10%,transparent)'" onmouseout="this.style.background='transparent'"><?php echo esc_html($g1_cta); ?> <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
                 </div>
             </div>
             <!-- Card B: AI Scent Fortune Teller (占卜师) -->
             <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column">
-                <div class="char-avatar" style="background:color-mix(in srgb,var(--tertiary-container)40%,transparent)">
-                    <span class="material-symbols-outlined" style="color:var(--tertiary)">auto_awesome</span>
+                <div class="char-avatar" style="background:color-mix(in srgb,var(--tertiary-container)40%,transparent);overflow:hidden">
+                    <?php if ($g2_avatar): ?><img src="<?php echo esc_url($g2_avatar); ?>" alt="Echo" style="width:100%;height:100%;object-fit:cover"><?php else: ?><span class="material-symbols-outlined" style="color:var(--tertiary)">auto_awesome</span><?php endif; ?>
                 </div>
-                <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em">AI SCENT FORTUNE TELLER · ECHO</span>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em"><?php echo esc_html($g2_role); ?></span>
                 <h3 class="font-headline-md" style="font-size:18px;margin-bottom:6px;font-style:italic"><?php echo esc_html($g2_name); ?></h3>
-                <p class="font-body-md" style="font-size:15px;color:var(--on-surface-variant);flex:1;margin-bottom:12px"><?php echo esc_html($g2_desc); ?> For fun, for hope, for destiny.</p>
+                <p class="font-body-md" style="font-size:15px;color:var(--on-surface-variant);flex:1;margin-bottom:12px"><?php echo esc_html($g2_desc); ?></p>
                 <div style="margin-top:auto">
                     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
                         <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">DIVINATION</span>
                         <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">INCENSE</span>
                         <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">RITUAL</span>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--tertiary);color:var(--tertiary);background:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--tertiary)10%,transparent)'" onmouseout="this.style.background='transparent'">CAST YOUR FORTUNE <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
+                    <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--tertiary);color:var(--tertiary);background:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--tertiary)10%,transparent)'" onmouseout="this.style.background='transparent'"><?php echo esc_html($g2_cta); ?> <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
                 </div>
             </div>
             <!-- Card C: Scent Memory Consultant (顾问) -->
             <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column">
-                <div class="char-avatar" style="background:color-mix(in srgb,var(--primary-container)40%,transparent)">
-                    <span class="material-symbols-outlined" style="color:var(--primary)">business_center</span>
+                <div class="char-avatar" style="background:color-mix(in srgb,var(--primary-container)40%,transparent);overflow:hidden">
+                    <?php if ($g3_avatar): ?><img src="<?php echo esc_url($g3_avatar); ?>" alt="Sage" style="width:100%;height:100%;object-fit:cover"><?php else: ?><span class="material-symbols-outlined" style="color:var(--primary)">business_center</span><?php endif; ?>
                 </div>
-                <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em">SCENT MEMORY CONSULTANT · SAGE</span>
+                <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em"><?php echo esc_html($g3_role); ?></span>
                 <h3 class="font-headline-md" style="font-size:18px;margin-bottom:6px;font-style:italic"><?php echo esc_html($g3_name); ?></h3>
                 <p class="font-body-md" style="font-size:15px;color:var(--on-surface-variant);flex:1;margin-bottom:12px"><?php echo esc_html($g3_desc); ?></p>
                 <div style="margin-top:auto">
@@ -99,7 +148,7 @@ $s_cta_desc  = allscented_field('allscented_ai_cta_desc', 'Tell us a little abou
                         <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">BRANDING</span>
                         <span class="font-label-caps" style="font-size:11px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">CONSULT</span>
                     </div>
-                    <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--primary);color:var(--primary);background:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--primary)10%,transparent)'" onmouseout="this.style.background='transparent'">REQUEST CONSULTATION <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
+                    <button class="font-label-caps text-label-caps" style="padding:8px 20px;border-radius:999px;border:1px solid var(--primary);color:var(--primary);background:none;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all .3s" onmouseover="this.style.background='color-mix(in srgb,var(--primary)10%,transparent)'" onmouseout="this.style.background='transparent'"><?php echo esc_html($g3_cta); ?> <span class="material-symbols-outlined" style="font-size:14px">arrow_forward</span></button>
                 </div>
             </div>
         </div>
@@ -131,15 +180,13 @@ $s_cta_desc  = allscented_field('allscented_ai_cta_desc', 'Tell us a little abou
             <div class="sample-content" data-sample="healer" style="display:block">
                 <div class="aura-glass summary-card" style="border-radius:16px;padding:18px">
                     <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">
-                        <div style="width:40px;height:40px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)40%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                            <span class="material-symbols-outlined" style="color:var(--secondary);font-size:20px">spa</span>
-                        </div>
+                        <?php echo $avatar_html($case1_avatar, 'spa', 'color-mix(in srgb,var(--secondary-container)40%,transparent)', 'var(--secondary)', 40); ?>
                         <div style="flex:1;min-width:0">
                             <div style="display:flex;justify-content:space-between;align-items:center">
-                                <span class="font-label-caps text-label-caps" style="font-size:12px;letter-spacing:.12em;color:var(--secondary)">AI SCENT THERAPIST</span>
-                                <span class="font-label-caps" style="font-size:11px;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)">96% SYNTHESIS</span>
+                                <span class="font-label-caps text-label-caps" style="font-size:12px;letter-spacing:.12em;color:var(--secondary)"><?php echo esc_html($case1_label); ?></span>
+                                <span class="font-label-caps" style="font-size:11px;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)30%,transparent);color:var(--secondary)"><?php echo esc_html($case1_pct); ?></span>
                             </div>
-                            <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-top:2px">"You need to feel held."</h3>
+                            <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-top:2px"><?php echo esc_html($case1_title); ?></h3>
                         </div>
                     </div>
                     <!-- Chat preview -->
@@ -149,24 +196,24 @@ $s_cta_desc  = allscented_field('allscented_ai_cta_desc', 'Tell us a little abou
                         </div>
                         <div style="display:flex;flex-direction:column;gap:4px">
                             <div style="display:flex;gap:6px;align-items:flex-start">
-                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--secondary)30%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:12px;color:var(--secondary);font-weight:600">A</span></div>
+                                <?php echo $avatar_html($chat_user, 'A', 'color-mix(in srgb,var(--secondary)30%,transparent)', 'var(--secondary)', 18, true); ?>
                                 <div><span style="font-size:12px;font-weight:600;color:var(--secondary);display:block;line-height:1.2">Alice</span><span style="font-size:13px;color:var(--on-surface-variant)">"I've been feeling the weight of autumn evenings lately. I want something that feels like a warm hug."</span></div>
                             </div>
                             <div style="display:flex;gap:6px;align-items:flex-start">
-                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)50%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:11px;color:var(--secondary);font-weight:600">L</span></div>
+                                <?php echo $avatar_html($chat_g1, 'L', 'color-mix(in srgb,var(--secondary-container)50%,transparent)', 'var(--secondary)', 18, true); ?>
                                 <div><span style="font-size:12px;font-weight:600;color:var(--secondary);display:block;line-height:1.2">Luná · Scent Therapist</span><span style="font-size:13px;color:var(--on-surface-variant)">"I understand that feeling deeply. You need something soft, warm, and tender — chamomile to soothe, rice steam to comfort, lavender to release."</span></div>
                             </div>
                             <div style="display:flex;gap:6px;align-items:flex-start">
-                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--secondary)30%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:12px;color:var(--secondary);font-weight:600">A</span></div>
+                                <?php echo $avatar_html($chat_user, 'A', 'color-mix(in srgb,var(--secondary)30%,transparent)', 'var(--secondary)', 18, true); ?>
                                 <div><span style="font-size:12px;font-weight:600;color:var(--secondary);display:block;line-height:1.2">Alice</span><span style="font-size:13px;color:var(--on-surface-variant)">"What if I also want something that stays close to the skin? Not loud."</span></div>
                             </div>
                             <div style="display:flex;gap:6px;align-items:flex-start">
-                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--secondary-container)50%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:11px;color:var(--secondary);font-weight:600">L</span></div>
+                                <?php echo $avatar_html($chat_g1, 'L', 'color-mix(in srgb,var(--secondary-container)50%,transparent)', 'var(--secondary)', 18, true); ?>
                                 <div><span style="font-size:12px;font-weight:600;color:var(--secondary);display:block;line-height:1.2">Luná · Scent Therapist</span><span style="font-size:13px;color:var(--on-surface-variant)">"Perfect — a soft musk base will keep it intimate. Here's my recommendation..."</span></div>
                             </div>
                         </div>
                     </div>
-                    <p class="font-body-md text-on-surface-variant" style="font-size:14px;margin-bottom:8px;padding-left:50px">After our conversation, I know you need something soft, warm, and tender. Chamomile to soothe. Rice steam to comfort. Lavender to release. A fragrance that stays close to the skin — like a cashmere blanket, not a spotlight.</p>
+                    <p class="font-body-md text-on-surface-variant" style="font-size:14px;margin-bottom:8px;padding-left:50px"><?php echo esc_html($case1_summary); ?></p>
                     <div style="display:flex;flex-wrap:wrap;gap:4px;padding-left:50px">
                         <span class="font-label-caps" style="font-size:11px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Chamomile</span>
                         <span class="font-label-caps" style="font-size:11px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Rice Steam</span>
@@ -179,15 +226,13 @@ $s_cta_desc  = allscented_field('allscented_ai_cta_desc', 'Tell us a little abou
             <div class="sample-content" data-sample="fortune" style="display:none">
                 <div class="aura-glass summary-card" style="border-radius:16px;padding:18px">
                     <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">
-                        <div style="width:40px;height:40px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                            <span class="material-symbols-outlined" style="color:var(--tertiary);font-size:20px">auto_awesome</span>
-                        </div>
+                        <?php echo $avatar_html($case2_avatar, 'auto_awesome', 'color-mix(in srgb,var(--tertiary-container)40%,transparent)', 'var(--tertiary)', 40); ?>
                         <div style="flex:1;min-width:0">
                             <div style="display:flex;justify-content:space-between;align-items:center">
-                                <span class="font-label-caps text-label-caps" style="font-size:12px;letter-spacing:.12em;color:var(--tertiary)">AI SCENT FORTUNE TELLER · ECHO</span>
-                                <span class="font-label-caps" style="font-size:11px;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)">92% SYNTHESIS</span>
+                                <span class="font-label-caps text-label-caps" style="font-size:12px;letter-spacing:.12em;color:var(--tertiary)"><?php echo esc_html($case2_label); ?></span>
+                                <span class="font-label-caps" style="font-size:11px;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)40%,transparent);color:var(--tertiary)"><?php echo esc_html($case2_pct); ?></span>
                             </div>
-                            <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-top:2px">"The universe whispers in amber."</h3>
+                            <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-top:2px"><?php echo esc_html($case2_title); ?></h3>
                         </div>
                     </div>
                     <!-- Chat preview -->
@@ -197,24 +242,24 @@ $s_cta_desc  = allscented_field('allscented_ai_cta_desc', 'Tell us a little abou
                         </div>
                         <div style="display:flex;flex-direction:column;gap:4px">
                             <div style="display:flex;gap:6px;align-items:flex-start">
-                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--tertiary)30%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:12px;color:var(--tertiary);font-weight:600">A</span></div>
+                                <?php echo $avatar_html($chat_user, 'A', 'color-mix(in srgb,var(--tertiary)30%,transparent)', 'var(--tertiary)', 18, true); ?>
                                 <div><span style="font-size:12px;font-weight:600;color:var(--tertiary);display:block;line-height:1.2">Alice</span><span style="font-size:13px;color:var(--on-surface-variant)">"I feel like something big is shifting in my life. What does the universe say?"</span></div>
                             </div>
                             <div style="display:flex;gap:6px;align-items:flex-start">
-                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)50%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:11px;color:var(--tertiary);font-weight:600">Ec</span></div>
+                                <?php echo $avatar_html($chat_g2, 'Ec', 'color-mix(in srgb,var(--tertiary-container)50%,transparent)', 'var(--tertiary)', 18, true); ?>
                                 <div><span style="font-size:12px;font-weight:600;color:var(--tertiary);display:block;line-height:1.2">Echo · Fortune Teller</span><span style="font-size:13px;color:var(--on-surface-variant)">"Your birth chart says craving transformation under this waning crescent. The cards reveal fire and smoke — but not destruction. A burning away of the old."</span></div>
                             </div>
                             <div style="display:flex;gap:6px;align-items:flex-start">
-                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--tertiary)30%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:12px;color:var(--tertiary);font-weight:600">A</span></div>
+                                <?php echo $avatar_html($chat_user, 'A', 'color-mix(in srgb,var(--tertiary)30%,transparent)', 'var(--tertiary)', 18, true); ?>
                                 <div><span style="font-size:12px;font-weight:600;color:var(--tertiary);display:block;line-height:1.2">Alice</span><span style="font-size:13px;color:var(--on-surface-variant)">"I've always been drawn to sacred, meditative spaces."</span></div>
                             </div>
                             <div style="display:flex;gap:6px;align-items:flex-start">
-                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--tertiary-container)50%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:11px;color:var(--tertiary);font-weight:600">Ec</span></div>
+                                <?php echo $avatar_html($chat_g2, 'Ec', 'color-mix(in srgb,var(--tertiary-container)50%,transparent)', 'var(--tertiary)', 18, true); ?>
                                 <div><span style="font-size:12px;font-weight:600;color:var(--tertiary);display:block;line-height:1.2">Echo · Fortune Teller</span><span style="font-size:13px;color:var(--on-surface-variant)">"Then I see incense, oud, and amber — a fragrance that knows what it means to be both sacred and wild."</span></div>
                             </div>
                         </div>
                     </div>
-                    <p class="font-body-md text-on-surface-variant" style="font-size:14px;margin-bottom:8px;padding-left:50px">Your birth chart says you're craving transformation under this waning crescent. The cards reveal fire and smoke — but not destruction. A burning away of the old. I see incense. I see oud. I see a fragrance that knows what it means to be both sacred and wild.</p>
+                    <p class="font-body-md text-on-surface-variant" style="font-size:14px;margin-bottom:8px;padding-left:50px"><?php echo esc_html($case2_summary); ?></p>
                     <div style="display:flex;flex-wrap:wrap;gap:4px;padding-left:50px">
                         <span class="font-label-caps" style="font-size:11px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Incense</span>
                         <span class="font-label-caps" style="font-size:11px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Oud</span>
@@ -227,15 +272,13 @@ $s_cta_desc  = allscented_field('allscented_ai_cta_desc', 'Tell us a little abou
             <div class="sample-content" data-sample="consultant" style="display:none">
                 <div class="aura-glass summary-card" style="border-radius:16px;padding:18px">
                     <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">
-                        <div style="width:40px;height:40px;border-radius:999px;background:color-mix(in srgb,var(--primary-container)40%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                            <span class="material-symbols-outlined" style="color:var(--primary);font-size:20px">business_center</span>
-                        </div>
+                        <?php echo $avatar_html($case3_avatar, 'business_center', 'color-mix(in srgb,var(--primary-container)40%,transparent)', 'var(--primary)', 40); ?>
                         <div style="flex:1;min-width:0">
                             <div style="display:flex;justify-content:space-between;align-items:center">
-                                <span class="font-label-caps text-label-caps" style="font-size:12px;letter-spacing:.12em;color:var(--primary)">SCENT MEMORY CONSULTANT · SAGE</span>
-                                <span class="font-label-caps" style="font-size:11px;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)">88% SYNTHESIS</span>
+                                <span class="font-label-caps text-label-caps" style="font-size:12px;letter-spacing:.12em;color:var(--primary)"><?php echo esc_html($case3_label); ?></span>
+                                <span class="font-label-caps" style="font-size:11px;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--primary)20%,transparent);color:var(--on-primary-fixed-variant)"><?php echo esc_html($case3_pct); ?></span>
                             </div>
-                            <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-top:2px">"Your brand needs a signature."</h3>
+                            <h3 class="font-headline-md" style="font-size:15px;font-style:italic;margin-top:2px"><?php echo esc_html($case3_title); ?></h3>
                         </div>
                     </div>
                     <!-- Chat preview -->
@@ -245,24 +288,24 @@ $s_cta_desc  = allscented_field('allscented_ai_cta_desc', 'Tell us a little abou
                         </div>
                         <div style="display:flex;flex-direction:column;gap:4px">
                             <div style="display:flex;gap:6px;align-items:flex-start">
-                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--primary)30%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:12px;color:var(--on-primary-fixed-variant);font-weight:600">A</span></div>
+                                <?php echo $avatar_html($chat_user, 'A', 'color-mix(in srgb,var(--primary)30%,transparent)', 'var(--on-primary-fixed-variant)', 18, true); ?>
                                 <div><span style="font-size:12px;font-weight:600;color:var(--on-primary-fixed-variant);display:block;line-height:1.2">Alice</span><span style="font-size:13px;color:var(--on-surface-variant)">"We're opening a 12-room boutique hotel in Dali. Whitewashed walls, jasmine in the courtyard. We need a scent identity."</span></div>
                             </div>
                             <div style="display:flex;gap:6px;align-items:flex-start">
-                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--primary-container)40%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:11px;color:var(--on-primary-fixed-variant);font-weight:600">Sa</span></div>
+                                <?php echo $avatar_html($chat_g3, 'Sa', 'color-mix(in srgb,var(--primary-container)40%,transparent)', 'var(--on-primary-fixed-variant)', 18, true); ?>
                                 <div><span style="font-size:12px;font-weight:600;color:var(--on-primary-fixed-variant);display:block;line-height:1.2">Sage · Consultant</span><span style="font-size:13px;color:var(--on-surface-variant)">"Based on 3 case studies with similar spatial profiles, I recommend an adaptive scent system. Let me break it down per zone..."</span></div>
                             </div>
                             <div style="display:flex;gap:6px;align-items:flex-start">
-                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--primary)30%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:12px;color:var(--on-primary-fixed-variant);font-weight:600">A</span></div>
+                                <?php echo $avatar_html($chat_user, 'A', 'color-mix(in srgb,var(--primary)30%,transparent)', 'var(--on-primary-fixed-variant)', 18, true); ?>
                                 <div><span style="font-size:12px;font-weight:600;color:var(--on-primary-fixed-variant);display:block;line-height:1.2">Alice</span><span style="font-size:13px;color:var(--on-surface-variant)">"Can you also handle custom formulation?"</span></div>
                             </div>
                             <div style="display:flex;gap:6px;align-items:flex-start">
-                                <div style="width:18px;height:18px;border-radius:999px;background:color-mix(in srgb,var(--primary-container)40%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:11px;color:var(--on-primary-fixed-variant);font-weight:600">Sa</span></div>
+                                <?php echo $avatar_html($chat_g3, 'Sa', 'color-mix(in srgb,var(--primary-container)40%,transparent)', 'var(--on-primary-fixed-variant)', 18, true); ?>
                                 <div><span style="font-size:12px;font-weight:600;color:var(--on-primary-fixed-variant);display:block;line-height:1.2">Sage · Consultant</span><span style="font-size:13px;color:var(--on-surface-variant)">"Absolutely. We can create a bespoke signature blend and deliver it as a custom order."</span></div>
                             </div>
                         </div>
                     </div>
-                    <p class="font-body-md text-on-surface-variant" style="font-size:14px;margin-bottom:8px;padding-left:50px">You described a boutique hotel in Dali with 12 rooms, whitewashed walls, and a courtyard full of jasmine. Based on 3 case studies with similar spatial profiles, I recommend an adaptive scent system: calming jasmine-green tea for the rooms, a crisp petrichor-ozone for the lobby, and warm sandalwood for the lounge.</p>
+                    <p class="font-body-md text-on-surface-variant" style="font-size:14px;margin-bottom:8px;padding-left:50px"><?php echo esc_html($case3_summary); ?></p>
                     <div style="display:flex;flex-wrap:wrap;gap:4px;padding-left:50px">
                         <span class="font-label-caps" style="font-size:11px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Jasmine</span>
                         <span class="font-label-caps" style="font-size:11px;padding:2px 8px;border-radius:999px;background:var(--surface-container-high);color:var(--on-surface-variant)">Green Tea</span>

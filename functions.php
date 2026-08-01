@@ -2107,6 +2107,300 @@ if (function_exists('acf_add_local_field_group')) {
                 'new_lines' => 'br',
                 'wrapper' => array('width' => 50),
             ),
+            array(
+                'key' => 'field_ai_digital_tab',
+                'label' => '数字人 & 对话（可上传头像图片、修改文字）',
+                'type' => 'tab',
+            ),
+            array(
+                'key' => 'field_ai_g1_avatar',
+                'label' => '顾问1 头像（数字人头像）',
+                'name' => 'allscented_ai_g1_avatar',
+                'type' => 'image',
+                'instructions' => '上传后替代默认图标；建议方形图片，自动裁圆',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'library' => 'all',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_g1_role',
+                'label' => '顾问1 角色标签',
+                'name' => 'allscented_ai_g1_role',
+                'type' => 'text',
+                'default_value' => 'AI SCENT THERAPIST · LUNÁ',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_g1_shortname',
+                'label' => '顾问1 短名',
+                'name' => 'allscented_ai_g1_shortname',
+                'type' => 'text',
+                'default_value' => 'Luná',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_g1_cta',
+                'label' => '顾问1 按钮文字',
+                'name' => 'allscented_ai_g1_cta',
+                'type' => 'text',
+                'default_value' => 'SHARE YOUR MOOD',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_g2_avatar',
+                'label' => '顾问2 头像（数字人头像）',
+                'name' => 'allscented_ai_g2_avatar',
+                'type' => 'image',
+                'instructions' => '上传后替代默认图标；建议方形图片，自动裁圆',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'library' => 'all',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_g2_role',
+                'label' => '顾问2 角色标签',
+                'name' => 'allscented_ai_g2_role',
+                'type' => 'text',
+                'default_value' => 'AI SCENT FORTUNE TELLER · ECHO',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_g2_shortname',
+                'label' => '顾问2 短名',
+                'name' => 'allscented_ai_g2_shortname',
+                'type' => 'text',
+                'default_value' => 'Echo',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_g2_cta',
+                'label' => '顾问2 按钮文字',
+                'name' => 'allscented_ai_g2_cta',
+                'type' => 'text',
+                'default_value' => 'CAST YOUR FORTUNE',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_g3_avatar',
+                'label' => '顾问3 头像（数字人头像）',
+                'name' => 'allscented_ai_g3_avatar',
+                'type' => 'image',
+                'instructions' => '上传后替代默认图标；建议方形图片，自动裁圆',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'library' => 'all',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_g3_role',
+                'label' => '顾问3 角色标签',
+                'name' => 'allscented_ai_g3_role',
+                'type' => 'text',
+                'default_value' => 'SCENT MEMORY CONSULTANT · SAGE',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_g3_shortname',
+                'label' => '顾问3 短名',
+                'name' => 'allscented_ai_g3_shortname',
+                'type' => 'text',
+                'default_value' => 'Sage',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_g3_cta',
+                'label' => '顾问3 按钮文字',
+                'name' => 'allscented_ai_g3_cta',
+                'type' => 'text',
+                'default_value' => 'REQUEST CONSULTATION',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_chat_user',
+                'label' => '对话-用户头像（Alice）',
+                'name' => 'allscented_ai_chat_user_avatar',
+                'type' => 'image',
+                'instructions' => '三个对话预览共用；建议 100x100 以上方形图',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'library' => 'all',
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_ai_chat_g1',
+                'label' => '对话-Luná 头像',
+                'name' => 'allscented_ai_chat_g1_avatar',
+                'type' => 'image',
+                'instructions' => '对话预览中的顾问头像',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'library' => 'all',
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_ai_chat_g2',
+                'label' => '对话-Echo 头像',
+                'name' => 'allscented_ai_chat_g2_avatar',
+                'type' => 'image',
+                'instructions' => '对话预览中的顾问头像',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'library' => 'all',
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_ai_chat_g3',
+                'label' => '对话-Sage 头像',
+                'name' => 'allscented_ai_chat_g3_avatar',
+                'type' => 'image',
+                'instructions' => '对话预览中的顾问头像',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'library' => 'all',
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_ai_cases_tab',
+                'label' => '案例卡片（Sample Consultations）',
+                'type' => 'tab',
+            ),
+            array(
+                'key' => 'field_ai_case1_avatar',
+                'label' => '案例1 头像',
+                'name' => 'allscented_ai_case1_avatar',
+                'type' => 'image',
+                'instructions' => '疗愈师案例卡片头像',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'library' => 'all',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_case1_label',
+                'label' => '案例1 标签',
+                'name' => 'allscented_ai_case1_label',
+                'type' => 'text',
+                'default_value' => 'AI SCENT THERAPIST',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_case1_pct',
+                'label' => '案例1 合成度',
+                'name' => 'allscented_ai_case1_pct',
+                'type' => 'text',
+                'default_value' => '96% SYNTHESIS',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_case1_title',
+                'label' => '案例1 标题',
+                'name' => 'allscented_ai_case1_title',
+                'type' => 'text',
+                'default_value' => '"You need to feel held."',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_case1_summary',
+                'label' => '案例1 总结文字',
+                'name' => 'allscented_ai_case1_summary',
+                'type' => 'textarea',
+                'default_value' => 'After our conversation, I know you need something soft, warm, and tender. Chamomile to soothe. Rice steam to comfort. Lavender to release. A fragrance that stays close to the skin — like a cashmere blanket, not a spotlight.',
+                'rows' => 3,
+                'new_lines' => 'br',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_ai_case2_avatar',
+                'label' => '案例2 头像',
+                'name' => 'allscented_ai_case2_avatar',
+                'type' => 'image',
+                'instructions' => '占卜师案例卡片头像',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'library' => 'all',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_case2_label',
+                'label' => '案例2 标签',
+                'name' => 'allscented_ai_case2_label',
+                'type' => 'text',
+                'default_value' => 'AI SCENT FORTUNE TELLER · ECHO',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_case2_pct',
+                'label' => '案例2 合成度',
+                'name' => 'allscented_ai_case2_pct',
+                'type' => 'text',
+                'default_value' => '92% SYNTHESIS',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_case2_title',
+                'label' => '案例2 标题',
+                'name' => 'allscented_ai_case2_title',
+                'type' => 'text',
+                'default_value' => '"The universe whispers in amber."',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_case2_summary',
+                'label' => '案例2 总结文字',
+                'name' => 'allscented_ai_case2_summary',
+                'type' => 'textarea',
+                'default_value' => 'Your birth chart says you\'re craving transformation under this waning crescent. The cards reveal fire and smoke — but not destruction. A burning away of the old. I see incense. I see oud. I see a fragrance that knows what it means to be both sacred and wild.',
+                'rows' => 3,
+                'new_lines' => 'br',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_ai_case3_avatar',
+                'label' => '案例3 头像',
+                'name' => 'allscented_ai_case3_avatar',
+                'type' => 'image',
+                'instructions' => '顾问案例卡片头像',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'library' => 'all',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_case3_label',
+                'label' => '案例3 标签',
+                'name' => 'allscented_ai_case3_label',
+                'type' => 'text',
+                'default_value' => 'SCENT MEMORY CONSULTANT · SAGE',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_case3_pct',
+                'label' => '案例3 合成度',
+                'name' => 'allscented_ai_case3_pct',
+                'type' => 'text',
+                'default_value' => '88% SYNTHESIS',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_case3_title',
+                'label' => '案例3 标题',
+                'name' => 'allscented_ai_case3_title',
+                'type' => 'text',
+                'default_value' => '"Your brand needs a signature."',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_ai_case3_summary',
+                'label' => '案例3 总结文字',
+                'name' => 'allscented_ai_case3_summary',
+                'type' => 'textarea',
+                'default_value' => 'You described a boutique hotel in Dali with 12 rooms, whitewashed walls, and a courtyard full of jasmine. Based on 3 case studies with similar spatial profiles, I recommend an adaptive scent system: calming jasmine-green tea for the rooms, a crisp petrichor-ozone for the lobby, and warm sandalwood for the lounge.',
+                'rows' => 3,
+                'new_lines' => 'br',
+                'wrapper' => array('width' => 100),
+            ),
         ),
         'location' => array(
             array(
@@ -2161,3 +2455,75 @@ function allscented_template_include($template) {
     return $template;
 }
 add_filter('template_include', 'allscented_template_include');
+
+// ============================================
+// 页眉 / 页脚 可视化编辑（外观 → 自定义）
+// ============================================
+add_action('customize_register', 'allscented_customize_register');
+function allscented_customize_register($wp_customize) {
+    // —— 页眉设置 ——
+    $wp_customize->add_section('allscented_header_settings', array(
+        'title'    => '页眉设置（Header）',
+        'priority' => 30,
+    ));
+    $wp_customize->add_setting('allscented_header_logo', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'allscented_header_logo', array(
+        'label'       => '页眉 Logo 图片',
+        'description' => '上传后替代默认 Logo（建议透明背景 PNG，高度约 30px）。不填则显示默认 Logo / 品牌文字。',
+        'section'     => 'allscented_header_settings',
+    )));
+    $wp_customize->add_setting('allscented_brand_text', array(
+        'default'           => 'ALLSCENTED',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('allscented_brand_text', array(
+        'label'   => '品牌文字（无 Logo 图片时显示）',
+        'section' => 'allscented_header_settings',
+        'type'    => 'text',
+    ));
+
+    // —— 页脚设置 ——
+    $wp_customize->add_section('allscented_footer_settings', array(
+        'title'    => '页脚设置（Footer）',
+        'priority' => 31,
+    ));
+    $wp_customize->add_setting('allscented_footer_logo', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'allscented_footer_logo', array(
+        'label'       => '页脚 Logo 图片',
+        'description' => '建议透明背景 PNG，高度约 24px。不填则沿用页眉 Logo / 品牌文字。',
+        'section'     => 'allscented_footer_settings',
+    )));
+    $wp_customize->add_setting('allscented_footer_tagline', array(
+        'default'           => 'Sensory intelligence, bottled. AI-synthesized fragrances from your most intimate narratives.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    $wp_customize->add_control('allscented_footer_tagline', array(
+        'label'   => '页脚标语文字',
+        'section' => 'allscented_footer_settings',
+        'type'    => 'textarea',
+    ));
+    $wp_customize->add_setting('allscented_footer_copyright', array(
+        'default'           => 'ALLSCENTED — ALL RIGHTS RESERVED',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('allscented_footer_copyright', array(
+        'label'   => '版权文字（自动带 © 年份）',
+        'section' => 'allscented_footer_settings',
+        'type'    => 'text',
+    ));
+    $wp_customize->add_setting('allscented_footer_badge', array(
+        'default'           => 'CRAFTED WITH AI INTELLIGENCE',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('allscented_footer_badge', array(
+        'label'   => '底部徽标文字',
+        'section' => 'allscented_footer_settings',
+        'type'    => 'text',
+    ));
+}

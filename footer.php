@@ -4,12 +4,20 @@
     <div class="container-max px-margin-desktop px-margin-mobile" style="display:flex;flex-direction:column;gap:28px">
         <div style="display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between">
             <div style="max-width:280px">
-                <?php if (file_exists(get_stylesheet_directory() . '/assets/images/logo.png')) : ?>
+                <?php
+                $allscented_footer_logo  = get_theme_mod('allscented_footer_logo', '');
+                $allscented_footer_brand = get_theme_mod('allscented_brand_text', 'ALLSCENTED');
+                $allscented_footer_tag   = get_theme_mod('allscented_footer_tagline', 'Sensory intelligence, bottled. AI-synthesized fragrances from your most intimate narratives.');
+                $allscented_logo_file    = get_stylesheet_directory() . '/assets/images/logo.png';
+                ?>
+                <?php if ($allscented_footer_logo) : ?>
+                    <img src="<?php echo esc_url($allscented_footer_logo); ?>" alt="Allscented" style="height:22px;width:auto;display:block">
+                <?php elseif (file_exists($allscented_logo_file)) : ?>
                     <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/logo.png'); ?>" alt="Allscented" style="height:22px;width:auto;display:block">
                 <?php else : ?>
-                    <div class="font-headline-md" style="font-size:16px;letter-spacing:.22em;font-weight:600;color:var(--on-surface)">ALLSCENTED</div>
+                    <div class="font-headline-md" style="font-size:16px;letter-spacing:.22em;font-weight:600;color:var(--on-surface)"><?php echo esc_html($allscented_footer_brand); ?></div>
                 <?php endif; ?>
-                <div class="font-body-md text-body-md" style="font-size:12px;color:var(--on-surface-variant);margin-top:10px;line-height:1.7">Sensory intelligence, bottled. AI-synthesized fragrances from your most intimate narratives.</div>
+                <div class="font-body-md text-body-md" style="font-size:12px;color:var(--on-surface-variant);margin-top:10px;line-height:1.7"><?php echo esc_html($allscented_footer_tag); ?></div>
             </div>
             <div style="display:flex;gap:48px;flex-wrap:wrap">
                 <div>
@@ -32,8 +40,8 @@
             </div>
         </div>
         <div style="border-top:1px solid color-mix(in srgb,var(--outline-variant)15%,transparent);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-            <span class="font-label-caps text-label-caps" style="font-size:11px;color:var(--on-surface-variant);letter-spacing:.12em">© <?php echo esc_html(date('Y')); ?> ALLSCENTED — ALL RIGHTS RESERVED</span>
-            <span class="font-label-caps text-label-caps" style="font-size:11px;color:var(--on-surface-variant);letter-spacing:.12em">CRAFTED WITH AI INTELLIGENCE</span>
+            <span class="font-label-caps text-label-caps" style="font-size:11px;color:var(--on-surface-variant);letter-spacing:.12em">© <?php echo esc_html(date('Y')); ?> <?php echo esc_html(get_theme_mod('allscented_footer_copyright', 'ALLSCENTED — ALL RIGHTS RESERVED')); ?></span>
+            <span class="font-label-caps text-label-caps" style="font-size:11px;color:var(--on-surface-variant);letter-spacing:.12em"><?php echo esc_html(get_theme_mod('allscented_footer_badge', 'CRAFTED WITH AI INTELLIGENCE')); ?></span>
         </div>
     </div>
 </footer>

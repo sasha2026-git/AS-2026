@@ -30,15 +30,19 @@ $account_url = class_exists('WooCommerce') ? get_permalink(get_option('woocommer
 
 <header style="z-index:100;background:color-mix(in srgb,var(--surface)85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid color-mix(in srgb,var(--outline-variant)25%,transparent)">
     <nav class="px-margin-desktop px-margin-mobile" style="width:100%;height:50px;display:flex;align-items:center;justify-content:space-between;gap:16px" aria-label="Main navigation">
+        <?php
+        $allscented_header_logo = get_theme_mod('allscented_header_logo', '');
+        $allscented_brand_text  = get_theme_mod('allscented_brand_text', 'ALLSCENTED');
+        $allscented_logo_file   = get_stylesheet_directory() . '/assets/images/logo.png';
+        ?>
         <a href="<?php echo esc_url(home_url('/')); ?>" class="font-headline-md" style="font-size:17px;letter-spacing:.22em;font-weight:600;color:var(--on-surface);text-decoration:none;display:flex;align-items:center;gap:8px">
-            <?php
-            $allscented_logo = get_stylesheet_directory() . '/assets/images/logo.png';
-            if (file_exists($allscented_logo)) :
-            ?>
+            <?php if ($allscented_header_logo) : ?>
+                <img src="<?php echo esc_url($allscented_header_logo); ?>" alt="Allscented" style="height:30px;width:auto;display:block">
+            <?php elseif (file_exists($allscented_logo_file)) : ?>
                 <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/logo.png'); ?>" alt="Allscented" style="height:30px;width:auto;display:block">
             <?php else : ?>
                 <span class="material-symbols-outlined" style="font-size:20px;color:var(--secondary)">auto_awesome</span>
-                ALLSCENTED
+                <?php echo esc_html($allscented_brand_text); ?>
             <?php endif; ?>
         </a>
 
@@ -69,7 +73,7 @@ $account_url = class_exists('WooCommerce') ? get_permalink(get_option('woocommer
     <a href="<?php echo esc_url(home_url('/archive/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">Archive</a>
     <a href="<?php echo esc_url(home_url('/the-atelier/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">The Atelier</a>
     <div style="flex:1"></div>
-    <div class="font-label-caps text-label-caps" style="font-size:11px;color:var(--on-surface-variant);letter-spacing:.18em">ALLSCENTED — SENSORY INTELLIGENCE</div>
+    <div class="font-label-caps text-label-caps" style="font-size:11px;color:var(--on-surface-variant);letter-spacing:.18em"><?php echo esc_html(strtoupper($allscented_brand_text)); ?> — SENSORY INTELLIGENCE</div>
 </div>
 
 <main id="main-content">
