@@ -4,30 +4,39 @@
  */
 get_header();
 
+// ===== Home page ID (fields are stored on page slug 'home' / static front page) =====
+$allscented_home_id = (int) get_option('page_on_front');
+if (!$allscented_home_id) {
+    $allscented_home_page = get_page_by_path('home');
+    $allscented_home_id = $allscented_home_page ? (int) $allscented_home_page->ID : 0;
+}
+$allscented_home_id = $allscented_home_id ? $allscented_home_id : false;
+
 // ===== ACF fields (fallback to defaults if not set) =====
-$h_hero_badge   = allscented_field('allscented_home_hero_badge', 'ALLSCENTED · SENSORY INTELLIGENCE');
-$h_hero_title   = allscented_field('allscented_home_hero_title', 'Where Memory Becomes Scent');
-$h_hero_sub     = allscented_field('allscented_home_hero_subtitle', 'AI-powered fragrance synthesis from your most intimate narratives');
-$h_hero_cta     = allscented_field('allscented_home_hero_cta', 'BEGIN YOUR AI SYNTHESIS');
-$h_hero_img     = allscented_image_url('allscented_home_hero_image', 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=1500&q=85');
+$h_hero_badge   = allscented_field('allscented_home_hero_badge', 'ALLSCENTED · SENSORY INTELLIGENCE', $allscented_home_id);
+$h_hero_title   = allscented_field('allscented_home_hero_title', 'Where Memory Becomes Scent', $allscented_home_id);
+$h_hero_sub     = allscented_field('allscented_home_hero_subtitle', 'AI-powered fragrance synthesis from your most intimate narratives', $allscented_home_id);
+$h_hero_cta     = allscented_field('allscented_home_hero_cta', 'BEGIN YOUR AI SYNTHESIS', $allscented_home_id);
+$h_hero_img     = allscented_image_url('allscented_home_hero_image', 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=1500&q=85', $allscented_home_id);
 
 $guides = array();
 for ($i = 1; $i <= 3; $i++) {
     $guides[$i] = array(
-        'icon'  => allscented_field("allscented_home_g{$i}_icon", ''),
-        'label' => allscented_field("allscented_home_g{$i}_label", ''),
-        'name'  => allscented_field("allscented_home_g{$i}_name", ''),
-        'desc'  => allscented_field("allscented_home_g{$i}_desc", ''),
-        'tag1'  => allscented_field("allscented_home_g{$i}_tag1", ''),
-        'tag2'  => allscented_field("allscented_home_g{$i}_tag2", ''),
-        'cta'   => allscented_field("allscented_home_g{$i}_cta", ''),
+        'icon'  => allscented_field("allscented_home_g{$i}_icon", '', $allscented_home_id),
+        'avatar' => allscented_image_url("allscented_home_g{$i}_avatar", '', $allscented_home_id),
+        'label' => allscented_field("allscented_home_g{$i}_label", '', $allscented_home_id),
+        'name'  => allscented_field("allscented_home_g{$i}_name", '', $allscented_home_id),
+        'desc'  => allscented_field("allscented_home_g{$i}_desc", '', $allscented_home_id),
+        'tag1'  => allscented_field("allscented_home_g{$i}_tag1", '', $allscented_home_id),
+        'tag2'  => allscented_field("allscented_home_g{$i}_tag2", '', $allscented_home_id),
+        'cta'   => allscented_field("allscented_home_g{$i}_cta", '', $allscented_home_id),
     );
 }
 // Fill fallbacks if fields empty
 $guide_defaults = array(
-    1 => array('icon' => 'spa', 'label' => 'AI SCENT THERAPIST · LUNÁ', 'name' => 'The Healer', 'desc' => 'Tell me how you feel today. I listen, I understand — and I find a fragrance that speaks to your heart.', 'tag1' => 'EMOTIONAL', 'tag2' => 'THERAPEUTIC', 'cta' => 'Start consultation'),
-    2 => array('icon' => 'auto_awesome', 'label' => 'AI SCENT FORTUNE TELLER · ECHO', 'name' => 'The Mystic', 'desc' => 'Curious what the universe has in store for you? Let the stars guide your scent — for fun, for hope, for destiny.', 'tag1' => 'DIVINATION', 'tag2' => 'RITUAL', 'cta' => 'Cast your fortune'),
-    3 => array('icon' => 'business_center', 'label' => 'SCENT MEMORY CONSULTANT · SAGE', 'name' => 'The Strategist', 'desc' => 'For hotels, boutiques, and brands. I design a scent strategy that becomes part of your identity and drives results.', 'tag1' => 'COMMERCIAL', 'tag2' => 'BRANDING', 'cta' => 'Request consultation'),
+    1 => array('icon' => 'spa', 'avatar' => '', 'label' => 'AI SCENT THERAPIST · LUNÁ', 'name' => 'The Healer', 'desc' => 'Tell me how you feel today. I listen, I understand — and I find a fragrance that speaks to your heart.', 'tag1' => 'EMOTIONAL', 'tag2' => 'THERAPEUTIC', 'cta' => 'Start consultation'),
+    2 => array('icon' => 'auto_awesome', 'avatar' => '', 'label' => 'AI SCENT FORTUNE TELLER · ECHO', 'name' => 'The Mystic', 'desc' => 'Curious what the universe has in store for you? Let the stars guide your scent — for fun, for hope, for destiny.', 'tag1' => 'DIVINATION', 'tag2' => 'RITUAL', 'cta' => 'Cast your fortune'),
+    3 => array('icon' => 'business_center', 'avatar' => '', 'label' => 'SCENT MEMORY CONSULTANT · SAGE', 'name' => 'The Strategist', 'desc' => 'For hotels, boutiques, and brands. I design a scent strategy that becomes part of your identity and drives results.', 'tag1' => 'COMMERCIAL', 'tag2' => 'BRANDING', 'cta' => 'Request consultation'),
 );
 foreach ($guide_defaults as $i => $d) {
     foreach ($d as $k => $v) {
@@ -35,17 +44,17 @@ foreach ($guide_defaults as $i => $d) {
     }
 }
 
-$arc_eyebrow = allscented_field('allscented_home_arc_eyebrow', 'THE ARCHIVE');
-$arc_title   = allscented_field('allscented_home_arc_title', 'Curated Synthetics');
-$arc_btn     = allscented_field('allscented_home_arc_btn', 'Explore More');
+$arc_eyebrow = allscented_field('allscented_home_arc_eyebrow', 'THE ARCHIVE', $allscented_home_id);
+$arc_title   = allscented_field('allscented_home_arc_title', 'Curated Synthetics', $allscented_home_id);
+$arc_btn     = allscented_field('allscented_home_arc_btn', 'Explore More', $allscented_home_id);
 
 $arc_cards = array();
 for ($i = 1; $i <= 3; $i++) {
     $arc_cards[$i] = array(
-        'img'   => allscented_image_url("allscented_home_arc{$i}_img", ''),
-        'tag'   => allscented_field("allscented_home_arc{$i}_tag", ''),
-        'title' => allscented_field("allscented_home_arc{$i}_title", ''),
-        'desc'  => allscented_field("allscented_home_arc{$i}_desc", ''),
+        'img'   => allscented_image_url("allscented_home_arc{$i}_img", '', $allscented_home_id),
+        'tag'   => allscented_field("allscented_home_arc{$i}_tag", '', $allscented_home_id),
+        'title' => allscented_field("allscented_home_arc{$i}_title", '', $allscented_home_id),
+        'desc'  => allscented_field("allscented_home_arc{$i}_desc", '', $allscented_home_id),
     );
 }
 $arc_defaults = array(
@@ -59,21 +68,21 @@ foreach ($arc_defaults as $i => $d) {
     }
 }
 
-$col_eyebrow  = allscented_field('allscented_home_col_eyebrow', 'THE COLLECTION');
-$col_title    = allscented_field('allscented_home_col_title', 'Signature Molecules');
-$col_main_img = allscented_image_url('allscented_home_col_main_img', 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80');
-$col_main_lbl = allscented_field('allscented_home_col_main_label', 'THE ATELIER');
-$col_main_ttl = allscented_field('allscented_home_col_main_title', 'AI-Designed for You');
-$col_cta      = allscented_field('allscented_home_col_cta', 'SHOP THE ATELIER');
+$col_eyebrow  = allscented_field('allscented_home_col_eyebrow', 'THE COLLECTION', $allscented_home_id);
+$col_title    = allscented_field('allscented_home_col_title', 'Signature Molecules', $allscented_home_id);
+$col_main_img = allscented_image_url('allscented_home_col_main_img', 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80', $allscented_home_id);
+$col_main_lbl = allscented_field('allscented_home_col_main_label', 'THE ATELIER', $allscented_home_id);
+$col_main_ttl = allscented_field('allscented_home_col_main_title', 'AI-Designed for You', $allscented_home_id);
+$col_cta      = allscented_field('allscented_home_col_cta', 'SHOP THE ATELIER', $allscented_home_id);
 
 $col_products = array();
 for ($i = 1; $i <= 2; $i++) {
     $col_products[$i] = array(
-        'img'   => allscented_image_url("allscented_home_colp{$i}_img", ''),
-        'name'  => allscented_field("allscented_home_colp{$i}_name", ''),
-        'tag1'  => allscented_field("allscented_home_colp{$i}_tag1", ''),
-        'tag2'  => allscented_field("allscented_home_colp{$i}_tag2", ''),
-        'price' => allscented_field("allscented_home_colp{$i}_price", ''),
+        'img'   => allscented_image_url("allscented_home_colp{$i}_img", '', $allscented_home_id),
+        'name'  => allscented_field("allscented_home_colp{$i}_name", '', $allscented_home_id),
+        'tag1'  => allscented_field("allscented_home_colp{$i}_tag1", '', $allscented_home_id),
+        'tag2'  => allscented_field("allscented_home_colp{$i}_tag2", '', $allscented_home_id),
+        'price' => allscented_field("allscented_home_colp{$i}_price", '', $allscented_home_id),
     );
 }
 $colp_defaults = array(
@@ -123,8 +132,12 @@ $guide_colors = array(
         <div class="char-cards-grid" style="margin-bottom:0">
             <?php foreach ($guides as $i => $g) : $c = $guide_colors[$i]; ?>
             <div class="aura-glass char-card" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;cursor:pointer">
-                <div class="char-avatar" style="background:color-mix(in srgb,<?php echo $c['bg']; ?>40%,transparent);width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;margin-bottom:10px">
-                    <span class="material-symbols-outlined" style="color:<?php echo $c['fg']; ?>;font-size:24px"><?php echo esc_html($g['icon']); ?></span>
+                <div class="char-avatar" style="width:48px;height:48px;border-radius:999px;overflow:hidden;margin-bottom:10px;<?php echo $g['avatar'] ? '' : 'background:color-mix(in srgb,' . $c['bg'] . '40%,transparent);display:flex;align-items:center;justify-content:center;'; ?>">
+                    <?php if (!empty($g['avatar'])) : ?>
+                        <img src="<?php echo esc_url($g['avatar']); ?>" alt="<?php echo esc_attr($g['name']); ?>" style="width:100%;height:100%;object-fit:cover;border-radius:999px">
+                    <?php else : ?>
+                        <span class="material-symbols-outlined" style="color:<?php echo $c['fg']; ?>;font-size:24px"><?php echo esc_html($g['icon']); ?></span>
+                    <?php endif; ?>
                 </div>
                 <span class="font-label-caps text-label-caps text-secondary" style="font-size:12px;margin-bottom:2px;letter-spacing:.12em"><?php echo esc_html($g['label']); ?></span>
                 <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic"><?php echo esc_html($g['name']); ?></h3>

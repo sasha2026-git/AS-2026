@@ -73,9 +73,9 @@ add_action('wp_enqueue_scripts', 'allscented_enqueue_scripts');
 // ACF Field Helpers (text + image, with fallback defaults)
 // Safe when ACF plugin is missing or field is empty
 // ============================================
-function allscented_field($name, $default = '') {
+function allscented_field($name, $default = '', $post_id = false) {
     if (function_exists('get_field')) {
-        $val = get_field($name);
+        $val = get_field($name, $post_id);
         if ($val !== null && $val !== '' && $val !== false) {
             return $val;
         }
@@ -83,9 +83,9 @@ function allscented_field($name, $default = '') {
     return $default;
 }
 
-function allscented_image_url($name, $default = '') {
+function allscented_image_url($name, $default = '', $post_id = false) {
     if (function_exists('get_field')) {
-        $val = get_field($name);
+        $val = get_field($name, $post_id);
         if (!empty($val)) {
             if (is_array($val) && !empty($val['url'])) {
                 return $val['url'];
@@ -242,6 +242,16 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_h_g1_avatar',
+                'label' => '顾问 1 头像图片（可选，上传后替代图标）',
+                'name' => 'allscented_home_g1_avatar',
+                'type' => 'image',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'instructions' => '上传数字人头像图片；留空则显示默认图标',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
                 'key' => 'field_h_g1_label',
                 'label' => '顾问 1 小标签',
                 'name' => 'allscented_home_g1_label',
@@ -300,6 +310,16 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_h_g2_avatar',
+                'label' => '顾问 2 头像图片（可选，上传后替代图标）',
+                'name' => 'allscented_home_g2_avatar',
+                'type' => 'image',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'instructions' => '上传数字人头像图片；留空则显示默认图标',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
                 'key' => 'field_h_g2_label',
                 'label' => '顾问 2 小标签',
                 'name' => 'allscented_home_g2_label',
@@ -356,6 +376,16 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'text',
                 'default_value' => 'business_center',
                 'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_h_g3_avatar',
+                'label' => '顾问 3 头像图片（可选，上传后替代图标）',
+                'name' => 'allscented_home_g3_avatar',
+                'type' => 'image',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+                'instructions' => '上传数字人头像图片；留空则显示默认图标',
+                'wrapper' => array('width' => 50),
             ),
             array(
                 'key' => 'field_h_g3_label',
