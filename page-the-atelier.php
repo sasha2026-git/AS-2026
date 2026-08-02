@@ -89,7 +89,7 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
         <!-- Pagination: 6 per page, auto-appears when a category has more than 6 -->
         <div id="atelier-pagination" style="display:none;justify-content:center;align-items:center;gap:8px;margin-top:26px">
             <button class="atelier-page-nav" data-dir="-1" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;font-size:14px;cursor:pointer">‹</button>
-            <div id="atelier-pages" style="display:flex;gap:6px"></div>
+            <div id="atelier-pagination-pages" style="display:flex;gap:6px"></div>
             <button class="atelier-page-nav" data-dir="1" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;font-size:14px;cursor:pointer">›</button>
         </div>
     </section>
