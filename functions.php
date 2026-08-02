@@ -14,7 +14,7 @@ require_once __DIR__ . '/lib/plugin-update-checker/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 $allscented_update_checker = PucFactory::buildUpdateChecker(
-    'https://github.com/sasha2026-git/allscented/',
+    'https://github.com/sasha2026-git/AS-2026/',
     get_stylesheet_directory() . '/style.css',
     'allscented'
 );
