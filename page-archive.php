@@ -546,8 +546,8 @@ $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','ar
     .journal-grid { padding: 24px var(--margin-mobile) 0; }
     .journal-join { margin: 32px var(--margin-mobile) 0; }
     .journal-pagination { padding: 28px var(--margin-mobile); }
-  .journal-empty{text-align:center;padding:clamp(32px,5vw,56px) var(--margin-desktop);max-width:var(--container-max);margin:0 auto}
   }
+  .journal-empty{text-align:center;padding:clamp(32px,5vw,56px) var(--margin-desktop);max-width:var(--container-max);margin:0 auto}
 </style>
 
 <!-- ═══════════════ Filter JS ═══════════════ -->
