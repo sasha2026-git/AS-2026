@@ -44,9 +44,9 @@ foreach ($guide_defaults as $i => $d) {
     }
 }
 
-$arc_eyebrow = allscented_field('allscented_home_arc_eyebrow', 'THE ARCHIVE', $allscented_home_id);
+$arc_eyebrow = allscented_field('allscented_home_arc_eyebrow', 'THE JOURNAL', $allscented_home_id);
 $arc_title   = allscented_field('allscented_home_arc_title', 'Curated Synthetics', $allscented_home_id);
-$arc_btn     = allscented_field('allscented_home_arc_btn', 'Explore More', $allscented_home_id);
+$arc_btn     = allscented_field('allscented_home_arc_btn', 'Explore Journal', $allscented_home_id);
 
 $arc_cards = array();
 for ($i = 1; $i <= 3; $i++) {

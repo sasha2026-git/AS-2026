@@ -32,9 +32,8 @@
                             $links = array(
                                 'Discover'     => home_url('/'),
                                 'AI Synthesis' => home_url('/ai-synthesis/'),
-                                'Archive'      => home_url('/archive/'),
+                                'Journal'      => home_url('/archive/'),
                                 'The Atelier'  => home_url('/the-atelier/'),
-                                'Journal'      => home_url('/journal/'),
                             );
                             foreach ($links as $label => $url) {
                                 echo '<li><a href="' . esc_url($url) . '" style="font-size:12px;color:var(--on-surface-variant);text-decoration:none">' . esc_html($label) . '</a></li>';
