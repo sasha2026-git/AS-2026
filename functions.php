@@ -143,6 +143,8 @@ add_action('after_setup_theme', function() {
     // Register nav menu
     register_nav_menus(array(
         'primary' => __('Primary Menu', 'allscented'),
+        'footer_explore' => __('Footer Explore', 'allscented'),
+        'footer_legal'   => __('Footer Legal', 'allscented'),
     ));
 });
 
@@ -1267,6 +1269,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_t_p1_show',
+                'label' => '产品 1 显示',
+                'name' => 'allscented_atelier_p1_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p1_link',
+                'label' => '产品 1 链接',
+                'name' => 'allscented_atelier_p1_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
+            array(
                 'key' => 'field_t_p2_img',
                 'label' => '产品 2 图片',
                 'name' => 'allscented_atelier_p2_img',
@@ -1310,6 +1330,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'default_value' => 'personal',
                 'wrapper' => array('width' => 25),
             ),
+            array(
+                'key' => 'field_t_p2_show',
+                'label' => '产品 2 显示',
+                'name' => 'allscented_atelier_p2_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p2_link',
+                'label' => '产品 2 链接',
+                'name' => 'allscented_atelier_p2_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
             array(
                 'key' => 'field_t_p3_img',
                 'label' => '产品 3 图片',
@@ -1355,6 +1393,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_t_p3_show',
+                'label' => '产品 3 显示',
+                'name' => 'allscented_atelier_p3_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p3_link',
+                'label' => '产品 3 链接',
+                'name' => 'allscented_atelier_p3_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
+            array(
                 'key' => 'field_t_p4_img',
                 'label' => '产品 4 图片',
                 'name' => 'allscented_atelier_p4_img',
@@ -1398,6 +1454,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'default_value' => 'commercial',
                 'wrapper' => array('width' => 25),
             ),
+            array(
+                'key' => 'field_t_p4_show',
+                'label' => '产品 4 显示',
+                'name' => 'allscented_atelier_p4_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p4_link',
+                'label' => '产品 4 链接',
+                'name' => 'allscented_atelier_p4_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
             array(
                 'key' => 'field_t_p5_img',
                 'label' => '产品 5 图片',
@@ -1443,6 +1517,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_t_p5_show',
+                'label' => '产品 5 显示',
+                'name' => 'allscented_atelier_p5_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p5_link',
+                'label' => '产品 5 链接',
+                'name' => 'allscented_atelier_p5_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
+            array(
                 'key' => 'field_t_p6_img',
                 'label' => '产品 6 图片',
                 'name' => 'allscented_atelier_p6_img',
@@ -1486,6 +1578,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'default_value' => 'commercial',
                 'wrapper' => array('width' => 25),
             ),
+            array(
+                'key' => 'field_t_p6_show',
+                'label' => '产品 6 显示',
+                'name' => 'allscented_atelier_p6_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p6_link',
+                'label' => '产品 6 链接',
+                'name' => 'allscented_atelier_p6_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
             array(
                 'key' => 'tab_产品_7-14',
                 'label' => '产品 7-14',
@@ -1533,6 +1643,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_t_p7_show',
+                'label' => '产品 7 显示',
+                'name' => 'allscented_atelier_p7_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p7_link',
+                'label' => '产品 7 链接',
+                'name' => 'allscented_atelier_p7_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
+            array(
                 'key' => 'field_t_p8_img',
                 'label' => '产品 8 图片',
                 'name' => 'allscented_atelier_p8_img',
@@ -1573,6 +1701,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'default_value' => 'home',
                 'wrapper' => array('width' => 25),
             ),
+            array(
+                'key' => 'field_t_p8_show',
+                'label' => '产品 8 显示',
+                'name' => 'allscented_atelier_p8_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p8_link',
+                'label' => '产品 8 链接',
+                'name' => 'allscented_atelier_p8_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
             array(
                 'key' => 'field_t_p9_img',
                 'label' => '产品 9 图片',
@@ -1615,6 +1761,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_t_p9_show',
+                'label' => '产品 9 显示',
+                'name' => 'allscented_atelier_p9_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p9_link',
+                'label' => '产品 9 链接',
+                'name' => 'allscented_atelier_p9_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
+            array(
                 'key' => 'field_t_p10_img',
                 'label' => '产品 10 图片',
                 'name' => 'allscented_atelier_p10_img',
@@ -1655,6 +1819,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'default_value' => 'home',
                 'wrapper' => array('width' => 25),
             ),
+            array(
+                'key' => 'field_t_p10_show',
+                'label' => '产品 10 显示',
+                'name' => 'allscented_atelier_p10_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p10_link',
+                'label' => '产品 10 链接',
+                'name' => 'allscented_atelier_p10_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
             array(
                 'key' => 'field_t_p11_img',
                 'label' => '产品 11 图片',
@@ -1697,6 +1879,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_t_p11_show',
+                'label' => '产品 11 显示',
+                'name' => 'allscented_atelier_p11_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p11_link',
+                'label' => '产品 11 链接',
+                'name' => 'allscented_atelier_p11_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
+            array(
                 'key' => 'field_t_p12_img',
                 'label' => '产品 12 图片',
                 'name' => 'allscented_atelier_p12_img',
@@ -1737,6 +1937,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'default_value' => 'commercial',
                 'wrapper' => array('width' => 25),
             ),
+            array(
+                'key' => 'field_t_p12_show',
+                'label' => '产品 12 显示',
+                'name' => 'allscented_atelier_p12_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p12_link',
+                'label' => '产品 12 链接',
+                'name' => 'allscented_atelier_p12_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
             array(
                 'key' => 'field_t_p13_img',
                 'label' => '产品 13 图片',
@@ -1779,6 +1997,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_t_p13_show',
+                'label' => '产品 13 显示',
+                'name' => 'allscented_atelier_p13_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p13_link',
+                'label' => '产品 13 链接',
+                'name' => 'allscented_atelier_p13_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
+            array(
                 'key' => 'field_t_p14_img',
                 'label' => '产品 14 图片',
                 'name' => 'allscented_atelier_p14_img',
@@ -1819,6 +2055,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'default_value' => 'commercial',
                 'wrapper' => array('width' => 25),
             ),
+            array(
+                'key' => 'field_t_p14_show',
+                'label' => '产品 14 显示',
+                'name' => 'allscented_atelier_p14_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p14_link',
+                'label' => '产品 14 链接',
+                'name' => 'allscented_atelier_p14_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
             array(
                 'key' => 'tab_产品_15-23',
                 'label' => '产品 15-23',
@@ -1866,6 +2120,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_t_p15_show',
+                'label' => '产品 15 显示',
+                'name' => 'allscented_atelier_p15_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p15_link',
+                'label' => '产品 15 链接',
+                'name' => 'allscented_atelier_p15_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
+            array(
                 'key' => 'field_t_p16_img',
                 'label' => '产品 16 图片',
                 'name' => 'allscented_atelier_p16_img',
@@ -1906,6 +2178,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'default_value' => 'personal',
                 'wrapper' => array('width' => 25),
             ),
+            array(
+                'key' => 'field_t_p16_show',
+                'label' => '产品 16 显示',
+                'name' => 'allscented_atelier_p16_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p16_link',
+                'label' => '产品 16 链接',
+                'name' => 'allscented_atelier_p16_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
             array(
                 'key' => 'field_t_p17_img',
                 'label' => '产品 17 图片',
@@ -1948,6 +2238,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_t_p17_show',
+                'label' => '产品 17 显示',
+                'name' => 'allscented_atelier_p17_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p17_link',
+                'label' => '产品 17 链接',
+                'name' => 'allscented_atelier_p17_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
+            array(
                 'key' => 'field_t_p18_img',
                 'label' => '产品 18 图片',
                 'name' => 'allscented_atelier_p18_img',
@@ -1988,6 +2296,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'default_value' => 'home',
                 'wrapper' => array('width' => 25),
             ),
+            array(
+                'key' => 'field_t_p18_show',
+                'label' => '产品 18 显示',
+                'name' => 'allscented_atelier_p18_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p18_link',
+                'label' => '产品 18 链接',
+                'name' => 'allscented_atelier_p18_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
             array(
                 'key' => 'field_t_p19_img',
                 'label' => '产品 19 图片',
@@ -2030,6 +2356,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_t_p19_show',
+                'label' => '产品 19 显示',
+                'name' => 'allscented_atelier_p19_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p19_link',
+                'label' => '产品 19 链接',
+                'name' => 'allscented_atelier_p19_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
+            array(
                 'key' => 'field_t_p20_img',
                 'label' => '产品 20 图片',
                 'name' => 'allscented_atelier_p20_img',
@@ -2070,6 +2414,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'default_value' => 'personal',
                 'wrapper' => array('width' => 25),
             ),
+            array(
+                'key' => 'field_t_p20_show',
+                'label' => '产品 20 显示',
+                'name' => 'allscented_atelier_p20_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p20_link',
+                'label' => '产品 20 链接',
+                'name' => 'allscented_atelier_p20_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
             array(
                 'key' => 'field_t_p21_img',
                 'label' => '产品 21 图片',
@@ -2112,6 +2474,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_t_p21_show',
+                'label' => '产品 21 显示',
+                'name' => 'allscented_atelier_p21_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p21_link',
+                'label' => '产品 21 链接',
+                'name' => 'allscented_atelier_p21_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
+            array(
                 'key' => 'field_t_p22_img',
                 'label' => '产品 22 图片',
                 'name' => 'allscented_atelier_p22_img',
@@ -2153,6 +2533,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
+                'key' => 'field_t_p22_show',
+                'label' => '产品 22 显示',
+                'name' => 'allscented_atelier_p22_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p22_link',
+                'label' => '产品 22 链接',
+                'name' => 'allscented_atelier_p22_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
+            array(
                 'key' => 'field_t_p23_img',
                 'label' => '产品 23 图片',
                 'name' => 'allscented_atelier_p23_img',
@@ -2193,6 +2591,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'default_value' => 'personal',
                 'wrapper' => array('width' => 25),
             ),
+            array(
+                'key' => 'field_t_p23_show',
+                'label' => '产品 23 显示',
+                'name' => 'allscented_atelier_p23_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'wrapper' => array('width' => 25),
+            ),
+            array(
+                'key' => 'field_t_p23_link',
+                'label' => '产品 23 链接',
+                'name' => 'allscented_atelier_p23_link',
+                'type' => 'url',
+                'instructions' => '留空则不显示链接；填写 WooCommerce 产品 URL 后卡片可点击跳转',
+                'wrapper' => array('width' => 50),
+            ),
+
             array(
                 'key' => 'tab_底部_cta',
                 'label' => '底部 CTA',
