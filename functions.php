@@ -769,7 +769,17 @@ if (function_exists('acf_add_local_field_group')) {
         'location' => array(
             array(
                 array(
+                    'param' => 'page_type', 'operator' => '==', 'value' => 'front_page',
+                ),
+            ),
+            array(
+                array(
                     'param' => 'page', 'operator' => '==', 'value' => 'home',
+                ),
+            ),
+            array(
+                array(
+                    'param' => 'page', 'operator' => '==', 'value' => 'front-page',
                 ),
             ),
             array(
@@ -777,20 +787,6 @@ if (function_exists('acf_add_local_field_group')) {
                     'param' => 'page_template',
                     'operator' => '==',
                     'value' => 'front-page.php',
-                ),
-            ),
-            array(
-                array(
-                    'param' => 'page',
-                    'operator' => '==',
-                    'value' => 'home',
-                ),
-            ),
-            array(
-                array(
-                    'param' => 'page',
-                    'operator' => '==',
-                    'value' => 'front-page',
                 ),
             ),
         ),
