@@ -64,27 +64,14 @@ $total_posts = count($posts_list);
 $hero_post   = ($total_posts > 0) ? $posts_list[0] : null;
 $grid_posts  = ($total_posts > 1) ? array_slice($posts_list, 1) : array();
 
-// ===== Gather all advisor/scene categories from posts =====
-$all_advisor_slugs = array();
-$all_scene_slugs   = array();
-foreach ($posts_list as $p) {
-    foreach ($p['cat_slugs'] as $s) {
-        if (in_array($s, array('luna','echo','sage'), true)) {
-            $all_advisor_slugs[$s] = true;
-        } elseif (in_array($s, array('personal','home','commercial'), true)) {
-            $all_scene_slugs[$s] = true;
-        }
-    }
-}
-$all_advisor_slugs = array_keys($all_advisor_slugs);
-$all_scene_slugs   = array_keys($all_scene_slugs);
-$has_advisor_filter = !empty($all_advisor_slugs);
-$has_scene_filter   = !empty($all_scene_slugs);
+// ===== Advisor & Scene slugs (always visible when posts exist) =====
+$advisor_slugs = array('echo', 'luna', 'sage');
+$scene_slugs   = array('personal', 'home', 'commercial');
 
 $advisor_labels = array(
-    'luna' => 'Luna · Mystic',
-    'echo' => 'Echo · Healer',
-    'sage' => 'Sage · Strategist',
+    'echo' => 'Echo · Mystic',
+    'luna' => 'Luna · Healer',
+    'sage' => 'Sage · Advisor',
 );
 $scene_labels = array(
     'personal'   => 'Personal',
@@ -128,27 +115,23 @@ $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','ar
   </section>
   <?php endif; ?>
 
-  <?php if ($has_advisor_filter || $has_scene_filter) : ?>
+  <?php if ($total_posts > 0) : ?>
   <!-- ── Filters ── -->
   <div class="journal-filters">
-    <?php if ($has_advisor_filter) : ?>
     <div class="journal-frow">
       <span class="journal-flabel">Advisor</span>
       <button class="journal-pill on" data-f="all">All</button>
-      <?php foreach ($all_advisor_slugs as $s) : ?>
+      <?php foreach ($advisor_slugs as $s) : ?>
       <button class="journal-pill" data-f="<?php echo esc_attr($s); ?>"><?php echo esc_html($advisor_labels[$s] ?? ucfirst($s)); ?></button>
       <?php endforeach; ?>
     </div>
-    <?php endif; ?>
-    <?php if ($has_scene_filter) : ?>
     <div class="journal-frow">
       <span class="journal-flabel">Scene</span>
       <button class="journal-pill on" data-s="all">All</button>
-      <?php foreach ($all_scene_slugs as $s) : ?>
+      <?php foreach ($scene_slugs as $s) : ?>
       <button class="journal-pill" data-s="<?php echo esc_attr($s); ?>"><?php echo esc_html($scene_labels[$s] ?? ucfirst($s)); ?></button>
       <?php endforeach; ?>
     </div>
-    <?php endif; ?>
   </div>
   <?php endif; ?>
 
@@ -244,6 +227,11 @@ $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','ar
     <p style="color:var(--on-surface-variant);font-family:var(--font-serif, 'Playfair Display', serif);font-style:italic;font-size:18px">Stories are brewing. Check back soon.</p>
   </main>
   <?php endif; ?>
+
+  <!-- ── Filter empty state ── -->
+  <div class="journal-empty" id="journal-empty" style="display:none">
+    <p class="journal-lead">No stories in this category yet — check back soon.</p>
+  </div>
 
   <!-- ── Subscribe strip ── -->
   <section class="journal-join">
@@ -558,26 +546,34 @@ $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','ar
     .journal-grid { padding: 24px var(--margin-mobile) 0; }
     .journal-join { margin: 32px var(--margin-mobile) 0; }
     .journal-pagination { padding: 28px var(--margin-mobile); }
+  .journal-empty{text-align:center;padding:clamp(32px,5vw,56px) var(--margin-desktop);max-width:var(--container-max);margin:0 auto}
   }
 </style>
 
 <!-- ═══════════════ Filter JS ═══════════════ -->
-<?php if ($has_advisor_filter || $has_scene_filter) : ?>
+<?php if ($total_posts > 0) : ?>
 <script>
 (function(){
   var pillsF = document.querySelectorAll('.journal-filters .journal-frow:first-of-type .journal-pill');
   var pillsS = document.querySelectorAll('.journal-filters .journal-frow:last-of-type .journal-pill');
   var cards = document.querySelectorAll('#journal-grid .journal-card');
+  var emptyEl = document.getElementById('journal-empty');
   if (!pillsF.length && !pillsS.length) return;
   var curF = 'all', curS = 'all';
 
   function apply() {
+    var anyVisible = false;
     cards.forEach(function(c) {
       var cats = (c.getAttribute('data-cat') || '').split(/\s+/);
       var okF = (curF === 'all' || cats.indexOf(curF) !== -1);
       var okS = (curS === 'all' || cats.indexOf(curS) !== -1);
-      c.classList.toggle('is-hidden', !(okF && okS));
+      var show = okF && okS;
+      c.classList.toggle('is-hidden', !show);
+      if (show) anyVisible = true;
     });
+    if (emptyEl) {
+      emptyEl.style.display = anyVisible ? 'none' : '';
+    }
   }
 
   if (pillsF.length) pillsF.forEach(function(p) {
