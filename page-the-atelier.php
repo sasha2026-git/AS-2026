@@ -10,7 +10,7 @@ $t_title   = allscented_field('allscented_atelier_title', 'Shop the Collection')
 $t_desc    = allscented_field('allscented_atelier_desc', 'Each fragrance is AI-synthesized and hand-finished. Free shipping on all orders.');
 
 $products = array();
-for ($i = 1; $i <= 14; $i++) {
+for ($i = 1; $i <= 23; $i++) {
     $products[$i] = array(
         'img'   => allscented_image_url("allscented_atelier_p{$i}_img", ''),
         'name'  => allscented_field("allscented_atelier_p{$i}_name", ''),
@@ -36,6 +36,16 @@ $p_defaults = array(
     12 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/refill-honey-currant.webp', 'name' => 'Honey & Currant Refill', 'sub' => 'Commercial · 300ml', 'price' => '$59.00', 'cat' => 'commercial'),
     13 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/refill-nutmeg-freesia.webp', 'name' => 'Nutmeg & Freesia Refill', 'sub' => 'Commercial · 300ml', 'price' => '$59.00', 'cat' => 'commercial'),
     14 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/extra-large-diffuser.webp', 'name' => 'Extra Large Reed Diffuser', 'sub' => 'Commercial · 2800ml', 'price' => '$399.00', 'cat' => 'commercial'),
+    // ===== More real products from Shopify (Puppy Salon + Donut) =====
+    15 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/donut-candle.png', 'name' => '4 Pack Donut Candle Set', 'sub' => 'Home · Scented Candle', 'price' => '$37.00', 'cat' => 'home'),
+    16 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/puppy-salon-scented-tablet.webp', 'name' => 'Puppy Salon Scented Tablet Set', 'sub' => 'Personal · Scented Tablet', 'price' => '$18.50', 'cat' => 'personal'),
+    17 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/puppy-elephants-reed-diffuser.webp', 'name' => 'Puppy Salon Reed Diffuser — Elephants', 'sub' => 'Home · Reed Diffuser', 'price' => '$48.00', 'cat' => 'home'),
+    18 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/puppy-cat-reed-diffuser.webp', 'name' => 'Puppy Salon Reed Diffuser — Cat', 'sub' => 'Home · Reed Diffuser', 'price' => '$48.00', 'cat' => 'home'),
+    19 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/puppy-52hertz-reed-diffuser.webp', 'name' => 'Puppy Salon Reed Diffuser — 52 Hertz', 'sub' => 'Home · Reed Diffuser', 'price' => '$48.00', 'cat' => 'home'),
+    20 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/puppy-dog-candle.webp', 'name' => 'Puppy Salon Candle — I\'m Your Eyes', 'sub' => 'Personal · Scented Candle', 'price' => '$59.00', 'cat' => 'personal'),
+    21 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/puppy-whale-candle.png', 'name' => 'Puppy Salon Candle — Whale Song', 'sub' => 'Personal · Scented Candle', 'price' => '$49.00', 'cat' => 'personal'),
+    22 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/puppy-cat-candle.png', 'name' => 'Puppy Salon Candle — Cat Series', 'sub' => 'Personal · Scented Candle', 'price' => '$49.00', 'cat' => 'personal'),
+    23 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/puppy-elephant-candle.webp', 'name' => 'Puppy Salon Candle — Elephant', 'sub' => 'Personal · Scented Candle', 'price' => '$49.00', 'cat' => 'personal'),
 );
 foreach ($p_defaults as $i => $d) {
     foreach ($d as $k => $v) {
@@ -75,6 +85,12 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
                 <span class="font-body-md" style="color:var(--on-surface);font-size:13px"><?php echo esc_html($p['price']); ?></span>
             </div>
             <?php endforeach; ?>
+        </div>
+        <!-- Pagination: 6 per page, auto-appears when a category has more than 6 -->
+        <div id="atelier-pagination" style="display:none;justify-content:center;align-items:center;gap:8px;margin-top:26px">
+            <button class="atelier-page-nav" data-dir="-1" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;font-size:14px;cursor:pointer">‹</button>
+            <div id="atelier-pages" style="display:flex;gap:6px"></div>
+            <button class="atelier-page-nav" data-dir="1" style="padding:6px 14px;border-radius:999px;border:1px solid var(--outline-variant);color:var(--on-surface-variant);background:none;font-size:14px;cursor:pointer">›</button>
         </div>
     </section>
     <section class="px-margin-desktop container-max" style="padding-bottom:36px">

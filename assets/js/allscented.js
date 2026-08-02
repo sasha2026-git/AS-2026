@@ -45,11 +45,51 @@
         });
     }
 
-    /* ── Filters (per page: atelier .shop-item / archive .archive-item) ── */
-    function setupFilters(itemSelector) {
+    /* ── Filters + pagination (atelier: 6 per page, auto-pagination; archive: no pagination UI) ── */
+    function setupFilteredPagination(itemSelector, pagId, perPage) {
         var btns = document.querySelectorAll('.filter-btn');
         var items = document.querySelectorAll(itemSelector);
         if (!btns.length || !items.length) return;
+        var pag = pagId ? document.getElementById(pagId) : null;
+        var nums = pagId ? document.getElementById(pagId + '-pages') : null;
+        var prev = pag ? pag.querySelector('[data-dir="-1"]') : null;
+        var next = pag ? pag.querySelector('[data-dir="1"]') : null;
+        var currentFilter = 'all';
+        var currentPage = 1;
+        function visible() {
+            var arr = [];
+            items.forEach(function(item) {
+                var cat = item.getAttribute('data-category');
+                if (currentFilter === 'all' || cat === currentFilter) arr.push(item);
+            });
+            return arr;
+        }
+        function render() {
+            var v = visible();
+            var pages = Math.max(1, Math.ceil(v.length / perPage));
+            if (currentPage > pages) currentPage = pages;
+            items.forEach(function(item) { item.style.display = 'none'; });
+            var start = (currentPage - 1) * perPage;
+            var end = Math.min(start + perPage, v.length);
+            for (var i = start; i < end; i++) v[i].style.display = '';
+            if (!pag || !nums) return;
+            if (pages < 2) { pag.style.display = 'none'; return; }
+            pag.style.display = 'flex';
+            nums.innerHTML = '';
+            for (var p = 1; p <= pages; p++) {
+                (function(pg) {
+                    var b = document.createElement('button');
+                    b.textContent = pg;
+                    b.setAttribute('data-page', pg);
+                    var active = pg === currentPage;
+                    b.style.cssText = 'padding:6px 13px;border-radius:999px;border:1px solid ' + (active ? 'var(--secondary)' : 'var(--outline-variant)') + ';color:' + (active ? 'var(--secondary)' : 'var(--on-surface-variant)') + ';background:' + (active ? 'color-mix(in srgb,var(--secondary)12%,transparent)' : 'transparent') + ';font-size:12px;cursor:pointer;transition:all .25s';
+                    b.addEventListener('click', function() { currentPage = pg; render(); });
+                    nums.appendChild(b);
+                })(p);
+            }
+            if (prev) prev.style.color = currentPage === 1 ? 'var(--outline-variant)' : 'var(--on-surface-variant)';
+            if (next) next.style.color = currentPage === pages ? 'var(--outline-variant)' : 'var(--on-surface-variant)';
+        }
         btns.forEach(function(btn) {
             btn.addEventListener('click', function() {
                 btns.forEach(function(b) {
@@ -60,18 +100,18 @@
                 btn.style.color = 'var(--secondary)';
                 btn.style.borderColor = 'var(--secondary)';
                 btn.style.background = 'color-mix(in srgb,var(--secondary)12%,transparent)';
-                var f = btn.getAttribute('data-filter');
-                items.forEach(function(item) {
-                    var cat = item.getAttribute('data-category');
-                    item.style.display = (f === 'all' || cat === f) ? '' : 'none';
-                });
+                currentFilter = btn.getAttribute('data-filter');
+                currentPage = 1;
+                render();
             });
         });
+        if (pag && prev) prev.addEventListener('click', function() { if (currentPage > 1) { currentPage--; render(); } });
+        if (pag && next) next.addEventListener('click', function() { var v = visible(); var pages = Math.max(1, Math.ceil(v.length / perPage)); if (currentPage < pages) { currentPage++; render(); } });
         var first = document.querySelector('.filter-btn');
         if (first) first.click();
     }
-    setupFilters('.shop-item');
-    setupFilters('.archive-item');
+    setupFilteredPagination('.shop-item', 'atelier-pagination', 6);
+    setupFilteredPagination('.archive-item', null, 6);
 
     /* ── Sample consultation tabs (AI page) ── */
     function initSampleTabs() {
