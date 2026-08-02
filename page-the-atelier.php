@@ -25,7 +25,7 @@ $p_defaults = array(
     3 => array('img' => 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80', 'name' => 'Atmospheric Flux', 'sub' => 'Home · Adaptive', 'price' => '$240.00', 'cat' => 'home'),
     4 => array('img' => 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&q=80', 'name' => 'Spatial Bloom', 'sub' => 'Commercial · Ambient', 'price' => '$320.00', 'cat' => 'commercial'),
     5 => array('img' => 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&q=80', 'name' => 'Vesper Muse', 'sub' => 'Personal · Floral', 'price' => '$185.00', 'cat' => 'personal'),
-    6 => array('img' => 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80', 'name' => 'Nordic Noir', 'sub' => 'Commercial · Forest', 'price' => '$280.00', 'cat' => 'commercial'),
+    6 => array('img' => 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&q=80', 'name' => 'Nordic Noir', 'sub' => 'Commercial · Forest', 'price' => '$280.00', 'cat' => 'commercial'),
     // ===== For Home (real products from Shopify) =====
     7 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/leopard-candle.webp', 'name' => 'Leopard Glass Candle', 'sub' => 'Home · Soy Candle', 'price' => '$55.00', 'cat' => 'home'),
     8 => array('img' => get_stylesheet_directory_uri() . '/assets/images/products/leopard-diffuser-vessel.webp', 'name' => 'Leopard Diffuser Vessel', 'sub' => 'Home · Reed Diffuser', 'price' => '$45.00', 'cat' => 'home'),
