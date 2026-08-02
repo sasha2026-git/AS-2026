@@ -159,9 +159,9 @@ $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','ar
     $grid_idx = 0;
     $grid_total = count($grid_posts);
     // Grid pattern: 7+5, 4+4+4, 7+5, 4+4+4, ...
+    $round = 0;
     while ($grid_idx < $grid_total) :
-        $pattern_idx = (int) ($grid_idx / 5); // 0→7+5, 1→4+4+4, 2→7+5, ...
-        $is_wide_tall = ($pattern_idx % 2 === 0);
+        $is_wide_tall = ($round % 2 === 0);
         if ($is_wide_tall) {
             // Wide (span 7) + Tall (span 5) = 12
             $w = $grid_posts[$grid_idx] ?? null;
@@ -234,6 +234,7 @@ $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','ar
                 <?php
             }
         }
+        $round++;
     endwhile;
     ?>
   </main>
@@ -263,28 +264,25 @@ $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','ar
         'format'    => '?paged=%#%',
         'current'   => $paged,
         'total'     => $journal_query->max_num_pages,
-        'prev_text' => '‹',
-        'next_text' => '›',
-        'type'      => 'plain',
+        'prev_text' => '←',
+        'next_text' => '→',
+        'type'      => 'array',
     ));
     if ($paginate) {
-        // Wrap paginate_links output with journal styling
-        $paginate = preg_replace('/<span[^>]*class="[^"]*page-numbers current[^"]*"[^>]*>(\d+)<\/span>/', '<span class="journal-pg on">$1</span>', $paginate);
-        $paginate = preg_replace('/<a[^>]*class="[^"]*page-numbers[^"]*"[^>]*>(\d+)<\/a>/', '<a class="journal-pg" href="$0">$1</a>', $paginate);
-        // Actually just output with wrapper
         echo '<div class="journal-pagination-inner">';
-        $links = explode("\n", $paginate);
-        foreach ($links as $link) {
-            $link = trim($link);
-            if (empty($link)) continue;
+        foreach ($paginate as $link) {
             if (strpos($link, 'current') !== false) {
-                $link = preg_replace('/<span[^>]*>(\d+)<\/span>/', '<span class="journal-pg on">$1</span>', $link);
+                $num = strip_tags($link);
+                echo '<span class="journal-pg on">' . $num . '</span>';
+            } elseif (strpos($link, 'dots') !== false) {
+                echo '<span class="dots">…</span>';
             } elseif (strpos($link, 'prev') !== false || strpos($link, 'next') !== false) {
-                $link = preg_replace('/<a([^>]*)>([^<]+)<\/a>/', '<a class="journal-pg dir"$1>$2</a>', $link);
+                $link = preg_replace('/class="[^"]*"/', 'class="journal-pg dir"', $link);
+                echo $link;
             } else {
-                $link = preg_replace('/<a([^>]*)>(\d+)<\/a>/', '<a class="journal-pg"$1>$2</a>', $link);
+                $link = preg_replace('/class="[^"]*"/', 'class="journal-pg"', $link);
+                echo $link;
             }
-            echo $link;
         }
         echo '</div>';
     }
