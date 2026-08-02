@@ -3,7 +3,7 @@ Theme Name: Allscented
 Theme URI: https://github.com/sasha2026-git/allscented
 Author: Sasha
 Description: Allscented fragrance brand — child theme of Hello Elementor. Built from v20 preview (AI consultation flow + smart pagination).
-Version: 1.4.7
+Version: 1.4.8
 Template: hello-elementor
 Text Domain: allscented
 */
@@ -224,27 +224,29 @@ button{cursor:pointer;background:none;border:none;padding:0;font:inherit;color:i
 @media(min-width:768px){.guide-desc{font-size:14px}}
 .guide-cta:focus-visible{outline:2px solid var(--secondary);outline-offset:4px;border-radius:4px}
 .guide-hero-body{max-width:720px}
-.guide-hero-card .font-headline-md{font-size:34px!important;line-height:1.12}
-.guide-hero-card .font-body-md{font-size:16px!important;line-height:1.6}
-.guide-hero-card button.font-label-caps{font-size:14px!important;padding:10px 26px!important}
+.guide-hero-card .font-headline-md{font-size:26px!important;line-height:1.15}
+.guide-hero-card .font-body-md{font-size:14px!important;line-height:1.6}
+.guide-hero-card button.font-label-caps{font-size:13px!important;padding:9px 22px!important}
 .guide-hero-card .guide-cta{font-size:14px!important}
 /* homepage: with avatar uploaded, avatar becomes large 3:4 image on top of full-width card */
 .char-card:has(.char-avatar img) .char-avatar{width:100%!important;height:auto!important;aspect-ratio:3/4;border-radius:16px!important;margin-bottom:14px!important;background:transparent!important}
-.char-card:has(.char-avatar img) .char-avatar img{border-radius:16px!important}
+.char-card:has(.char-avatar img) .char-avatar img{border-radius:16px!important;transition:transform .6s}
+.char-card:has(.char-avatar img):hover .char-avatar img{transform:scale(1.045)}
 @media(max-width:767px){
-  .guide-hero-card .font-headline-md{font-size:26px!important}
-  .guide-hero-card .font-body-md{font-size:15px!important}
-  .guide-hero-body{padding:24px 20px 20px!important}
+  .guide-hero-card .font-headline-md{font-size:24px!important}
+  .guide-hero-card .font-body-md{font-size:14px!important}
+  .guide-hero-body{padding:18px 18px 20px!important}
 }
 @media(min-width:768px) and (max-width:1023px){
   .guide-hero-card .font-headline-md{font-size:26px!important}
   .guide-hero-card .font-body-md{font-size:15px!important}
 }
-.guide-hero-card{width:100%;aspect-ratio:3/4;min-height:420px}
-.guide-hero-card:hover img{transform:scale(1.045)}
-@media(min-width:1280px){.guide-hero-card{min-height:520px}}
-@media(max-width:767px){.guide-hero-card{aspect-ratio:auto;min-height:58vh}}
-@media(min-width:480px) and (max-width:767px){.guide-hero-card{min-height:400px}}
+.guide-hero-card{width:100%;background:var(--surface)}
+.guide-hero-media{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;flex-shrink:0}
+.guide-hero-card:hover .guide-hero-media img{transform:scale(1.045)}
+@media(min-width:1280px){.guide-hero-media{aspect-ratio:4/5}}
+@media(max-width:767px){.guide-hero-media{aspect-ratio:4/5}}
+@media(min-width:480px) and (max-width:767px){.guide-hero-media{aspect-ratio:4/5}}
 @media(min-width:480px) and (max-width:767px){.char-cards-grid{grid-template-columns:repeat(2,1fr)!important}.char-cards-grid .char-card:nth-child(3){grid-column:1/-1;max-width:400px;justify-self:center}}
 @media(max-width:767px){.char-card.aura-glass{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}}
 .scroll-reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
