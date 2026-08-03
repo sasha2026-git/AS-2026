@@ -49,8 +49,9 @@ $account_url = class_exists('WooCommerce') ? get_permalink(get_option('woocommer
         <div class="desktop-only" style="display:flex;align-items:center;gap:22px">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('discover'); ?>" data-page="discover" style="font-size:12px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">Discover</a>
             <a href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('ai-synthesis'); ?>" data-page="ai-synthesis" style="font-size:12px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">AI Synthesis</a>
-            <a href="<?php echo esc_url(home_url('/archive/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('archive'); ?>" data-page="archive" style="font-size:12px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">Journal</a>
+            <a href="<?php echo esc_url(home_url('/journal/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('journal'); ?>" data-page="journal" style="font-size:12px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">Journal</a>
             <a href="<?php echo esc_url(home_url('/the-atelier/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('the-atelier'); ?>" data-page="the-atelier" style="font-size:12px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">The Atelier</a>
+            <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="nav-link font-label-caps text-label-caps<?php echo $is_active('contact'); ?>" data-page="contact" style="font-size:12px;letter-spacing:.14em;color:var(--on-surface-variant);text-decoration:none;transition:color .3s">Contact</a>
         </div>
 
         <div style="display:flex;align-items:center;gap:6px">
@@ -70,8 +71,9 @@ $account_url = class_exists('WooCommerce') ? get_permalink(get_option('woocommer
 <div id="mobile-menu" class="hidden mobile-only" style="position:fixed;inset:0;top:50px;z-index:99;background:var(--surface);display:flex;flex-direction:column;padding:24px;gap:8px">
     <a href="<?php echo esc_url(home_url('/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">Discover</a>
     <a href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">AI Synthesis</a>
-    <a href="<?php echo esc_url(home_url('/archive/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">Journal</a>
+    <a href="<?php echo esc_url(home_url('/journal/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">Journal</a>
     <a href="<?php echo esc_url(home_url('/the-atelier/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">The Atelier</a>
+    <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="mobile-nav-link font-headline-md" style="font-size:22px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--outline-variant)20%,transparent);text-decoration:none;color:var(--on-surface)">Contact</a>
     <div style="flex:1"></div>
     <div class="font-label-caps text-label-caps" style="font-size:11px;color:var(--on-surface-variant);letter-spacing:.18em"><?php echo esc_html(strtoupper($allscented_brand_text)); ?> — SENSORY INTELLIGENCE</div>
 </div>

@@ -158,7 +158,7 @@ $guide_colors = array(
                 <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,4.5vw,48px);font-weight:600;color:var(--on-background);margin-top:6px"><?php echo esc_html($arc_title); ?></h2>
             </div>
             <div style="text-align:center;margin-bottom:16px">
-                <a href="<?php echo esc_url(home_url('/archive/')); ?>" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:500;letter-spacing:.03em;transition:all .3s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--secondary)';this.style.color='var(--secondary)'">
+                <a href="<?php echo esc_url(home_url('/journal/')); ?>" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:500;letter-spacing:.03em;transition:all .3s" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--secondary)';this.style.color='var(--secondary)'">
                     <?php echo esc_html($arc_btn); ?>
                     <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle">arrow_forward</span>
                 </a>
