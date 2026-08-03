@@ -3,7 +3,7 @@ Theme Name: Allscented
 Theme URI: https://github.com/sasha2026-git/allscented
 Author: Sasha
 Description: Allscented fragrance brand — child theme of Hello Elementor. Built from v20 preview (AI consultation flow + smart pagination).
-Version: 1.6.7
+Version: 1.6.8
 Template: hello-elementor
 Text Domain: allscented
 */
@@ -274,3 +274,58 @@ body.admin-bar .fixed.top-0 { top: 32px; }
 }
 
 .footer-menu{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+
+
+/* v1.6.8: Shopify-sourced product details cleanup */
+.product-details-content {
+  max-width: 760px;
+  margin: 0 auto;
+  line-height: 1.9;
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 16px;
+  color: var(--on-surface-variant, #46464b);
+}
+.product-details-content p {
+  margin: 0 0 18px;
+}
+.product-details-content ul {
+  margin: 0 0 18px;
+  padding-left: 20px;
+}
+.product-details-content li {
+  margin-bottom: 8px;
+}
+.product-details-content p strong,
+.product-details-content li strong {
+  color: #775a19;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  letter-spacing: .04em;
+  font-weight: 700;
+}
+.product-details-content p:has(> strong:only-child) {
+  margin: 32px 0 14px;
+  font-size: 15px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.product-details-content p:has(> strong:only-child) strong {
+  font-size: 15px;
+}
+.product-details-content img.product-detail-img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  margin: 32px auto;
+  display: block;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .18);
+}
+@media (max-width: 767px) {
+  .product-details-content {
+    font-size: 14px;
+  }
+  .product-details-content img.product-detail-img {
+    border-radius: 12px;
+    margin: 24px auto;
+  }
+}

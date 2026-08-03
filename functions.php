@@ -182,6 +182,207 @@ add_filter('woocommerce_pagination_args', function($args) {
 });
 
 // ============================================
+// Product description cleanup (Shopify -> clean HTML)
+// ============================================
+/**
+ * 清洗 Shopify 导入的产品长描述：去掉 Polaris/div 残留、展示性属性与多余 br，
+ * 仅保留 p/img/strong/em/ul/li，并给商品图统一 product-detail-img class。
+ * 优先使用 DOMDocument；当前环境没有 DOM 扩展时自动走正则兜底。
+ */
+function allscented_clean_product_description($content = '') {
+    if (!is_string($content)) {
+        return '';
+    }
+
+    ob_start();
+    echo $content;
+    $html = ob_get_clean();
+
+    if (trim($html) === '') {
+        return '';
+    }
+
+    $html = allscented_clean_product_description_prepare($html);
+
+    if (class_exists('DOMDocument')) {
+        return allscented_clean_product_description_with_dom($html);
+    }
+
+    return allscented_clean_product_description_with_regex($html);
+}
+
+function allscented_clean_product_description_prepare($html) {
+    $html = preg_replace('~<!--.*?-->~s', '', $html);
+    $html = preg_replace('~<script\b[^>]*>.*?</script>~is', '', $html);
+    $html = preg_replace('~<style\b[^>]*>.*?</style>~is', '', $html);
+
+    $html = preg_replace('~(?:<br\b[^>]*>\s*){2,}~i', '<br>', $html);
+    $html = preg_replace('~<br\b[^>]*>\s*(?=</(?:p|li|div|span|strong|em)>)~i', '', $html);
+
+    return $html;
+}
+
+function allscented_clean_product_description_is_empty($html) {
+    if (strpos($html, '<img') !== false) {
+        return false;
+    }
+
+    $text = html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    return trim(preg_replace('/\s/u', '', $text)) === '';
+}
+
+function allscented_clean_product_description_attr($value) {
+    return htmlspecialchars(html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8'), ENT_QUOTES, 'UTF-8');
+}
+
+function allscented_clean_product_description_with_dom($html) {
+    $dom = new DOMDocument();
+    $previous = libxml_use_internal_errors(true);
+    $dom->loadHTML('<meta charset="utf-8">' . $html);
+    libxml_clear_errors();
+    libxml_use_internal_errors($previous);
+
+    $body = $dom->getElementsByTagName('body')->item(0);
+    if (!$body) {
+        return '';
+    }
+
+    $output = '';
+    foreach ($body->childNodes as $child) {
+        $output .= allscented_clean_product_description_dom_node($child);
+    }
+
+    return trim($output);
+}
+
+function allscented_clean_product_description_dom_node($node) {
+    $output = '';
+
+    foreach ($node->childNodes as $child) {
+        if ($child->nodeType === XML_TEXT_NODE) {
+            $text = trim($child->nodeValue);
+            if ($text !== '') {
+                $output .= $text;
+            }
+            continue;
+        }
+
+        if ($child->nodeType !== XML_ELEMENT_NODE) {
+            continue;
+        }
+
+        $tag = strtolower($child->nodeName);
+
+        if (in_array($tag, array('script', 'style', 'iframe', 'object', 'embed', 'svg'), true)) {
+            continue;
+        }
+
+        if ($tag === 'br') {
+            continue;
+        }
+
+        $inner = allscented_clean_product_description_dom_node($child);
+
+        if ($tag === 'img') {
+            $src = trim($child->getAttribute('src'));
+            $alt = trim($child->getAttribute('alt'));
+            if ($src === '') {
+                continue;
+            }
+            $output .= '<img class="product-detail-img" src="' . allscented_clean_product_description_attr($src) . '" alt="' . allscented_clean_product_description_attr($alt) . '">';
+            continue;
+        }
+
+        if (in_array($tag, array('p', 'strong', 'em', 'ul', 'li'), true)) {
+            if (!allscented_clean_product_description_is_empty($inner)) {
+                $output .= '<' . $tag . '>' . $inner . '</' . $tag . '>';
+            }
+            continue;
+        }
+
+        $output .= $inner;
+    }
+
+    return $output;
+}
+
+function allscented_clean_product_description_with_regex($html) {
+    $html = preg_replace_callback('~<(/?)(p|img|strong|em|ul|li)\b([^>]*)>~i', function($match) {
+        $closing = $match[1] === '/';
+        $tag = strtolower($match[2]);
+
+        if ($closing || $tag !== 'img') {
+            return '<' . $match[1] . $tag . '>';
+        }
+
+        $src = '';
+        if (preg_match('~\bsrc\s*=\s*(?:"([^"]*)"|\'([^\']*)\'|([^\s>]+))~i', $match[3], $src_match)) {
+            if (isset($src_match[1]) && $src_match[1] !== '') {
+                $src = $src_match[1];
+            } elseif (isset($src_match[2]) && $src_match[2] !== '') {
+                $src = $src_match[2];
+            } elseif (isset($src_match[3]) && $src_match[3] !== '') {
+                $src = $src_match[3];
+            }
+        }
+
+        $alt = '';
+        if (preg_match('~\balt\s*=\s*(?:"([^"]*)"|\'([^\']*)\'|([^\s>]+))~i', $match[3], $alt_match)) {
+            if (isset($alt_match[1]) && $alt_match[1] !== '') {
+                $alt = $alt_match[1];
+            } elseif (isset($alt_match[2]) && $alt_match[2] !== '') {
+                $alt = $alt_match[2];
+            } elseif (isset($alt_match[3]) && $alt_match[3] !== '') {
+                $alt = $alt_match[3];
+            }
+        }
+
+        if ($src === '') {
+            return '';
+        }
+
+        return '<img class="product-detail-img" src="' . allscented_clean_product_description_attr($src) . '" alt="' . allscented_clean_product_description_attr($alt) . '">';
+    }, $html);
+
+    $html = preg_replace_callback('~<(p|li)\b[^>]*>([\s\S]*?)</\1>~i', function($match) {
+        $tag = strtolower($match[1]);
+        $parts = preg_split('~<br\b[^>]*>~i', $match[2]);
+        $parts = array_map(function($part) {
+            return trim($part);
+        }, $parts);
+        $parts = array_values(array_filter($parts, function($part) {
+            return !allscented_clean_product_description_is_empty($part);
+        }));
+
+        if (!$parts) {
+            return '';
+        }
+
+        return '<' . $tag . '>' . implode('</' . $tag . '><' . $tag . '>', $parts) . '</' . $tag . '>';
+    }, $html);
+
+    $html = preg_replace_callback('~</?([a-zA-Z][a-zA-Z0-9]*)\b[^>]*>~', function($match) {
+        $tag = strtolower($match[1]);
+        if (in_array($tag, array('p', 'img', 'strong', 'em', 'ul', 'li'), true)) {
+            return $match[0];
+        }
+        return '';
+    }, $html);
+
+    for ($i = 0; $i < 10; $i++) {
+        $before = $html;
+        $html = preg_replace_callback('~<(p|strong|em|ul|li)\b[^>]*>([\s\S]*?)</\1>~i', function($match) {
+            return allscented_clean_product_description_is_empty($match[2]) ? '' : $match[0];
+        }, $html);
+        if ($before === $html) {
+            break;
+        }
+    }
+
+    return trim($html);
+}
+
+// ============================================
 // ACF Field Registration (ACF Free compatible)
 // ============================================
 /**
