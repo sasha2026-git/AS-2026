@@ -178,6 +178,7 @@ add_filter('loop_shop_per_page', function($cols) {
 // Remove default WooCommerce wrappers and replace with ours
 remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
 remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
 
 add_action('woocommerce_before_main_content', function() {
     echo '<section class="px-margin-desktop container-max">';
@@ -4440,5 +4441,49 @@ function allscented_ajax_update_cover() {
     wp_send_json_success(array(
         'url'     => $url,
         'post_id' => $post_id,
+    ));
+}
+
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
+        'key' => 'group_allscented_product_related',
+        'title' => 'Product Related Section',
+        'fields' => array(
+            array(
+                'key' => 'field_product_related_title',
+                'label' => 'Section Title',
+                'name' => 'product_related_title',
+                'type' => 'text',
+                'default_value' => 'You May Also Like',
+                'instructions' => 'Heading shown above WooCommerce related products. The whole section stays hidden when no related products exist.',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_related_intro',
+                'label' => 'Section Intro',
+                'name' => 'product_related_intro',
+                'type' => 'textarea',
+                'default_value' => '',
+                'rows' => 3,
+                'wrapper' => array('width' => 100),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'product',
+                ),
+            ),
+        ),
+        'menu_order' => 6,
+        'position' => 'acf_after_title',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'active' => true,
     ));
 }

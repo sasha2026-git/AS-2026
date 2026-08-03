@@ -223,6 +223,59 @@ get_header('shop');
     <?php endif; ?>
 
     <?php do_action('woocommerce_after_single_product_summary'); ?>
+<?php
+$related_ids = array();
+if (function_exists('wc_get_related_products')) {
+    $related_ids = (array) wc_get_related_products($product_id, 3);
+}
+$related_title = allscented_field('product_related_title', 'You May Also Like', $product_id);
+$related_intro = allscented_field('product_related_intro', '', $product_id);
+if (!empty($related_ids)) :
+?>
+<section class="related-products-section product-section" aria-labelledby="related-products-heading">
+    <div class="product-section-heading">
+        <h2 id="related-products-heading" class="font-headline-md text-headline-md"><?php echo esc_html($related_title); ?></h2>
+        <?php if ($related_intro !== '') : ?><p class="product-section-intro font-body-md text-body-md"><?php echo nl2br(esc_html($related_intro)); ?></p><?php endif; ?>
+    </div>
+    <div class="related-products-grid">
+        <?php
+        $original_product = $product;
+        foreach ($related_ids as $related_id) {
+            $related_product = function_exists('wc_get_product') ? wc_get_product($related_id) : false;
+            if (!$related_product) {
+                continue;
+            }
+            $related_permalink = get_permalink($related_id);
+            $related_name = $related_product->get_name();
+            $related_image = get_the_post_thumbnail($related_id, 'woocommerce_thumbnail', array('class' => 'related-product-image', 'loading' => 'lazy'));
+        ?>
+        <article class="related-product-card aura-glass">
+            <a class="related-product-media" href="<?php echo esc_url($related_permalink); ?>" tabindex="-1" aria-label="<?php echo esc_attr($related_name); ?>">
+                <?php if ($related_image) : echo $related_image; else : ?>
+                    <span class="related-product-placeholder" aria-hidden="true"><span class="material-symbols-outlined">image</span></span>
+                <?php endif; ?>
+            </a>
+            <div class="related-product-body">
+                <h3 class="related-product-title font-headline-md"><a href="<?php echo esc_url($related_permalink); ?>"><?php echo esc_html($related_name); ?></a></h3>
+                <div class="related-product-price font-headline-md"><?php echo $related_product->get_price_html(); ?></div>
+                <div class="related-product-actions">
+                    <?php
+                    $product = $related_product;
+                    if (function_exists('woocommerce_template_loop_add_to_cart')) {
+                        woocommerce_template_loop_add_to_cart();
+                    }
+                    $product = $original_product;
+                    ?>
+                </div>
+            </div>
+        </article>
+        <?php
+        }
+        $product = $original_product;
+        ?>
+    </div>
+</section>
+<?php endif; ?>
     <?php endwhile; ?>
 </section>
 
