@@ -7,3 +7,9 @@ wp-config-sample.php
 *.pem
 *.key
 .env*
+
+# Codex CLI auto-generated config (may contain API keys/tokens)
+settings.yml
+.codex/
+config.toml
+*.orig
