@@ -65,6 +65,19 @@ function allscented_enqueue_scripts() {
         wp_get_theme()->get('Version'),
         true
     );
+
+    // Enqueue media library + localize AJAX data for cover editing
+    if (current_user_can('edit_posts')) {
+        wp_enqueue_media();
+        wp_localize_script('allscented-js', 'allscented_ajax', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce'    => wp_create_nonce('allscented_cover_nonce'),
+            'strings'  => array(
+                'select_cover' => __('Select Cover Image', 'allscented'),
+                'use_image'    => __('Use as Cover', 'allscented'),
+            ),
+        ));
+    }
 }
 add_action('wp_enqueue_scripts', 'allscented_enqueue_scripts');
 
@@ -3718,5 +3731,45 @@ function allscented_customize_register($wp_customize) {
         'label'   => '底部徽标文字',
         'section' => 'allscented_footer_settings',
         'type'    => 'text',
+    ));
+}
+
+// ============================================
+// Journal Cover AJAX Editor
+// ============================================
+add_action('wp_ajax_allscented_update_cover', 'allscented_ajax_update_cover');
+function allscented_ajax_update_cover() {
+    check_ajax_referer('allscented_cover_nonce', 'nonce');
+
+    $post_id       = isset($_POST['post_id'])       ? intval($_POST['post_id'])       : 0;
+    $attachment_id = isset($_POST['attachment_id']) ? intval($_POST['attachment_id']) : 0;
+
+    if (!$post_id || !$attachment_id) {
+        wp_send_json_error(__('Missing post or image ID.', 'allscented'));
+    }
+
+    if (!current_user_can('edit_post', $post_id)) {
+        wp_send_json_error(__('Permission denied.', 'allscented'));
+    }
+
+    $post = get_post($post_id);
+    if (!$post || $post->post_type !== 'post') {
+        wp_send_json_error(__('Invalid post.', 'allscented'));
+    }
+
+    $attachment = get_post($attachment_id);
+    if (!$attachment || $attachment->post_type !== 'attachment') {
+        wp_send_json_error(__('Invalid attachment.', 'allscented'));
+    }
+
+    $result = set_post_thumbnail($post_id, $attachment_id);
+    if (!$result) {
+        wp_send_json_error(__('Failed to update cover.', 'allscented'));
+    }
+
+    $url = wp_get_attachment_image_url($attachment_id, 'large');
+    wp_send_json_success(array(
+        'url'     => $url,
+        'post_id' => $post_id,
     ));
 }

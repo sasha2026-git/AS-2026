@@ -228,10 +228,88 @@
     };
 
     /* ── Init ── */
+    /* ── Journal cover inline editor ── */
+    function initCoverEditor() {
+        if (typeof allscented_ajax === 'undefined') return;
+        document.querySelectorAll('.journal-edit-cover').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var postId = btn.getAttribute('data-post-id');
+                if (!postId) return;
+                var frame = wp.media({
+                    title: allscented_ajax.strings.select_cover,
+                    button: { text: allscented_ajax.strings.use_image },
+                    library: { type: 'image' },
+                    multiple: false
+                });
+                frame.on('select', function() {
+                    var attachment = frame.state().get('selection').first().toJSON();
+                    var attachmentId = attachment.id;
+                    btn.textContent = '...';
+                    btn.style.opacity = '0.6';
+                    var formData = new FormData();
+                    formData.append('action', 'allscented_update_cover');
+                    formData.append('nonce', allscented_ajax.nonce);
+                    formData.append('post_id', postId);
+                    formData.append('attachment_id', attachmentId);
+                    fetch(allscented_ajax.ajax_url, {
+                        method: 'POST',
+                        body: formData,
+                        credentials: 'same-origin'
+                    }).then(function(r) { return r.json(); }).then(function(data) {
+                        btn.textContent = '编辑封面';
+                        btn.style.opacity = '';
+                        if (!data.success) {
+                            alert(data.data || 'Failed to update cover.');
+                            return;
+                        }
+                        var cover = btn.closest('.journal-cover, .journal-hero-cover');
+                        if (!cover) return;
+                        var img = cover.querySelector('img');
+                        if (img) {
+                            img.src = data.data.url;
+                            img.removeAttribute('srcset');
+                        } else {
+                            var fallback = cover.querySelector('.journal-cover-img');
+                            if (fallback && fallback.tagName === 'DIV') {
+                                var newImg = document.createElement('img');
+                                newImg.src = data.data.url;
+                                var card = cover.closest('article');
+                                newImg.alt = card ? card.querySelector('h3').textContent : '';
+                                newImg.className = 'journal-cover-img';
+                                newImg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease;';
+                                fallback.parentNode.replaceChild(newImg, fallback);
+                            } else if (cover.classList.contains('journal-hero-cover')) {
+                                var ring = cover.querySelector('.ring');
+                                var cap = cover.querySelector('.cap');
+                                if (ring) ring.remove();
+                                if (cap) cap.remove();
+                                var heroImg = document.createElement('img');
+                                heroImg.src = data.data.url;
+                                var heroText = cover.closest('.journal-hero');
+                                heroImg.alt = heroText ? heroText.querySelector('h2').textContent : '';
+                                heroImg.className = 'journal-hero-img';
+                                heroImg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+                                cover.insertBefore(heroImg, cover.firstChild);
+                            }
+                        }
+                    }).catch(function(err) {
+                        btn.textContent = '编辑封面';
+                        btn.style.opacity = '';
+                        alert('Network error: ' + err.message);
+                    });
+                });
+                frame.open();
+            });
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         initPagination();
         initSampleTabs();
         /* Scroll reveal */
+        initCoverEditor();
         var revealEls = document.querySelectorAll('.scroll-reveal');
         if (revealEls.length && 'IntersectionObserver' in window) {
             var observer = new IntersectionObserver(function(entries) {
