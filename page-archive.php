@@ -81,6 +81,8 @@ $scene_labels = array(
 
 // ===== Art gradient classes for cards without thumbnails =====
 $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','art-8','art-9');
+// ===== Admin shortcut for cover editing =====
+$is_admin = is_user_logged_in() && current_user_can('edit_posts');
 ?>
 <div id="page-archive">
 
@@ -111,6 +113,7 @@ $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','ar
         <div class="ring"></div>
         <div class="cap">Allscented Journal</div>
       <?php endif; ?>
+      <?php if ($is_admin) : ?><a class="journal-edit" href="<?php echo esc_url(get_edit_post_link($hero_post['id'])); ?>" target="_blank" rel="noopener">编辑封面</a><?php endif; ?>
     </div>
   </section>
   <?php endif; ?>
@@ -162,6 +165,7 @@ $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','ar
                     <?php endif; ?>
                     <div class="journal-num">No. <?php echo str_pad($grid_idx + 2, 2, '0', STR_PAD_LEFT); ?></div>
                     <?php if ($w['advisor']) : ?><div class="journal-tagchip"><?php echo esc_html($w['advisor']); ?></div><?php endif; ?>
+                    <?php if ($is_admin) : ?><a class="journal-edit" href="<?php echo esc_url(get_edit_post_link($w['id'])); ?>" target="_blank" rel="noopener">编辑封面</a><?php endif; ?>
                   </div>
                   <div class="journal-ct"><?php echo ($w['advisor'] ? esc_html($w['advisor']) . ' · ' : '') . ($w['scene'] ? esc_html($w['scene']) : ''); ?></div>
                   <h3><?php echo esc_html($w['title']); ?></h3>
@@ -182,6 +186,7 @@ $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','ar
                       <div class="journal-cover-img"></div>
                     <?php endif; ?>
                     <div class="journal-num">No. <?php echo str_pad($grid_idx + 3, 2, '0', STR_PAD_LEFT); ?></div>
+                    <?php if ($is_admin) : ?><a class="journal-edit" href="<?php echo esc_url(get_edit_post_link($t['id'])); ?>" target="_blank" rel="noopener">编辑封面</a><?php endif; ?>
                     <?php if ($t['advisor']) : ?><div class="journal-tagchip"><?php echo esc_html($t['advisor']); ?></div><?php endif; ?>
                   </div>
                   <div class="journal-ct"><?php echo ($t['advisor'] ? esc_html($t['advisor']) . ' · ' : '') . ($t['scene'] ? esc_html($t['scene']) : ''); ?></div>
@@ -206,6 +211,7 @@ $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','ar
                     <?php else : ?>
                       <div class="journal-cover-img"></div>
                     <?php endif; ?>
+                    <?php if ($is_admin) : ?><a class="journal-edit" href="<?php echo esc_url(get_edit_post_link($p['id'])); ?>" target="_blank" rel="noopener">编辑封面</a><?php endif; ?>
                     <div class="journal-num">No. <?php echo str_pad($grid_idx + 2, 2, '0', STR_PAD_LEFT); ?></div>
                     <?php if ($p['advisor']) : ?><div class="journal-tagchip"><?php echo esc_html($p['advisor']); ?></div><?php endif; ?>
                   </div>
@@ -548,6 +554,8 @@ $art_classes = array('art-1','art-2','art-3','art-4','art-5','art-6','art-7','ar
     .journal-pagination { padding: 28px var(--margin-mobile); }
   }
   .journal-empty{text-align:center;padding:clamp(32px,5vw,56px) var(--margin-desktop);max-width:var(--container-max);margin:0 auto}
+  .journal-edit{position:absolute;top:12px;right:12px;z-index:5;background:rgba(28,27,27,.72);color:#fff;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:5px 10px;border-radius:4px;text-decoration:none;font-family:'Hanken Grotesk',sans-serif;transition:background .2s}
+  .journal-edit:hover{background:rgba(100,87,135,.92)}
 </style>
 
 <!-- ═══════════════ Filter JS ═══════════════ -->
