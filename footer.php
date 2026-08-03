@@ -45,13 +45,6 @@
                     ?>
                 </div>
                 <div>
-                    <div class="font-label-caps text-label-caps" style="font-size:11px;letter-spacing:.16em;color:var(--on-surface-variant);margin-bottom:12px">CONTACT</div>
-                    <ul class="footer-menu">
-                        <li><a href="mailto:info@allscented.com" style="font-size:12px;color:var(--on-surface-variant);text-decoration:none">info@allscented.com</a></li>
-                        <li><a href="tel:+85246090901" style="font-size:12px;color:var(--on-surface-variant);text-decoration:none">+852 46090901</a></li>
-                    </ul>
-                </div>
-                <div>
                     <div class="font-label-caps text-label-caps" style="font-size:11px;letter-spacing:.16em;color:var(--on-surface-variant);margin-bottom:12px">LEGAL</div>
                     <?php
                     wp_nav_menu(array(

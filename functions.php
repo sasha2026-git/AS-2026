@@ -121,6 +121,21 @@ function allscented_group_field($group, $sub, $default = '', $post_id = false) {
 
 
 
+function allscented_acf_media_url($value, $default = '') {
+    if (is_array($value)) {
+        return isset($value['url']) && $value['url'] !== '' ? $value['url'] : $default;
+    }
+    if (is_numeric($value)) {
+        $url = wp_get_attachment_image_url((int) $value, 'large');
+        return $url ? $url : $default;
+    }
+    if (is_string($value) && filter_var($value, FILTER_VALIDATE_URL)) {
+        return $value;
+    }
+    return $default;
+}
+
+
 // Remove Hello Elementor header/footer so we use custom ones
 add_action('after_setup_theme', function() {
     add_theme_support('hello-elementor-header-footer');
@@ -3818,6 +3833,480 @@ if (function_exists('acf_add_local_field_group')) {
 
 }
 
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
+        'key' => 'group_allscented_product',
+        'title' => 'Product Page Details',
+        'fields' => array(
+            array(
+                'key' => 'tab_product_media',
+                'label' => 'Media & Chips',
+                'type' => 'tab',
+            ),
+            array(
+                'key' => 'field_product_video_url',
+                'label' => 'Product Video URL',
+                'name' => 'product_video_url',
+                'type' => 'url',
+                'instructions' => 'Optional MP4/WebM URL. When filled, the main media panel shows a video with the featured image as poster; leave empty to use the WooCommerce featured image.',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_video_label',
+                'label' => 'Video Preview Label',
+                'name' => 'product_video_label',
+                'type' => 'text',
+                'default_value' => 'Cinematic Preview',
+                'instructions' => 'Visible label shown over the main media when a product video is provided.',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_chip_for',
+                'label' => 'Chip: For',
+                'name' => 'product_chip_for',
+                'type' => 'text',
+                'instructions' => 'Example: Personal. Rendered as "For Personal" when filled.',
+                'wrapper' => array('width' => 33),
+            ),
+            array(
+                'key' => 'field_product_chip_mood',
+                'label' => 'Chip: Mood',
+                'name' => 'product_chip_mood',
+                'type' => 'text',
+                'instructions' => 'Example: Serene. Rendered as "Mood: Serene".',
+                'wrapper' => array('width' => 33),
+            ),
+            array(
+                'key' => 'field_product_chip_scene',
+                'label' => 'Chip: Scene',
+                'name' => 'product_chip_scene',
+                'type' => 'text',
+                'instructions' => 'Example: Digital Sunrise. Rendered as "Scene: Digital Sunrise".',
+                'wrapper' => array('width' => 34),
+            ),
+            array(
+                'key' => 'tab_product_journey',
+                'label' => 'The Olfactory Journey',
+                'type' => 'tab',
+            ),
+            array(
+                'key' => 'field_product_journey_title',
+                'label' => 'Section Title',
+                'name' => 'product_journey_title',
+                'type' => 'text',
+                'default_value' => 'The Olfactory Journey',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_journey_intro',
+                'label' => 'Section Intro',
+                'name' => 'product_journey_intro',
+                'type' => 'textarea',
+                'default_value' => 'A technical synthesis of atmospheric elements and engineered botanical compounds, unfolding in three precise acts.',
+                'rows' => 3,
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_journey_repeater',
+                'label' => 'Journey Stages',
+                'name' => 'product_journey',
+                'type' => 'repeater',
+                'default_value' => array(),
+                'layout' => 'block',
+                'button_label' => 'Add Stage',
+                'instructions' => 'Add one card per stage in Top / Heart / Base order. Example: stage "Top Notes", notes "Ozone\\nWhite Iris". The section stays hidden when this list is empty.',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_product_journey_stage',
+                        'label' => 'Stage Label',
+                        'name' => 'stage',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_product_journey_notes',
+                        'label' => 'Notes',
+                        'name' => 'notes',
+                        'type' => 'textarea',
+                        'rows' => 4,
+                    ),
+                ),
+            ),
+            array(
+                'key' => 'tab_product_scenarios',
+                'label' => 'Atmospheric Resonance',
+                'type' => 'tab',
+            ),
+            array(
+                'key' => 'field_product_scenarios_title',
+                'label' => 'Section Title',
+                'name' => 'product_scenarios_title',
+                'type' => 'text',
+                'default_value' => 'Atmospheric Resonance',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_scenarios_intro',
+                'label' => 'Section Intro',
+                'name' => 'product_scenarios_intro',
+                'type' => 'textarea',
+                'default_value' => 'Curated environments where the fragrance achieves maximum sensory impact.',
+                'rows' => 3,
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_scenarios_repeater',
+                'label' => 'Scenarios',
+                'name' => 'product_scenarios',
+                'type' => 'repeater',
+                'default_value' => array(),
+                'layout' => 'block',
+                'button_label' => 'Add Scenario',
+                'instructions' => 'One image card per scenario. Example: image = atmospheric scene, title "Deep Focus", description = when to wear it. The section stays hidden when this list is empty.',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_product_scenarios_image',
+                        'label' => 'Image',
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'array',
+                        'preview_size' => 'medium',
+                    ),
+                    array(
+                        'key' => 'field_product_scenarios_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_product_scenarios_desc',
+                        'label' => 'Description',
+                        'name' => 'desc',
+                        'type' => 'textarea',
+                        'rows' => 4,
+                    ),
+                ),
+            ),
+            array(
+                'key' => 'tab_product_dna',
+                'label' => 'Product DNA',
+                'type' => 'tab',
+            ),
+            array(
+                'key' => 'field_product_dna_title',
+                'label' => 'Section Title',
+                'name' => 'product_dna_title',
+                'type' => 'text',
+                'default_value' => 'Product DNA',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_dna_intro',
+                'label' => 'Section Intro',
+                'name' => 'product_dna_intro',
+                'type' => 'textarea',
+                'default_value' => 'What makes this formulation distinctive.',
+                'rows' => 3,
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_dna_repeater',
+                'label' => 'DNA Cards',
+                'name' => 'product_dna',
+                'type' => 'repeater',
+                'default_value' => array(),
+                'layout' => 'block',
+                'button_label' => 'Add DNA Card',
+                'instructions' => 'Optional icon name (Material Symbols), title, and description. Example: icon "memory", title "AI-Synthesized Precision". The section stays hidden when this list is empty.',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_product_dna_icon',
+                        'label' => 'Icon (Material Symbol Name)',
+                        'name' => 'icon',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_product_dna_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_product_dna_desc',
+                        'label' => 'Description',
+                        'name' => 'desc',
+                        'type' => 'textarea',
+                        'rows' => 3,
+                    ),
+                ),
+            ),
+            array(
+                'key' => 'tab_product_specs',
+                'label' => 'Technical Specs',
+                'type' => 'tab',
+            ),
+            array(
+                'key' => 'field_product_specs_title',
+                'label' => 'Section Title',
+                'name' => 'product_specs_title',
+                'type' => 'text',
+                'default_value' => 'Technical Specs',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_specs_repeater',
+                'label' => 'Specs',
+                'name' => 'product_specs',
+                'type' => 'repeater',
+                'default_value' => array(),
+                'layout' => 'block',
+                'button_label' => 'Add Spec',
+                'instructions' => 'Label and value rows. Example: label "Persistence", value "24h Linear". The section stays hidden when this list is empty.',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_product_specs_label',
+                        'label' => 'Label',
+                        'name' => 'label',
+                        'type' => 'text',
+                    ),
+                    array(
+                        'key' => 'field_product_specs_value',
+                        'label' => 'Value',
+                        'name' => 'value',
+                        'type' => 'text',
+                    ),
+                ),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'product',
+                ),
+            ),
+        ),
+        'menu_order' => 5,
+        'position' => 'acf_after_title',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'active' => true,
+    ));
+
+    acf_add_local_field_group(array(
+        'key' => 'group_allscented_contact',
+        'title' => 'Contact Page',
+        'fields' => array(
+            array(
+                'key' => 'field_contact_label',
+                'label' => 'Hero Label',
+                'name' => 'allscented_contact_label',
+                'type' => 'text',
+                'default_value' => 'GET IN TOUCH',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_contact_heading',
+                'label' => 'Heading',
+                'name' => 'allscented_contact_heading',
+                'type' => 'text',
+                'default_value' => 'Contact',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_contact_intro',
+                'label' => 'Intro',
+                'name' => 'allscented_contact_intro',
+                'type' => 'textarea',
+                'default_value' => 'Questions about our fragrances, orders, or collaborations — we\'d love to hear from you.',
+                'rows' => 3,
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_contact_info_label',
+                'label' => 'Contact Details Label',
+                'name' => 'allscented_contact_info_label',
+                'type' => 'text',
+                'default_value' => 'CONTACT DETAILS',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_contact_email',
+                'label' => 'Email',
+                'name' => 'allscented_contact_email',
+                'type' => 'email',
+                'default_value' => 'info@allscented.com',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_contact_phone',
+                'label' => 'Phone',
+                'name' => 'allscented_contact_phone',
+                'type' => 'text',
+                'default_value' => '+852 46090901',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_contact_address',
+                'label' => 'Address',
+                'name' => 'allscented_contact_address',
+                'type' => 'textarea',
+                'rows' => 3,
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_contact_form_label',
+                'label' => 'Form Heading',
+                'name' => 'allscented_contact_form_label',
+                'type' => 'text',
+                'default_value' => 'SEND A MESSAGE',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_contact_form_intro',
+                'label' => 'Form Intro',
+                'name' => 'allscented_contact_form_intro',
+                'type' => 'textarea',
+                'default_value' => 'We usually reply within 24 hours.',
+                'rows' => 2,
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_contact_name_label',
+                'label' => 'Name Field Label',
+                'name' => 'allscented_contact_name_label',
+                'type' => 'text',
+                'default_value' => 'Name',
+                'wrapper' => array('width' => 33),
+            ),
+            array(
+                'key' => 'field_contact_email_label',
+                'label' => 'Email Field Label',
+                'name' => 'allscented_contact_email_label',
+                'type' => 'text',
+                'default_value' => 'Email',
+                'wrapper' => array('width' => 34),
+            ),
+            array(
+                'key' => 'field_contact_message_label',
+                'label' => 'Message Field Label',
+                'name' => 'allscented_contact_message_label',
+                'type' => 'text',
+                'default_value' => 'Message',
+                'wrapper' => array('width' => 33),
+            ),
+            array(
+                'key' => 'field_contact_submit_label',
+                'label' => 'Submit Button Label',
+                'name' => 'allscented_contact_submit_label',
+                'type' => 'text',
+                'default_value' => 'Send Message',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_contact_success_message',
+                'label' => 'Success Message',
+                'name' => 'allscented_contact_success_message',
+                'type' => 'text',
+                'default_value' => 'Thank you. Your message has been sent.',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_contact_error_message',
+                'label' => 'Error Message',
+                'name' => 'allscented_contact_error_message',
+                'type' => 'text',
+                'default_value' => 'Sorry, your message could not be sent. Please try again.',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_contact_facebook',
+                'label' => 'Facebook URL',
+                'name' => 'allscented_contact_facebook_url',
+                'type' => 'url',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_contact_instagram',
+                'label' => 'Instagram URL',
+                'name' => 'allscented_contact_instagram_url',
+                'type' => 'url',
+                'wrapper' => array('width' => 50),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'page-contact.php',
+                ),
+            ),
+            array(
+                array(
+                    'param' => 'page',
+                    'operator' => '==',
+                    'value' => 'contact',
+                ),
+            ),
+        ),
+        'menu_order' => 5,
+        'position' => 'acf_after_title',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'active' => true,
+    ));
+
+}
+
+// ============================================
+// Contact form handler
+// ============================================
+add_action('admin_post_allscented_contact', 'allscented_handle_contact_form');
+add_action('admin_post_nopriv_allscented_contact', 'allscented_handle_contact_form');
+function allscented_handle_contact_form() {
+    if (!isset($_POST['allscented_contact_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['allscented_contact_nonce'])), 'allscented_contact_action')) {
+        allscented_contact_redirect('failed');
+    }
+
+    $honeypot = isset($_POST['allscented_website']) ? sanitize_text_field(wp_unslash($_POST['allscented_website'])) : '';
+    if ($honeypot !== '') {
+        allscented_contact_redirect('success');
+    }
+
+    $name    = isset($_POST['allscented_name']) ? sanitize_text_field(wp_unslash($_POST['allscented_name'])) : '';
+    $email   = isset($_POST['allscented_email']) ? sanitize_email(wp_unslash($_POST['allscented_email'])) : '';
+    $message = isset($_POST['allscented_message']) ? sanitize_textarea_field(wp_unslash($_POST['allscented_message'])) : '';
+
+    if ($name === '' || $email === '' || $message === '' || !is_email($email)) {
+        allscented_contact_redirect('failed');
+    }
+
+    $admin_email = get_option('admin_email');
+    $subject = 'AllScented Contact: ' . $name;
+    $body = "Name: " . $name . "\nEmail: " . $email . "\n\nMessage:\n" . $message;
+    $headers = array(
+        'Reply-To: ' . $name . ' <' . $email . '>',
+        'Content-Type: text/plain; charset=UTF-8',
+    );
+
+    $sent = wp_mail($admin_email, $subject, $body, $headers);
+    allscented_contact_redirect($sent ? 'success' : 'failed');
+}
+
+function allscented_contact_redirect($status) {
+    $url = wp_get_referer();
+    if (!$url) {
+        $url = home_url('/contact/');
+    }
+    wp_safe_redirect(add_query_arg('contact_status', $status, $url));
+    exit;
+}
+
+
 // ============================================
 // Page Templates Registration
 // ============================================
@@ -3825,6 +4314,7 @@ function allscented_page_templates($templates) {
     $templates['page-the-atelier.php'] = 'The Atelier';
     $templates['page-ai-synthesis.php'] = 'AI Synthesis';
     $templates['page-archive.php'] = 'Archive';
+    $templates['page-contact.php'] = 'Contact';
     return $templates;
 }
 add_filter('theme_page_templates', 'allscented_page_templates');
@@ -3840,6 +4330,10 @@ function allscented_template_include($template) {
     }
     if (is_page_template('page-archive.php')) {
         $new = locate_template(array('page-archive.php'));
+        if ($new) return $new;
+    }
+    if (is_page_template('page-contact.php')) {
+        $new = locate_template(array('page-contact.php'));
         if ($new) return $new;
     }
     return $template;

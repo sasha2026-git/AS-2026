@@ -307,6 +307,50 @@
         });
     }
 
+
+    /* ── Product gallery / video switching ── */
+    function initProductMedia() {
+        var media = document.getElementById('product-main-media');
+        if (!media) return;
+        var image = document.getElementById('product-main-image');
+        var video = document.getElementById('product-main-video');
+        var toggle = document.getElementById('product-video-toggle');
+        function showVideo() {
+            if (!video) return;
+            if (image) image.classList.add('product-media-hidden');
+            video.classList.remove('product-media-hidden');
+            if (toggle) toggle.classList.add('product-video-toggle-active');
+            if (video.paused) {
+                try { var playPromise = video.play(); if (playPromise && playPromise.catch) playPromise.catch(function(){}); } catch (err) {}
+            }
+        }
+        function showImage(src, alt) {
+            if (image && src) {
+                image.src = src;
+                if (alt) image.alt = alt;
+                image.classList.remove('product-media-hidden');
+            }
+            if (video) video.classList.add('product-media-hidden');
+            if (toggle) toggle.classList.remove('product-video-toggle-active');
+        }
+        document.addEventListener('click', function(e) {
+            var thumb = e.target.closest ? e.target.closest('.product-thumbnails a, .product-thumbnails img, .flex-control-thumbs a, .flex-control-thumbs img, .product-thumb, .product-thumb a') : null;
+            if (!thumb) return;
+            var link = thumb.closest('a[href]');
+            if (!link || !link.getAttribute('href')) return;
+            e.preventDefault();
+            var alt = thumb.getAttribute('alt') || '';
+            showImage(link.getAttribute('href'), alt);
+            var thumbs = document.querySelectorAll('.product-thumbnails .woocommerce-product-gallery__image, .product-thumbnails .flex-control-thumbs li, .product-thumb');
+            var active = link.closest('.woocommerce-product-gallery__image') || link.closest('li') || thumb;
+            thumbs.forEach(function(el) {
+                el.classList.remove('product-thumb-active');
+            });
+            if (active) active.classList.add('product-thumb-active');
+        });
+        if (toggle) toggle.addEventListener('click', showVideo);
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         /* Scroll reveal */
         var revealEls = document.querySelectorAll('.scroll-reveal');
@@ -343,5 +387,10 @@
             console.error('initSampleTabs failed:', err);
         }
         initCoverEditor();
+        try {
+            initProductMedia();
+        } catch (err) {
+            console.error('initProductMedia failed:', err);
+        }
     });
 })();
