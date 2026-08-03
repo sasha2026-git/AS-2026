@@ -76,7 +76,6 @@
         </div>
         <div style="border-top:1px solid color-mix(in srgb,var(--outline-variant)15%,transparent);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
             <span class="font-label-caps text-label-caps" style="font-size:11px;color:var(--on-surface-variant);letter-spacing:.12em">&copy; <?php echo esc_html(date('Y')); ?> <?php echo esc_html(get_theme_mod('allscented_footer_copyright', 'ALLSCENTED — ALL RIGHTS RESERVED')); ?></span>
-            <span class="font-label-caps text-label-caps" style="font-size:11px;color:var(--on-surface-variant);letter-spacing:.12em"><?php echo esc_html(get_theme_mod('allscented_footer_badge', 'CRAFTED WITH AI INTELLIGENCE')); ?></span>
         </div>
     </div>
 </footer>

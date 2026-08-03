@@ -3706,15 +3706,6 @@ function allscented_customize_register($wp_customize) {
         'section' => 'allscented_footer_settings',
         'type'    => 'text',
     ));
-    $wp_customize->add_setting('allscented_footer_badge', array(
-        'default'           => 'CRAFTED WITH AI INTELLIGENCE',
-        'sanitize_callback' => 'sanitize_text_field',
-    ));
-    $wp_customize->add_control('allscented_footer_badge', array(
-        'label'   => '底部徽标文字',
-        'section' => 'allscented_footer_settings',
-        'type'    => 'text',
-    ));
 }
 
 // ============================================
