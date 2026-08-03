@@ -231,6 +231,8 @@
     /* ── Journal cover inline editor ── */
     function initCoverEditor() {
         if (typeof allscented_ajax === 'undefined') return;
+        var coverBtn = document.querySelector('.journal-edit-cover');
+        if (!coverBtn) return;
         document.querySelectorAll('.journal-edit-cover').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -306,10 +308,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        initPagination();
-        initSampleTabs();
         /* Scroll reveal */
-        initCoverEditor();
         var revealEls = document.querySelectorAll('.scroll-reveal');
         if (revealEls.length && 'IntersectionObserver' in window) {
             var observer = new IntersectionObserver(function(entries) {
@@ -322,5 +321,16 @@
             }, { threshold: 0.15 });
             revealEls.forEach(function(el) { observer.observe(el); });
         }
+        try {
+            initPagination();
+        } catch (err) {
+            console.error('initPagination failed:', err);
+        }
+        try {
+            initSampleTabs();
+        } catch (err) {
+            console.error('initSampleTabs failed:', err);
+        }
+        initCoverEditor();
     });
 })();

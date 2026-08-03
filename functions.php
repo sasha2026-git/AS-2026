@@ -37,20 +37,12 @@ function allscented_enqueue_styles() {
         wp_get_theme()->get('Version')
     );
 
-    // Google Fonts
+    // Local fonts
     wp_enqueue_style(
         'allscented-fonts',
-        'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Hanken+Grotesk:wght@100..900&display=swap',
-        array(),
-        null
-    );
-
-    // Material Symbols
-    wp_enqueue_style(
-        'allscented-icons',
-        'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap',
-        array(),
-        null
+        get_stylesheet_directory_uri() . '/assets/css/fonts.css',
+        array('allscented-child'),
+        wp_get_theme()->get('Version')
     );
 }
 add_action('wp_enqueue_scripts', 'allscented_enqueue_styles');
@@ -193,16 +185,7 @@ add_filter('woocommerce_pagination_args', function($args) {
 // ACF Field Registration (ACF Free compatible)
 // ============================================
 /**
-// Preconnect for Google Fonts
-add_filter('wp_resource_hints', function ($urls, $relation_type) {
-    if ('preconnect' === $relation_type) {
-        $urls[] = array('href' => 'https://fonts.googleapis.com');
-        $urls[] = array('href' => 'https://fonts.gstatic.com', 'crossorigin');
-    }
-    return $urls;
-}, 10, 2);
-
-* Allscented — ACF Field Groups (ACF Free compatible: text/textarea/image/group/select/tab only)
+ * Allscented — ACF Field Groups (ACF Free compatible: text/textarea/image/group/select/tab only)
  * Registered via PHP so fields appear automatically after theme activation.
  * No repeater fields (requires ACF Pro) — each product is a fixed group.
  */

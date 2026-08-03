@@ -53,9 +53,9 @@
                         'fallback_cb'    => function() {
                             echo '<ul class="footer-menu">';
                             $links = array(
-                                'Privacy Policy'    => '#',
-                                'Terms of Service'  => '#',
-                                'Shipping & Returns' => '#',
+                                'Privacy Policy'    => home_url('/privacy/'),
+                                'Terms of Service'  => home_url('/terms-of-service/'),
+                                'Shipping & Returns' => home_url('/shipping-returns/'),
                             );
                             foreach ($links as $label => $url) {
                                 echo '<li><a href="' . esc_url($url) . '" style="font-size:12px;color:var(--on-surface-variant);text-decoration:none">' . esc_html($label) . '</a></li>';
