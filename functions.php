@@ -4342,6 +4342,16 @@ function allscented_template_include($template) {
 add_filter('template_include', 'allscented_template_include');
 
 // ============================================
+// WooCommerce 产品详情页模板切换 (?tpl=stitch)
+// ============================================
+add_filter('woocommerce_locate_template', function($template, $template_name, $template_path) {
+    if ($template_name !== 'single-product.php') return $template;
+    if (!isset($_GET['tpl']) || $_GET['tpl'] !== 'stitch') return $template;
+    $stitch = locate_template('woocommerce/single-product-stitch.php');
+    return $stitch ? $stitch : $template;
+}, 10, 3);
+
+// ============================================
 // 页眉 / 页脚 可视化编辑（外观 → 自定义）
 // ============================================
 add_action('customize_register', 'allscented_customize_register');
