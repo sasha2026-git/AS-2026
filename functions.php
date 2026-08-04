@@ -3931,6 +3931,22 @@ if (function_exists('acf_add_local_field_group')) {
                         'type' => 'textarea',
                         'rows' => 4,
                     ),
+                    array(
+                        'key' => 'field_product_journey_icon',
+                        'label' => 'Icon (Material Symbol Name)',
+                        'name' => 'icon',
+                        'type' => 'text',
+                        'instructions' => 'Material Symbols icon name, e.g. air, local_florist, diamond. Leave empty to use the default stage icon.',
+                        'wrapper' => array('width' => 50),
+                    ),
+                    array(
+                        'key' => 'field_product_journey_label',
+                        'label' => 'Notes Label',
+                        'name' => 'label',
+                        'type' => 'text',
+                        'instructions' => 'Small uppercase label, e.g. Top Notes, Heart Notes, Base Notes.',
+                        'wrapper' => array('width' => 50),
+                    ),
                 ),
             ),
             array(
@@ -4077,6 +4093,60 @@ if (function_exists('acf_add_local_field_group')) {
                         'type' => 'text',
                     ),
                 ),
+            ),
+            array(
+                'key' => 'tab_product_stitch',
+                'label' => 'Stitch 版专属',
+                'type' => 'tab',
+            ),
+            array(
+                'key' => 'field_product_size_note',
+                'label' => 'Size Note',
+                'name' => 'product_size_note',
+                'type' => 'text',
+                'instructions' => 'Optional text shown beside the price, e.g. / 50ml Extrait de Parfum.',
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_philosophy_title',
+                'label' => 'Brand Philosophy Title',
+                'name' => 'product_philosophy_title',
+                'type' => 'text',
+                'default_value' => 'Brand Philosophy',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_product_philosophy_text',
+                'label' => 'Brand Philosophy Text',
+                'name' => 'product_philosophy_text',
+                'type' => 'textarea',
+                'rows' => 4,
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_soul_title',
+                'label' => 'The Soul Title',
+                'name' => 'product_soul_title',
+                'type' => 'text',
+                'instructions' => 'Leave empty to use "The Soul of [product name]".',
+                'wrapper' => array('width' => 50),
+            ),
+            array(
+                'key' => 'field_product_soul_text',
+                'label' => 'The Soul Text',
+                'name' => 'product_soul_text',
+                'type' => 'textarea',
+                'rows' => 4,
+                'wrapper' => array('width' => 100),
+            ),
+            array(
+                'key' => 'field_product_specs_footer',
+                'label' => 'Technical Specs Footer',
+                'name' => 'product_specs_footer',
+                'type' => 'text',
+                'default_value' => '',
+                'instructions' => 'Optional caption below Technical Specs, e.g. Matched via AuraNet. Hidden when empty.',
+                'wrapper' => array('width' => 100),
             ),
         ),
         'location' => array(
@@ -4480,6 +4550,43 @@ if (function_exists('acf_add_local_field_group')) {
             ),
         ),
         'menu_order' => 6,
+        'position' => 'acf_after_title',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'active' => true,
+    ));
+}
+
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
+        'key' => 'group_allscented_stitch_page',
+        'title' => 'Stitch Product Page',
+        'fields' => array(
+            array(
+                'key' => 'field_stitch_product',
+                'label' => 'Product',
+                'name' => 'stitch_product',
+                'type' => 'post_object',
+                'post_type' => array('product'),
+                'return_format' => 'id',
+                'allow_null' => 1,
+                'instructions' => 'Select the product this page displays, or append ?product=ID to the URL.',
+                'wrapper' => array('width' => 100),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'page',
+                ),
+            ),
+        ),
+        'menu_order' => 7,
         'position' => 'acf_after_title',
         'style' => 'default',
         'label_placement' => 'top',

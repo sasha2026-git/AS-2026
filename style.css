@@ -3,7 +3,7 @@ Theme Name: Allscented
 Theme URI: https://github.com/sasha2026-git/allscented
 Author: Sasha
 Description: Allscented fragrance brand — child theme of Hello Elementor. Built from v20 preview (AI consultation flow + smart pagination).
-Version: 1.7.1
+Version: 1.8.0
 Template: hello-elementor
 Text Domain: allscented
 */
@@ -480,3 +480,200 @@ body.admin-bar .fixed.top-0 { top: 32px; }
   .related-products-grid{grid-template-columns:repeat(3,1fr)}
 }
 
+
+/* v1.8.0: Stitch product detail page template */
+.stitch-page{
+  --stitch-surface:#fcf9f8;
+  --stitch-surface-container-low:#f6f3f2;
+  --stitch-on-surface:#1c1b1b;
+  --stitch-on-surface-variant:#46464b;
+  --stitch-secondary:#645787;
+  --stitch-secondary-fixed:#d7c6fe;
+  --stitch-tertiary-fixed:#d3e5f1;
+  --stitch-outline-variant:#c7c6cb;
+  --stitch-text-secondary:#5e5080;
+  --stitch-primary:#5d5e65;
+  --stitch-tertiary:#50616b;
+  position:relative;
+  isolation:isolate;
+  max-width:1280px;
+  margin:0 auto;
+  padding:64px 20px 128px;
+  color:var(--stitch-on-surface);
+  font-family:'Hanken Grotesk',sans-serif;
+}
+.stitch-empty{padding-top:96px;text-align:center;color:var(--stitch-on-surface-variant);font-size:16px}
+.stitch-ambient-glow{position:absolute;width:40vw;height:40vw;background:radial-gradient(circle,rgba(215,198,254,.15) 0%,rgba(255,255,255,0) 70%);border-radius:50%;pointer-events:none;z-index:-1}
+.stitch-ambient-glow-one{top:-80px;left:-60px}
+.stitch-ambient-glow-two{top:45%;right:-80px}
+.stitch-glass{background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.4);box-shadow:0 8px 32px rgba(0,0,0,.04)}
+.stitch-grid{display:grid;grid-template-columns:1fr;gap:24px}
+.stitch-grid .stitch-col-5,.stitch-grid .stitch-col-7,.stitch-grid .stitch-col-12{min-width:0}
+.stitch-section + .stitch-section{margin-top:96px}
+@media(min-width:768px){
+  .stitch-page{padding:72px 64px 128px}
+  .stitch-grid{grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+  .stitch-col-5{grid-column:span 5}
+  .stitch-col-7{grid-column:span 7}
+  .stitch-col-12{grid-column:span 12}
+  .stitch-section + .stitch-section{margin-top:120px}
+}
+.stitch-hero{display:flex;flex-direction:column;gap:40px}
+@media(min-width:768px){.stitch-hero{gap:56px}}
+.stitch-hero-media-column{display:flex;flex-direction:column;gap:16px;min-width:0}
+.stitch-hero-media{position:relative;height:512px;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:32px}
+@media(min-width:768px){.stitch-hero-media{height:700px}}
+.stitch-hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,var(--stitch-surface-container-low) 0%,rgba(255,255,255,0) 50%);opacity:.5;pointer-events:none}
+.stitch-main-image,.stitch-main-video{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}
+.stitch-media-hidden{display:none!important}
+.stitch-video-toggle{height:128px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;position:relative;overflow:hidden;transition:background .3s,transform .3s}
+.stitch-video-toggle:hover{background:rgba(255,255,255,.4);transform:translateY(-1px)}
+.stitch-video-toggle .material-symbols-outlined{font-size:40px;color:var(--stitch-on-surface-variant);transition:transform .3s}
+.stitch-video-toggle:hover .material-symbols-outlined{transform:scale(1.1)}
+.stitch-video-label{font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--stitch-on-surface-variant)}
+.stitch-hero-details{display:flex;flex-direction:column;gap:32px;min-width:0}
+@media(min-width:768px){.stitch-hero-details{padding-left:48px}}
+.stitch-hero-detail-block{display:flex;flex-direction:column;gap:8px}
+.stitch-product-title{font-family:'Playfair Display',serif;font-weight:400;font-size:32px;line-height:1.2;margin:0;color:var(--stitch-on-surface)}
+@media(min-width:768px){.stitch-product-title{font-size:48px;line-height:1.2}}
+.stitch-price-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:0;font-family:'Hanken Grotesk',sans-serif;font-size:18px;line-height:1.6;color:var(--stitch-on-surface-variant)}
+.stitch-price{color:var(--stitch-on-surface)}
+.stitch-price .price{margin:0}
+.stitch-size-note{font-size:14px;opacity:.6}
+.stitch-short-description{margin:0;font-size:16px;line-height:1.6;color:var(--stitch-on-surface-variant)}
+.stitch-chips{display:flex;flex-wrap:wrap;gap:12px}
+.stitch-chip{display:inline-flex;align-items:center;padding:6px 16px;border-radius:999px;background:rgba(215,198,254,.5);border:1px solid var(--stitch-secondary-fixed);color:var(--stitch-text-secondary);font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.stitch-chip:nth-child(2){background:rgba(211,229,241,.3);border-color:var(--stitch-tertiary-fixed)}
+.stitch-chip:nth-child(3){background:var(--stitch-surface-container-low);border-color:transparent}
+.stitch-add-to-cart{margin-top:4px}
+.stitch-add-to-cart form.cart{display:flex;flex-direction:column;align-items:stretch;gap:12px;margin:0}
+.stitch-add-to-cart .quantity{width:100%;margin:0}
+.stitch-add-to-cart .qty{width:100%;min-height:48px;padding:0 12px;border:1px solid rgba(199,198,203,.7);border-radius:8px;background:var(--stitch-surface-container-low);color:var(--stitch-on-surface);font-family:'Hanken Grotesk',sans-serif;font-size:14px}
+.stitch-add-to-cart .qty:focus{border-color:var(--stitch-secondary);outline:0}
+.stitch-add-to-cart .single_add_to_cart_button{width:100%;min-height:56px;padding:14px 24px;border:0;border-radius:12px;background:linear-gradient(135deg,#d7c6fe 0%,#d3e5f1 100%);color:var(--stitch-on-surface);font-family:'Hanken Grotesk',sans-serif;font-size:18px;font-weight:600;letter-spacing:.02em;box-shadow:0 4px 16px rgba(215,198,254,.25);transition:all .3s ease}
+.stitch-add-to-cart .single_add_to_cart_button:hover{box-shadow:0 0 15px rgba(216,199,255,.5);transform:translateY(-1px)}
+.stitch-add-to-cart .single_add_to_cart_button:disabled{opacity:.65;cursor:not-allowed;transform:none}
+.stitch-add-to-cart .variations{width:100%;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.stitch-add-to-cart .variations select{width:100%;min-height:48px;padding:0 12px;border:1px solid rgba(199,198,203,.7);border-radius:8px;background:var(--stitch-surface-container-low);color:var(--stitch-on-surface);font-family:'Hanken Grotesk',sans-serif;font-size:14px}
+.stitch-add-to-cart .variations select:focus{border-color:var(--stitch-secondary);outline:0}
+.stitch-add-to-cart .reset_variations{display:inline-block;margin-top:6px;color:var(--stitch-secondary);font-size:12px}
+.stitch-add-to-cart .woocommerce-variation-price{margin:0}
+.stitch-journey-heading{max-width:768px;margin:0 auto 40px;text-align:center}
+.stitch-journey-heading h2,.stitch-scenarios-heading h2,.stitch-related-heading h2{font-family:'Playfair Display',serif;font-weight:400;font-size:32px;line-height:1.3;margin:0 0 16px;color:var(--stitch-on-surface)}
+.stitch-journey-heading p,.stitch-scenarios-heading p,.stitch-related-heading p{margin:0;color:var(--stitch-on-surface-variant);font-size:16px;line-height:1.6}
+.stitch-journey-grid{display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:768px){.stitch-journey-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}}
+.stitch-journey-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;padding:40px;border-radius:16px;transition:transform .5s}
+.stitch-journey-card:hover{transform:translateY(-8px)}
+.stitch-journey-icon{width:56px;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:rgba(215,198,254,.3);color:var(--stitch-secondary)}
+.stitch-journey-icon .material-symbols-outlined{font-size:34px;font-variation-settings:'wght' 200}
+.stitch-journey-copy{display:flex;flex-direction:column;align-items:center}
+.stitch-journey-stage{font-family:'Playfair Display',serif;font-weight:400;font-size:24px;line-height:1.3;margin:0 0 8px}
+.stitch-journey-label{font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--stitch-on-surface-variant);margin:0 0 24px}
+.stitch-journey-notes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;color:var(--stitch-on-surface);font-size:16px;line-height:1.6}
+.stitch-scenarios-heading{max-width:672px;margin:0 auto 40px;text-align:center}
+@media(min-width:768px){.stitch-scenarios-heading{margin-left:0;text-align:left}}
+.stitch-scenarios-grid{display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:768px){.stitch-scenarios-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}}
+.stitch-scenario-card{display:flex;flex-direction:column;gap:24px}
+.stitch-scenario-media{position:relative;height:400px;border-radius:16px;overflow:hidden;background:var(--stitch-surface-container-low)}
+.stitch-scenario-media img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.stitch-scenario-card:hover .stitch-scenario-media img{transform:scale(1.05)}
+.stitch-scenario-media-empty{display:flex;align-items:center;justify-content:center;color:var(--stitch-on-surface-variant)}
+.stitch-scenario-media-empty .material-symbols-outlined{font-size:48px;opacity:.55}
+.stitch-scenario-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5),transparent);pointer-events:none}
+.stitch-scenario-body{display:flex;flex-direction:column;gap:8px}
+.stitch-scenario-label{font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--stitch-secondary);margin:0}
+.stitch-scenario-title{font-family:'Playfair Display',serif;font-weight:400;font-size:24px;line-height:1.3;margin:0;color:var(--stitch-on-surface)}
+.stitch-scenario-desc{margin:0;color:var(--stitch-on-surface-variant);font-size:16px;line-height:1.7}
+.stitch-philosophy{background:var(--stitch-surface-container-low);border-radius:16px;padding:40px 24px;display:flex;flex-direction:column;gap:48px}
+@media(min-width:768px){.stitch-philosophy{padding:128px 80px;gap:64px}}
+.stitch-philosophy-heading{font-family:'Playfair Display',serif;font-weight:400;font-size:32px;line-height:1.2;max-width:768px;margin:0}
+@media(min-width:768px){.stitch-philosophy-heading{font-size:48px}}
+.stitch-philosophy-columns{display:grid;grid-template-columns:1fr;gap:48px}
+@media(min-width:768px){.stitch-philosophy-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:64px}}
+.stitch-philosophy-column{display:flex;flex-direction:column;gap:24px}
+.stitch-philosophy-column h3{font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--stitch-secondary);margin:0}
+.stitch-philosophy-column p{margin:0;font-size:18px;line-height:1.6;color:var(--stitch-on-surface-variant)}
+.stitch-dna-column,.stitch-specs-column{display:flex;flex-direction:column;gap:24px;min-width:0}
+.stitch-dna-title{font-family:'Playfair Display',serif;font-weight:400;font-size:32px;line-height:1.3;margin:0 0 8px}
+.stitch-dna-card{display:flex;align-items:center;gap:24px;padding:24px;border-radius:16px}
+.stitch-dna-icon{width:56px;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:rgba(215,198,254,.3);color:var(--stitch-secondary);flex-shrink:0}
+.stitch-dna-icon .material-symbols-outlined{font-size:28px}
+.stitch-dna-tone-1 .stitch-dna-icon{background:rgba(211,229,241,.3);color:var(--stitch-tertiary)}
+.stitch-dna-tone-2 .stitch-dna-icon{background:rgba(226,226,233,.3);color:var(--stitch-primary)}
+.stitch-dna-body{min-width:0}
+.stitch-dna-body h4{font-family:'Hanken Grotesk',sans-serif;font-size:18px;font-weight:600;line-height:1.4;margin:0 0 4px;color:var(--stitch-on-surface)}
+.stitch-dna-body p{margin:0;font-size:14px;line-height:1.7;color:var(--stitch-on-surface-variant)}
+.stitch-specs-panel{display:flex;flex-direction:column;justify-content:center;padding:40px;border-radius:16px;min-height:100%}
+.stitch-specs-heading{font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--stitch-on-surface-variant);margin:0 0 32px;padding-bottom:16px;border-bottom:1px solid rgba(199,198,203,.3)}
+.stitch-specs-list{list-style:none;margin:0;padding:0}
+.stitch-specs-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid rgba(199,198,203,.2)}
+.stitch-specs-row:last-child{border-bottom:0;padding-bottom:0}
+.stitch-specs-label{font-weight:600;color:var(--stitch-on-surface)}
+.stitch-specs-value{color:var(--stitch-on-surface-variant);text-align:right}
+.stitch-specs-footer{margin-top:32px;padding-top:24px;border-top:1px solid rgba(199,198,203,.3);text-align:center}
+.stitch-specs-footer .material-symbols-outlined{font-size:36px;color:var(--stitch-secondary);margin-bottom:8px}
+.stitch-specs-footer p{font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--stitch-on-surface-variant);margin:0}
+.stitch-related-heading{max-width:672px;margin:0 auto 40px;text-align:center}
+.stitch-related-grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:768px){.stitch-related-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1024px){.stitch-related-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.stitch-related-card{position:relative;display:flex;flex-direction:column;border-radius:16px;overflow:hidden;transition:transform .35s,box-shadow .35s}
+.stitch-related-card:hover{transform:translateY(-4px) scale(1.015);box-shadow:0 16px 40px rgba(0,0,0,.08)}
+.stitch-related-media{aspect-ratio:3/4;overflow:hidden;background:var(--stitch-surface-container-low)}
+.stitch-related-image{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.stitch-related-card:hover .stitch-related-image{transform:scale(1.05)}
+.stitch-related-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--stitch-on-surface-variant)}
+.stitch-related-placeholder .material-symbols-outlined{font-size:40px;opacity:.55}
+.stitch-related-body{display:flex;flex-direction:column;gap:8px;padding:16px;flex:1}
+.stitch-related-title{margin:0;font-size:18px;line-height:1.35}
+.stitch-related-title-link{display:inline-block;color:var(--stitch-on-surface);text-decoration:none;transition:color .25s}
+.stitch-related-title-link:hover{color:var(--stitch-secondary)}
+.stitch-related-title-link::after{content:"";position:absolute;inset:0;z-index:1}
+.stitch-related-title-link:focus-visible{outline:none}
+.stitch-related-title-link:focus-visible::after{outline:2px solid var(--stitch-secondary);outline-offset:-2px;border-radius:16px}
+.stitch-related-price{margin:0;font-size:16px;line-height:1.35;color:var(--stitch-text-secondary)}
+.stitch-related-price .price{margin:0}
+.stitch-related-actions{position:relative;z-index:2;margin-top:auto;padding-top:6px}
+.stitch-related-actions .button,
+.stitch-related-actions .added_to_cart{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:40px;padding:9px 14px;border:1px solid var(--stitch-secondary);border-radius:999px;background:transparent;color:var(--stitch-secondary);font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:background .25s,color .25s,transform .25s}
+.stitch-related-actions .button:hover,
+.stitch-related-actions .added_to_cart:hover{background:var(--stitch-secondary);color:var(--stitch-surface);transform:translateY(-1px)}
+@media(max-width:767px){
+  .stitch-page{padding:56px 20px 96px}
+  .stitch-hero-details{padding-left:0}
+  .stitch-hero-media{height:420px;padding:20px}
+  .stitch-product-title{font-size:32px}
+  .stitch-philosophy{padding:40px 20px}
+  .stitch-philosophy-heading{font-size:28px}
+  .stitch-section + .stitch-section{margin-top:72px}
+  .stitch-journey-card{padding:28px 20px}
+  .stitch-scenario-media{height:320px}
+  .stitch-specs-panel{padding:24px}
+  .stitch-dna-card{padding:18px;gap:16px}
+}
+@media(max-width:480px){
+  .stitch-page{padding-left:12px;padding-right:12px}
+  .stitch-hero-media{height:360px;padding:14px}
+  .stitch-price-row{font-size:16px}
+  .stitch-short-description{font-size:14px}
+  .stitch-philosophy-column p{font-size:15px}
+}
+
+.stitch-scenario-media-empty .material-symbols-outlined{position:relative;z-index:1}
+.stitch-philosophy-columns-single{grid-template-columns:1fr}
+.stitch-philosophy-columns-single .stitch-philosophy-column{max-width:720px}
+
+/* v1.8.0 fidelity refinements */
+@media(max-width:767px){
+  .stitch-hero-media{height:512px!important}
+}
+@media(max-width:480px){
+  .stitch-page{padding-left:20px!important;padding-right:20px!important}
+  .stitch-hero-media{height:512px!important;padding:14px}
+}
+.stitch-journey-card:nth-child(2) .stitch-journey-icon{background:rgba(211,229,241,.3);color:var(--stitch-tertiary)}
+.stitch-journey-card:nth-child(3) .stitch-journey-icon{background:rgba(226,226,233,.3);color:var(--stitch-primary)}
+.stitch-scenario-card:nth-child(2) .stitch-scenario-label{color:var(--stitch-tertiary)}
+.stitch-philosophy-column:nth-child(2) h3{color:var(--stitch-tertiary)}
