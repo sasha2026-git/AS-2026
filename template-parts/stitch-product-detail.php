@@ -222,6 +222,19 @@ $related_intro = allscented_field('product_related_intro', '', $product_id);
         </div>
     </section>
 
+    <?php
+    $product_details = '';
+    if (function_exists('allscented_clean_product_description')) {
+        $product_details = allscented_clean_product_description((string) $product->get_description());
+    }
+    ?>
+    <?php if ($product_details !== '') : ?>
+    <section class="stitch-section stitch-details">
+        <h2 class="stitch-details-heading">The Details</h2>
+        <div class="product-details-content"><?php echo $product_details; ?></div>
+    </section>
+    <?php endif; ?>
+
     <?php if ($journey) : ?>
     <section class="stitch-section stitch-journey">
         <?php if ($journey_title !== '' || $journey_intro !== '') : ?>
@@ -420,7 +433,14 @@ $related_intro = allscented_field('product_related_intro', '', $product_id);
                         <?php
                         $GLOBALS['product'] = $related_product;
                         if (function_exists('woocommerce_template_loop_add_to_cart')) {
+                            $GLOBALS['allscented_stitch_loop_cart_text'] = 'Add to Atelier';
+                            $allscented_stitch_loop_text = function ($text) {
+                                return !empty($GLOBALS['allscented_stitch_loop_cart_text']) ? $GLOBALS['allscented_stitch_loop_cart_text'] : $text;
+                            };
+                            add_filter('woocommerce_product_add_to_cart_text', $allscented_stitch_loop_text, 20);
                             woocommerce_template_loop_add_to_cart();
+                            remove_filter('woocommerce_product_add_to_cart_text', $allscented_stitch_loop_text, 20);
+                            unset($GLOBALS['allscented_stitch_loop_cart_text'], $allscented_stitch_loop_text);
                         }
                         $GLOBALS['product'] = $original_product;
                         ?>

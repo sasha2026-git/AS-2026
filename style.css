@@ -3,7 +3,7 @@ Theme Name: Allscented
 Theme URI: https://github.com/sasha2026-git/allscented
 Author: Sasha
 Description: Allscented fragrance brand — child theme of Hello Elementor. Built from v20 preview (AI consultation flow + smart pagination).
-Version: 1.8.1
+Version: 1.8.2
 Template: hello-elementor
 Text Domain: allscented
 */
@@ -677,3 +677,6 @@ body.admin-bar .fixed.top-0 { top: 32px; }
 .stitch-journey-card:nth-child(3) .stitch-journey-icon{background:rgba(226,226,233,.3);color:var(--stitch-primary)}
 .stitch-scenario-card:nth-child(2) .stitch-scenario-label{color:var(--stitch-tertiary)}
 .stitch-philosophy-column:nth-child(2) h3{color:var(--stitch-tertiary)}
+/* v1.8.2 — Stitch The Details section */
+.stitch-details{max-width:760px;margin:0 auto}
+.stitch-details-heading{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,40px);line-height:1.1;font-weight:400;letter-spacing:.01em;color:var(--on-surface);text-align:center;margin:0 0 32px}
