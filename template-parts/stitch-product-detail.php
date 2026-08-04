@@ -73,13 +73,20 @@ $has_video = $product_video_url !== '';
 $has_media = $has_image || $has_video;
 $show_preview_bar = $has_video && $has_image;
 
-$journey_raw = function_exists('get_field') ? get_field('product_journey', $product_id) : array();
 $journey = array();
-if (is_array($journey_raw)) {
-    foreach (array_values($journey_raw) as $row) {
-        if (is_array($row) && (!empty($row['stage']) || !empty($row['notes']))) {
-            $journey[] = $row;
-        }
+for ($i = 1; $i <= 3; $i++) {
+    $stage = get_field('product_journey_stage_' . $i, $product_id);
+    $notes = get_field('product_journey_notes_' . $i, $product_id);
+    $icon = get_field('product_journey_icon_' . $i, $product_id);
+    $label = get_field('product_journey_label_' . $i, $product_id);
+
+    if (!empty($stage) || !empty($notes)) {
+        $journey[] = array(
+            'stage' => $stage,
+            'notes' => $notes,
+            'icon' => $icon,
+            'label' => $label,
+        );
     }
 }
 $journey = array_slice($journey, 0, 3);
@@ -91,13 +98,18 @@ $journey_fallbacks = array(
     array('diamond', 'Base Notes'),
 );
 
-$scenarios_raw = function_exists('get_field') ? get_field('product_scenarios', $product_id) : array();
 $scenarios = array();
-if (is_array($scenarios_raw)) {
-    foreach (array_values($scenarios_raw) as $row) {
-        if (is_array($row) && (!empty($row['title']) || !empty($row['desc']) || !empty($row['image']))) {
-            $scenarios[] = $row;
-        }
+for ($i = 1; $i <= 2; $i++) {
+    $image = get_field('product_scenarios_image_' . $i, $product_id);
+    $title = get_field('product_scenarios_title_' . $i, $product_id);
+    $desc = get_field('product_scenarios_desc_' . $i, $product_id);
+
+    if (!empty($title) || !empty($desc) || !empty($image)) {
+        $scenarios[] = array(
+            'image' => $image,
+            'title' => $title,
+            'desc' => $desc,
+        );
     }
 }
 $scenarios_title = allscented_field('product_scenarios_title', 'Atmospheric Resonance', $product_id);
@@ -109,26 +121,34 @@ $soul_title = allscented_field('product_soul_title', 'The Soul of ' . $product_t
 $soul_text = allscented_field('product_soul_text', '', $product_id);
 $has_philosophy = $philosophy_text !== '' || $soul_text !== '';
 
-$dna_raw = function_exists('get_field') ? get_field('product_dna', $product_id) : array();
 $dna_rows = array();
-if (is_array($dna_raw)) {
-    foreach (array_values($dna_raw) as $row) {
-        if (is_array($row) && (!empty($row['title']) || !empty($row['desc']))) {
-            $dna_rows[] = $row;
-        }
+for ($i = 1; $i <= 3; $i++) {
+    $icon = get_field('product_dna_icon_' . $i, $product_id);
+    $title = get_field('product_dna_title_' . $i, $product_id);
+    $desc = get_field('product_dna_desc_' . $i, $product_id);
+
+    if (!empty($title) || !empty($desc)) {
+        $dna_rows[] = array(
+            'icon' => $icon,
+            'title' => $title,
+            'desc' => $desc,
+        );
     }
 }
 $dna_rows = array_slice($dna_rows, 0, 3);
 $has_dna = !empty($dna_rows);
 $dna_title = allscented_field('product_dna_title', 'Product DNA', $product_id);
 
-$specs_raw = function_exists('get_field') ? get_field('product_specs', $product_id) : array();
 $specs_rows = array();
-if (is_array($specs_raw)) {
-    foreach (array_values($specs_raw) as $row) {
-        if (is_array($row) && (!empty($row['label']) || !empty($row['value']))) {
-            $specs_rows[] = $row;
-        }
+for ($i = 1; $i <= 5; $i++) {
+    $label = get_field('product_specs_label_' . $i, $product_id);
+    $value = get_field('product_specs_value_' . $i, $product_id);
+
+    if (!empty($label) || !empty($value)) {
+        $specs_rows[] = array(
+            'label' => $label,
+            'value' => $value,
+        );
     }
 }
 $specs_title = allscented_field('product_specs_title', 'Technical Specs', $product_id);
