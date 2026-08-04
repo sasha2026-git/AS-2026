@@ -4100,6 +4100,16 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'tab',
             ),
             array(
+                'key' => 'field_product_use_stitch',
+                'label' => '详情页使用 Stitch 模板',
+                'name' => 'product_use_stitch',
+                'type' => 'true_false',
+                'instructions' => '开启后，该商品自己的详情页 URL 将以 Stitch 设计渲染（不再使用默认单商品模板）',
+                'default_value' => 0,
+                'ui' => 1,
+                'wrapper' => array('width' => 100),
+            ),
+            array(
                 'key' => 'field_product_size_note',
                 'label' => 'Size Note',
                 'name' => 'product_size_note',

@@ -13,3 +13,4 @@ settings.yml
 .codex/
 config.toml
 *.orig
+design-qa.md

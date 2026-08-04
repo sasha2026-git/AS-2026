@@ -7,6 +7,17 @@
 defined('ABSPATH') || exit;
 
 get_header('shop');
+
+$use_stitch = function_exists('allscented_field') ? allscented_field('product_use_stitch', false, get_the_ID()) : false;
+if ($use_stitch) {
+    get_template_part(
+        'template-parts/stitch-product-detail',
+        null,
+        array('stitch_product_id' => get_the_ID(), 'context' => 'product')
+    );
+    get_footer('shop');
+    return;
+}
 ?>
 
 <section class="product-page px-margin-desktop container-max scroll-reveal" style="padding-top:64px;padding-bottom:96px;">
