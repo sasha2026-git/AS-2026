@@ -3,7 +3,7 @@ Theme Name: Allscented
 Theme URI: https://github.com/sasha2026-git/allscented
 Author: Sasha
 Description: Allscented fragrance brand — child theme of Hello Elementor. Built from v20 preview (AI consultation flow + smart pagination).
-Version: 1.7.0
+Version: 1.7.1
 Template: hello-elementor
 Text Domain: allscented
 */
@@ -449,10 +449,10 @@ body.admin-bar .fixed.top-0 { top: 32px; }
   .product-summary-column .quantity{flex:1;margin-right:0}
   .product-summary-column .quantity .qty{width:100%}
 }
-/* v1.7.0: You May Also Like */
+/* v1.7.1: You May Also Like (whole-card click) */
 .related-products-section{margin-top:96px;margin-left:20px;margin-right:20px}
 .related-products-grid{display:grid;grid-template-columns:1fr;gap:20px}
-.related-product-card{display:flex;flex-direction:column;border-radius:12px;overflow:hidden;transition:transform .35s ease,box-shadow .35s ease}
+.related-product-card{position:relative;display:flex;flex-direction:column;border-radius:12px;overflow:hidden;transition:transform .35s ease,box-shadow .35s ease}
 .related-product-card:hover{transform:translateY(-4px) scale(1.015);box-shadow:0 16px 40px rgba(0,0,0,.08)}
 .related-product-media{display:block;aspect-ratio:3/4;overflow:hidden;background:var(--surface-container-high)}
 .related-product-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
@@ -462,9 +462,12 @@ body.admin-bar .fixed.top-0 { top: 32px; }
 .related-product-title{margin:0;font-size:18px;line-height:1.35}
 .related-product-title a{display:inline-block;color:var(--on-surface);text-decoration:none;transition:color .25s}
 .related-product-title a:hover{color:var(--secondary)}
+.related-product-title a::after{content:"";position:absolute;inset:0;z-index:1}
+.related-product-title a:focus-visible{outline:none}
+.related-product-title a:focus-visible::after{outline:2px solid var(--secondary);outline-offset:-2px;border-radius:12px}
 .related-product-price{margin:0;font-size:16px;color:var(--secondary);line-height:1.35}
 .related-product-price .price{margin:0}
-.related-product-actions{margin-top:auto;padding-top:6px}
+.related-product-actions{margin-top:auto;padding-top:6px;position:relative;z-index:2}
 .related-product-actions .button,
 .related-product-actions .added_to_cart{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:38px;padding:9px 14px;border:1px solid var(--secondary);border-radius:999px;background:transparent;color:var(--secondary);font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:background .25s,color .25s,transform .25s}
 .related-product-actions .button:hover,

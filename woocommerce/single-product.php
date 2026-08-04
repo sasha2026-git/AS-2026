@@ -250,11 +250,11 @@ if (!empty($related_ids)) :
             $related_image = get_the_post_thumbnail($related_id, 'woocommerce_thumbnail', array('class' => 'related-product-image', 'loading' => 'lazy'));
         ?>
         <article class="related-product-card aura-glass">
-            <a class="related-product-media" href="<?php echo esc_url($related_permalink); ?>" tabindex="-1" aria-label="<?php echo esc_attr($related_name); ?>">
+            <div class="related-product-media">
                 <?php if ($related_image) : echo $related_image; else : ?>
                     <span class="related-product-placeholder" aria-hidden="true"><span class="material-symbols-outlined">image</span></span>
                 <?php endif; ?>
-            </a>
+            </div>
             <div class="related-product-body">
                 <h3 class="related-product-title font-headline-md"><a href="<?php echo esc_url($related_permalink); ?>"><?php echo esc_html($related_name); ?></a></h3>
                 <div class="related-product-price font-headline-md"><?php echo $related_product->get_price_html(); ?></div>
