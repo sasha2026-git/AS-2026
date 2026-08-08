@@ -19,6 +19,9 @@ $cta_desc    = allscented_field('allscented_atelier_cta_desc', 'Curate a signatu
 $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultation');
 ?>
 <div id="page-the-atelier">
+    <section class="atelier-promo-bar" aria-label="Shipping promotion">
+        <p>Enjoy free shipping with purchases over $79 — it's just $10 otherwise.</p>
+    </section>
     <?php
     // ── Product data: WooCommerce → ACF fallback ──
     if ($use_woo) :
