@@ -61,7 +61,7 @@ if ($use_stitch) {
         })) : array();
 
         $featured_id = get_post_thumbnail_id($product_id);
-        $featured_url = $featured_id ? wp_get_attachment_image_url($featured_id, 'woocommerce_single') : '';
+        $featured_url = $featured_id ? wp_get_attachment_image_url($featured_id, 'large') : '';
         $featured_alt = $featured_id ? get_post_meta($featured_id, '_wp_attachment_image_alt', true) : '';
         $has_media = ($featured_id || $product_video_url !== '');
     ?>
@@ -88,7 +88,7 @@ if ($use_stitch) {
                     </button>
                 <?php endif; ?>
                 <?php if ($featured_id) : ?>
-                    <img id="product-main-image" class="product-main-media product-main-image<?php echo $product_video_url !== '' ? ' product-media-hidden' : ''; ?>" src="<?php echo esc_url($featured_url); ?>" alt="<?php echo esc_attr($featured_alt); ?>">
+                    <img id="product-main-image" class="product-main-media product-main-image<?php echo $product_video_url !== '' ? ' product-media-hidden' : ''; ?>" src="<?php echo esc_url($featured_url); ?>" srcset="<?php echo esc_attr(wp_get_attachment_image_srcset($featured_id, 'large')); ?>" sizes="(max-width:768px) 100vw, 600px" alt="<?php echo esc_attr($featured_alt); ?>">
                 <?php endif; ?>
             </div>
             <?php endif; ?>
@@ -258,7 +258,7 @@ if (!empty($related_ids)) :
             }
             $related_permalink = get_permalink($related_id);
             $related_name = $related_product->get_name();
-            $related_image = get_the_post_thumbnail($related_id, 'woocommerce_thumbnail', array('class' => 'related-product-image', 'loading' => 'lazy'));
+            $related_image = get_the_post_thumbnail($related_id, 'medium_large', array('class' => 'related-product-image', 'loading' => 'lazy'));
         ?>
         <article class="related-product-card aura-glass">
             <div class="related-product-media">
