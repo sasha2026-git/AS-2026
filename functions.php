@@ -26,7 +26,7 @@ function allscented_enqueue_styles() {
     // Parent style
     wp_enqueue_style(
         'hello-elementor',
-        get_template_directory_uri() . '/style.min.css'
+        get_template_directory_uri() . '/style.css'
     );
 
     // Child theme style (all CSS in one file)

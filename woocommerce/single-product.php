@@ -93,6 +93,67 @@ if ($use_stitch) {
             </div>
             <?php endif; ?>
             <div class="product-thumbnails"><?php do_action('woocommerce_product_thumbnails'); ?></div>
+            <script>
+            (function () {
+                var mainImage = document.getElementById('product-main-image');
+                var thumbnails = document.querySelectorAll('.product-thumbnails [data-thumb]');
+                if (!mainImage || !thumbnails.length) {
+                    return;
+                }
+
+                function fullThumbUrl(value) {
+                    var url = value || '';
+                    if (!/^(?:https?:)?\/\//i.test(url) && url.charAt(0) !== '/') {
+                        url = '/' + url;
+                    }
+                    var link = document.createElement('a');
+                    link.href = url;
+                    return link.href.replace(/-\d+x\d+(?=\.[a-z0-9]+(?:$|[?#]))/i, '');
+                }
+
+                function activateThumb(thumb) {
+                    var i;
+                    for (i = 0; i < thumbnails.length; i++) {
+                        thumbnails[i].classList.remove('product-thumb-active');
+                    }
+                    thumb.classList.add('product-thumb-active');
+
+                    var src = fullThumbUrl(thumb.getAttribute('data-thumb'));
+                    if (!src) {
+                        return;
+                    }
+
+                    var thumbImage = thumb.querySelector('img');
+                    var alt = thumb.getAttribute('data-thumb-alt') || (thumbImage ? thumbImage.getAttribute('alt') : '') || mainImage.getAttribute('alt');
+                    mainImage.src = src;
+                    if (alt) {
+                        mainImage.setAttribute('alt', alt);
+                    }
+                    mainImage.removeAttribute('srcset');
+                    mainImage.removeAttribute('sizes');
+                    mainImage.classList.remove('product-media-hidden');
+
+                    var video = document.getElementById('product-main-video');
+                    var toggle = document.getElementById('product-video-toggle');
+                    if (video) {
+                        video.classList.add('product-media-hidden');
+                    }
+                    if (toggle) {
+                        toggle.classList.remove('product-video-toggle-active');
+                    }
+                }
+
+                var index;
+                for (index = 0; index < thumbnails.length; index++) {
+                    thumbnails[index].addEventListener('click', function (event) {
+                        event.preventDefault();
+                        activateThumb(event.currentTarget);
+                    });
+                }
+
+                thumbnails[0].classList.add('product-thumb-active');
+            })();
+            </script>
         </div>
 
         <div class="product-summary-column">
