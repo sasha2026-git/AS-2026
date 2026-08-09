@@ -5110,3 +5110,13 @@ if (function_exists('acf_add_local_field_group')) {
         'active' => true,
     ));
 }
+
+/**
+ * v1.10.9: 新订单邮件收件人写死为 info@allscented.com
+ * Sasha 2026-08-09 要求：有订单后自动邮件通知 info@allscented.com，
+ * 收件人直接写入代码，不受 WooCommerce 后台设置影响，无需邮箱密码。
+ */
+add_filter('woocommerce_email_recipient_new_order', 'allscented_new_order_recipient', 10, 2);
+function allscented_new_order_recipient($recipient, $order) {
+    return 'info@allscented.com';
+}
