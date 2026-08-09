@@ -13,8 +13,11 @@ $contact_intro   = allscented_field('allscented_contact_intro', 'Questions about
 $contact_info_label = allscented_field('allscented_contact_info_label', 'CONTACT DETAILS');
 $contact_email   = allscented_field('allscented_contact_email', 'info@allscented.com');
 $contact_phone   = allscented_field('allscented_contact_phone', '+852 46090901');
-$contact_address = allscented_field('allscented_contact_address', '');
-$contact_image   = allscented_image_url('allscented_contact_image', '');
+$contact_address = allscented_field('allscented_contact_address', "Unit 1203, 12/F, Tower 2
+Lippo Centre
+89 Queensway, Admiralty
+Hong Kong");
+$contact_image   = allscented_image_url('allscented_contact_image', get_stylesheet_directory_uri() . '/assets/images/contact-poster.png');
 $contact_form_label = allscented_field('allscented_contact_form_label', 'SEND A MESSAGE');
         $contact_form_intro = allscented_field('allscented_contact_form_intro', '');
 $contact_name_label = allscented_field('allscented_contact_name_label', 'Name');
