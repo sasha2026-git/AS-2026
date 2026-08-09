@@ -180,16 +180,16 @@ $related_intro = allscented_field('product_related_intro', '', $product_id);
                 <div class="stitch-glass stitch-hero-media" id="stitch-main-media">
                     <div class="stitch-hero-overlay" aria-hidden="true"></div>
                     <?php if ($has_video) : ?>
-                        <video id="stitch-main-video" class="stitch-main-video<?php echo $has_image ? ' stitch-media-hidden' : ''; ?>" src="<?php echo esc_url($product_video_url); ?>" poster="<?php echo esc_url($featured_url); ?>" controls autoplay playsinline preload="metadata"></video>
+                        <video id="stitch-main-video" class="stitch-main-video" src="<?php echo esc_url($product_video_url); ?>" poster="<?php echo esc_url($featured_url); ?>" controls autoplay muted loop playsinline preload="auto"></video>
                     <?php endif; ?>
                     <?php if ($has_image) : ?>
-                        <img id="stitch-main-image" class="stitch-main-image" src="<?php echo esc_url($featured_url); ?>" alt="<?php echo esc_attr($featured_alt); ?>">
+                        <img id="stitch-main-image" class="stitch-main-image<?php echo $has_video ? ' stitch-media-hidden' : ''; ?>" src="<?php echo esc_url($featured_url); ?>" alt="<?php echo esc_attr($featured_alt); ?>">
                     <?php endif; ?>
                 </div>
                 <?php if ($show_preview_bar) : ?>
-                <button id="stitch-video-toggle" class="stitch-glass stitch-video-toggle" type="button" aria-pressed="false" aria-controls="stitch-main-media">
-                    <span class="material-symbols-outlined" aria-hidden="true">play_circle</span>
-                    <span class="stitch-video-label"><?php echo esc_html($product_video_label); ?></span>
+                <button id="stitch-video-toggle" class="stitch-glass stitch-video-toggle" type="button" aria-pressed="true" aria-controls="stitch-main-media" data-video-label="<?php echo esc_attr($product_video_label); ?>">
+                    <span class="material-symbols-outlined" aria-hidden="true">photo_camera</span>
+                    <span class="stitch-video-label">View Photo</span>
                 </button>
                 <?php endif; ?>
             </div>
@@ -483,9 +483,18 @@ $related_intro = allscented_field('product_related_intro', '', $product_id);
     var image = document.getElementById('stitch-main-image');
     var video = document.getElementById('stitch-main-video');
     var toggle = document.getElementById('stitch-video-toggle');
+    var label;
+    var icon;
 
     if (!media || !image || !video || !toggle) {
         return;
+    }
+
+    label = toggle.querySelector('.stitch-video-label');
+    icon = toggle.querySelector('.material-symbols-outlined');
+
+    if (video.paused && typeof video.play === 'function') {
+        video.play().catch(function () {});
     }
 
     toggle.addEventListener('click', function () {
@@ -493,6 +502,8 @@ $related_intro = allscented_field('product_related_intro', '', $product_id);
         video.classList.toggle('stitch-media-hidden', showingVideo);
         image.classList.toggle('stitch-media-hidden', !showingVideo);
         toggle.setAttribute('aria-pressed', showingVideo ? 'false' : 'true');
+        label.textContent = showingVideo ? (toggle.getAttribute('data-video-label') || 'Play Video') : 'View Photo';
+        icon.textContent = showingVideo ? 'play_circle' : 'photo_camera';
 
         if (!showingVideo && typeof video.play === 'function') {
             video.play().catch(function () {});
