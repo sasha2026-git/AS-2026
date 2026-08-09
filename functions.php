@@ -4732,3 +4732,321 @@ if (function_exists('acf_add_local_field_group')) {
         'active' => true,
     ));
 }
+
+
+
+// ============================================
+// AI Synthesis v2.0 Conversation Engine ACF
+// ============================================
+if (function_exists('acf_add_local_field_group')) {
+
+    $ai_conv_luna_defaults = array(
+        'name' => 'Luná The Healer',
+        'role' => 'Clinical Aromatherapist · Intake',
+        'greeting' => "I'm Luná. I work with scent and the nervous system — before I recommend anything, I need a quick read on your state. Think of this as an aromatherapy intake: five questions, no wrong answers.",
+        'safety_note' => 'For general wellness use only — please consult a professional if you have specific health concerns.',
+        'summary_template' => 'Your synthesis reads {state} energy that peaks {time}. You are craving {craving}, delivered as {format}, with {sensitivity} as your boundary. I am narrowing the shortlist toward a scent ritual that supports your nervous system rather than overpowering it.',
+        'why_lines' => "Your {state} state maps to olfactory notes that support regulation instead of overstimulation.\nThe {time} timing tells us this needs to integrate with your daily rhythm, not fight it.\nCraving {craving} and choosing {format} points to {sensitivity} as the guiding constraint.",
+        'closing' => 'Your intake is complete. I have translated the five signals into a synthesis and product direction.',
+        'rounds' => array(
+            array(
+                'question' => 'Intake one: where is your energy right now?',
+                'options' => "Racing (overstimulated)\nDragging (depleted)\nNumb (shut down)\nRestless (can't settle)\nEven (balanced)\nCurious (open)",
+                'knowledge' => 'Scent reaches the limbic system before your thinking brain gets a vote — that is why a single note can shift your state in seconds. (What the Nose Knows)',
+            ),
+            array(
+                'question' => 'When does this state hit you hardest?',
+                'options' => "Morning\nMidday\nLate afternoon\nEvening\nNight\nAll day",
+                'knowledge' => 'Your body runs on a circadian rhythm; the same note can read as wake at 8am and calm at 10pm.',
+            ),
+            array(
+                'question' => 'What are you craving more of right now?',
+                'options' => "Calm\nFocus\nEnergy\nComfort\nGrounding\nEscape\nClarity",
+                'knowledge' => 'In clinical aromatherapy, calming and uplifting oils work through different pathways — matching the craving matters. (Clinical Aromatherapy)',
+            ),
+            array(
+                'question' => 'How do you want this scent to live with you?',
+                'options' => "A candle ritual\nA constant diffuser\nClose to skin\nIn my space\nOn the go\nA mix",
+                'knowledge' => 'Format changes the experience: a candle is a ceremony, a diffuser is an atmosphere, a roller is a companion.',
+            ),
+            array(
+                'question' => 'Last check — any sensitivities or preferences?',
+                'options' => "Sensitive to strong scents\nPrefer sweet\nPrefer fresh\nPrefer woody\nNo limits\nSurprise me",
+                'knowledge' => 'Good — I will keep it gentle. Essential oils are potent; we always respect your boundaries. (safety guardrail)',
+            ),
+        ),
+        'mapping' => array(
+            'keywords' => 'racing, restless, overstimulated, calm, grounding, comfort, diffuser, constant, candle ritual, evening, night',
+            'product' => 'Leopard Glass Candle, Dessert Candle, Leopard Diffuser Vessel, Steel Diffuser Bottle',
+            'categories' => 'home, personal',
+            'reason' => 'A contained ritual or continuous diffusion supports the nervous system with a gentle, non-demanding scent.',
+        ),
+    );
+
+    $ai_conv_round_fields = array();
+    foreach ($ai_conv_luna_defaults['rounds'] as $ai_i => $ai_round) {
+        $ai_conv_round_fields[] = array(
+            'key' => 'field_ai_conv_round_num_' . $ai_i,
+            'label' => 'Round Number',
+            'name' => 'ai_conv_round_num',
+            'type' => 'number',
+            'default_value' => $ai_i + 1,
+            'min' => 1,
+            'max' => 10,
+            'wrapper' => array('width' => 20),
+        );
+        $ai_conv_round_fields[] = array(
+            'key' => 'field_ai_conv_round_question_' . $ai_i,
+            'label' => 'Question',
+            'name' => 'ai_conv_round_question',
+            'type' => 'textarea',
+            'default_value' => $ai_round['question'],
+            'rows' => 2,
+            'wrapper' => array('width' => 80),
+        );
+        $ai_conv_round_fields[] = array(
+            'key' => 'field_ai_conv_round_options_' . $ai_i,
+            'label' => 'Options (one per line)',
+            'name' => 'ai_conv_round_options',
+            'type' => 'textarea',
+            'default_value' => $ai_round['options'],
+            'rows' => 5,
+            'instructions' => 'One option pill per line. Minimum 2 options per round.',
+            'wrapper' => array('width' => 50),
+        );
+        $ai_conv_round_fields[] = array(
+            'key' => 'field_ai_conv_round_knowledge_' . $ai_i,
+            'label' => 'Knowledge Drop',
+            'name' => 'ai_conv_round_knowledge',
+            'type' => 'textarea',
+            'default_value' => $ai_round['knowledge'],
+            'rows' => 3,
+            'wrapper' => array('width' => 50),
+        );
+    }
+
+    acf_add_local_field_group(array(
+        'key' => 'group_ai_conversation_engine',
+        'title' => 'AI Synthesis v2.0 Conversation Engine',
+        'fields' => array(
+            array(
+                'key' => 'field_ai_conv_tab_personas',
+                'label' => 'Personas & Rounds',
+                'type' => 'tab',
+            ),
+            array(
+                'key' => 'field_ai_conv_personas',
+                'label' => 'Digital Humans / Personas',
+                'name' => 'ai_conv_personas',
+                'type' => 'repeater',
+                'button_label' => 'Add Persona',
+                'layout' => 'block',
+                'instructions' => 'Leave empty to use built-in v2.0 defaults. Add one row per persona, choose the ID, then edit rounds and mapping rows.',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_ai_conv_persona_id',
+                        'label' => 'Persona ID',
+                        'name' => 'ai_conv_persona_id',
+                        'type' => 'select',
+                        'choices' => array(
+                            'luna' => 'Luná',
+                            'echo' => 'Echo',
+                            'sage' => 'Sage',
+                        ),
+                        'default_value' => 'luna',
+                        'wrapper' => array('width' => 30),
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_persona_name',
+                        'label' => 'Display Name',
+                        'name' => 'ai_conv_persona_name',
+                        'type' => 'text',
+                        'default_value' => $ai_conv_luna_defaults['name'],
+                        'wrapper' => array('width' => 35),
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_persona_role',
+                        'label' => 'Role Label',
+                        'name' => 'ai_conv_persona_role',
+                        'type' => 'text',
+                        'default_value' => $ai_conv_luna_defaults['role'],
+                        'wrapper' => array('width' => 35),
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_persona_greeting',
+                        'label' => 'Greeting',
+                        'name' => 'ai_conv_persona_greeting',
+                        'type' => 'textarea',
+                        'default_value' => $ai_conv_luna_defaults['greeting'],
+                        'rows' => 3,
+                        'new_lines' => 'br',
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_persona_safety_note',
+                        'label' => 'Safety / Boundary Note',
+                        'name' => 'ai_conv_persona_safety_note',
+                        'type' => 'textarea',
+                        'default_value' => $ai_conv_luna_defaults['safety_note'],
+                        'rows' => 2,
+                        'new_lines' => 'br',
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_persona_summary_template',
+                        'label' => 'Summary Template',
+                        'name' => 'ai_conv_persona_summary_template',
+                        'type' => 'textarea',
+                        'default_value' => $ai_conv_luna_defaults['summary_template'],
+                        'rows' => 4,
+                        'new_lines' => 'br',
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_persona_why_lines',
+                        'label' => 'Why This Match (one per line)',
+                        'name' => 'ai_conv_persona_why_lines',
+                        'type' => 'textarea',
+                        'default_value' => $ai_conv_luna_defaults['why_lines'],
+                        'rows' => 4,
+                        'new_lines' => 'br',
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_persona_closing',
+                        'label' => 'Closing Line',
+                        'name' => 'ai_conv_persona_closing',
+                        'type' => 'textarea',
+                        'default_value' => $ai_conv_luna_defaults['closing'],
+                        'rows' => 2,
+                        'new_lines' => 'br',
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_rounds',
+                        'label' => 'Rounds',
+                        'name' => 'ai_conv_rounds',
+                        'type' => 'repeater',
+                        'button_label' => 'Add Round',
+                        'layout' => 'block',
+                        'sub_fields' => $ai_conv_round_fields,
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_mappings',
+                        'label' => 'Keyword → Product Mapping',
+                        'name' => 'ai_conv_mappings',
+                        'type' => 'repeater',
+                        'button_label' => 'Add Mapping',
+                        'layout' => 'block',
+                        'instructions' => 'Add mapping rows after the built-in fallback is active. The first row prefills Luná default mapping values.',
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_ai_conv_mapping_keywords',
+                                'label' => 'Keywords (comma-separated)',
+                                'name' => 'ai_conv_mapping_keywords',
+                                'type' => 'text',
+                                'default_value' => $ai_conv_luna_defaults['mapping']['keywords'],
+                                'wrapper' => array('width' => 50),
+                            ),
+                            array(
+                                'key' => 'field_ai_conv_mapping_product',
+                                'label' => 'Product Name / Slug (comma-separated)',
+                                'name' => 'ai_conv_mapping_product',
+                                'type' => 'text',
+                                'default_value' => $ai_conv_luna_defaults['mapping']['product'],
+                                'wrapper' => array('width' => 50),
+                            ),
+                            array(
+                                'key' => 'field_ai_conv_mapping_categories',
+                                'label' => 'Fallback Categories (comma-separated)',
+                                'name' => 'ai_conv_mapping_categories',
+                                'type' => 'text',
+                                'default_value' => $ai_conv_luna_defaults['mapping']['categories'],
+                                'wrapper' => array('width' => 50),
+                            ),
+                            array(
+                                'key' => 'field_ai_conv_mapping_reason',
+                                'label' => 'Recommendation Reason',
+                                'name' => 'ai_conv_mapping_reason',
+                                'type' => 'textarea',
+                                'default_value' => $ai_conv_luna_defaults['mapping']['reason'],
+                                'rows' => 2,
+                                'wrapper' => array('width' => 50),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            array(
+                'key' => 'field_ai_conv_tab_affiliates',
+                'label' => 'Affiliate Picks',
+                'type' => 'tab',
+            ),
+            array(
+                'key' => 'field_ai_conv_affiliates',
+                'label' => 'Affiliate Products',
+                'name' => 'ai_conv_affiliates',
+                'type' => 'repeater',
+                'button_label' => 'Add Affiliate',
+                'layout' => 'block',
+                'instructions' => 'When empty, the result card shows the affiliate empty-state placeholder. All affiliate links open in a new tab with rel noopener nofollow.',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_ai_conv_affiliate_name',
+                        'label' => 'Name',
+                        'name' => 'ai_conv_affiliate_name',
+                        'type' => 'text',
+                        'wrapper' => array('width' => 50),
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_affiliate_image',
+                        'label' => 'Image',
+                        'name' => 'ai_conv_affiliate_image',
+                        'type' => 'image',
+                        'return_format' => 'array',
+                        'preview_size' => 'medium',
+                        'wrapper' => array('width' => 50),
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_affiliate_price',
+                        'label' => 'Price',
+                        'name' => 'ai_conv_affiliate_price',
+                        'type' => 'text',
+                        'wrapper' => array('width' => 33),
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_affiliate_url',
+                        'label' => 'Affiliate URL',
+                        'name' => 'ai_conv_affiliate_url',
+                        'type' => 'url',
+                        'wrapper' => array('width' => 67),
+                    ),
+                    array(
+                        'key' => 'field_ai_conv_affiliate_note',
+                        'label' => 'Note',
+                        'name' => 'ai_conv_affiliate_note',
+                        'type' => 'textarea',
+                        'rows' => 2,
+                    ),
+                ),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'page-ai-synthesis.php',
+                ),
+            ),
+            array(
+                array(
+                    'param' => 'page',
+                    'operator' => '==',
+                    'value' => 'ai-synthesis',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'acf_after_title',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'active' => true,
+    ));
+}
