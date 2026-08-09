@@ -180,17 +180,17 @@ if ($use_stitch) {
                 <?php if ($product) woocommerce_template_single_add_to_cart(); ?>
             </div>
 
-            <div style="display:flex;flex-wrap:wrap;gap:18px;border-top:1px solid color-mix(in srgb,var(--outline-variant)25%,transparent);padding-top:20px;font-family:'Hanken Grotesk',sans-serif;font-size:12px;letter-spacing:.04em;color:var(--on-surface-variant);">
-                <div style="display:flex;align-items:center;gap:6px;">
-                    <span class="material-symbols-outlined" style="font-size:16px;color:#775a19;" aria-hidden="true">local_shipping</span>
-                    <span>Free Shipping</span>
+            <div class="product-trust-badges">
+                <div class="product-trust-badge">
+                    <span class="material-symbols-outlined" aria-hidden="true">local_shipping</span>
+                    <span>Free Shipping $79+</span>
                 </div>
-                <div style="display:flex;align-items:center;gap:6px;">
-                    <span class="material-symbols-outlined" style="font-size:16px;color:#775a19;" aria-hidden="true">autorenew</span>
+                <div class="product-trust-badge">
+                    <span class="material-symbols-outlined" aria-hidden="true">autorenew</span>
                     <span>Easy Returns</span>
                 </div>
-                <div style="display:flex;align-items:center;gap:6px;">
-                    <span class="material-symbols-outlined" style="font-size:16px;color:#775a19;" aria-hidden="true">lock</span>
+                <div class="product-trust-badge">
+                    <span class="material-symbols-outlined" aria-hidden="true">lock</span>
                     <span>Secure Checkout</span>
                 </div>
             </div>

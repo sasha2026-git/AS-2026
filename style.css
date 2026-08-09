@@ -3,7 +3,7 @@ Theme Name: Allscented
 Theme URI: https://github.com/sasha2026-git/allscented
 Author: Sasha
 Description: Allscented fragrance brand — child theme of Hello Elementor. Built from v20 preview (AI consultation flow + smart pagination).
-Version: 1.8.8
+Version: 1.8.9
 Template: hello-elementor
 Text Domain: allscented
 */
@@ -432,6 +432,11 @@ body.admin-bar .fixed.top-0 { top: 32px; }
 .product-thumbnails .woocommerce-product-gallery__image a{display:block;width:100%;height:100%}
 .product-thumbnails .woocommerce-product-gallery__image img{width:100%;height:100%;object-fit:cover;display:block}
 .product-thumbnails .woocommerce-product-gallery__image.product-thumb-active{border-color:var(--secondary);box-shadow:0 0 0 2px color-mix(in srgb,var(--secondary)20%,transparent)}
+/* v1.8.9: Product trust badges */
+.product-trust-badges{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;min-width:0;max-width:100%;overflow:hidden;border-top:1px solid color-mix(in srgb,var(--outline-variant)25%,transparent);padding-top:20px;font-family:'Hanken Grotesk',sans-serif;font-size:12px;letter-spacing:.04em;color:var(--on-surface-variant)}
+.product-trust-badge{display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;min-width:0;max-width:100%;white-space:nowrap}
+.product-trust-badge .material-symbols-outlined{flex:0 0 auto;font-size:16px;color:#775a19}
+@media(max-width:480px){.product-trust-badges{gap:8px 10px;font-size:10px;letter-spacing:.02em}.product-trust-badge{gap:5px}.product-trust-badge .material-symbols-outlined{font-size:14px}}
 .product-summary-column .single_add_to_cart_button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 28px;border-radius:8px;border:0;background:linear-gradient(135deg,#775a19,#b4892e);color:#fff;font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 8px 24px rgba(119,90,25,.22);transition:transform .3s ease,box-shadow .3s ease}
 .product-summary-column .single_add_to_cart_button:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(119,90,25,.3)}
 .product-summary-column .single_add_to_cart_button:disabled{opacity:.65;cursor:not-allowed;transform:none}
