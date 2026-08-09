@@ -4491,8 +4491,19 @@ function allscented_handle_contact_form() {
         'Content-Type: text/plain; charset=UTF-8',
     );
 
+    $GLOBALS['allscented_contact_mail_context'] = 'wp_mail failed for info@allscented.com';
     $sent = wp_mail($to, $subject, $body, $headers);
+    unset($GLOBALS['allscented_contact_mail_context']);
     allscented_contact_redirect($sent ? 'success' : 'failed');
+}
+
+add_action('wp_mail_failed', 'allscented_log_contact_mail_failure');
+function allscented_log_contact_mail_failure($wp_error) {
+    if (empty($GLOBALS['allscented_contact_mail_context'])) {
+        return;
+    }
+
+    error_log('[AllScented Contact Form] ' . $GLOBALS['allscented_contact_mail_context'] . ': ' . $wp_error->get_error_message());
 }
 
 function allscented_contact_redirect($status) {
