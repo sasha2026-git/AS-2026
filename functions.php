@@ -4653,7 +4653,7 @@ function allscented_customize_register($wp_customize) {
         'section'     => 'allscented_footer_settings',
     )));
     $wp_customize->add_setting('allscented_footer_tagline', array(
-        'default'           => 'Sensory intelligence, bottled. AI-synthesized fragrances from your most intimate narratives.',
+        'default'           => 'Digital Whisper with Fragrance',
         'sanitize_callback' => 'sanitize_textarea_field',
     ));
     $wp_customize->add_control('allscented_footer_tagline', array(

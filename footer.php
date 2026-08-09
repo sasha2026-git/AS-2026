@@ -7,7 +7,7 @@
                 <?php
                 $allscented_footer_logo  = get_theme_mod('allscented_footer_logo', '');
                 $allscented_footer_brand = get_theme_mod('allscented_brand_text', 'ALLSCENTED');
-                $allscented_footer_tag   = get_theme_mod('allscented_footer_tagline', 'Sensory intelligence, bottled. AI-synthesized fragrances from your most intimate narratives.');
+                $allscented_footer_tag   = get_theme_mod('allscented_footer_tagline', 'Digital Whisper with Fragrance');
                 $allscented_logo_file    = get_stylesheet_directory() . '/assets/images/logo.png';
                 ?>
                 <?php if ($allscented_footer_logo) : ?>
