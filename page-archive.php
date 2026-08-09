@@ -106,6 +106,7 @@ $is_admin = is_user_logged_in() && current_user_can('edit_posts');
       </div>
       <a class="journal-btn" href="<?php echo esc_url($hero_post['permalink']); ?>">Read Story →</a>
     </div>
+    <a href="<?php echo esc_url($hero_post['permalink']); ?>" class="journal-hero-cover-link" aria-label="<?php echo esc_attr($hero_post['title']); ?>">
     <div class="journal-hero-cover<?php echo $hero_post['thumbnail'] ? '' : ' art-1'; ?>">
       <?php if ($hero_post['thumbnail']) : ?>
         <img src="<?php echo esc_url($hero_post['thumbnail']); ?>" alt="<?php echo esc_attr($hero_post['title']); ?>" class="journal-hero-img">
@@ -115,6 +116,7 @@ $is_admin = is_user_logged_in() && current_user_can('edit_posts');
       <?php endif; ?>
       <?php if ($is_admin) : ?><button class="journal-edit-cover" data-post-id="<?php echo (int)$hero_post["id"]; ?>">编辑封面</button><?php endif; ?>
     </div>
+    </a>
   </section>
   <?php endif; ?>
 
@@ -157,6 +159,7 @@ $is_admin = is_user_logged_in() && current_user_can('edit_posts');
                 $w_cats = implode(' ', $w['cat_slugs']);
                 ?>
                 <article class="journal-card wide" data-cat="<?php echo esc_attr($w_cats); ?>">
+                  <a href="<?php echo esc_url($w['permalink']); ?>" class="journal-cover-link" aria-label="<?php echo esc_attr($w['title']); ?>">
                   <div class="journal-cover<?php echo $w['thumbnail'] ? '' : ' ' . $art; ?>">
                     <?php if ($w['thumbnail']) : ?>
                       <img src="<?php echo esc_url($w['thumbnail']); ?>" alt="<?php echo esc_attr($w['title']); ?>" class="journal-cover-img" loading="lazy">
@@ -167,10 +170,12 @@ $is_admin = is_user_logged_in() && current_user_can('edit_posts');
                     <?php if ($w['advisor']) : ?><div class="journal-tagchip"><?php echo esc_html($w['advisor']); ?></div><?php endif; ?>
                     <?php if ($is_admin) : ?><button class="journal-edit-cover" data-post-id="<?php echo (int)$w["id"]; ?>">编辑封面</button><?php endif; ?>
                   </div>
+                  </a>
                   <div class="journal-ct"><?php echo ($w['advisor'] ? esc_html($w['advisor']) . ' · ' : '') . ($w['scene'] ? esc_html($w['scene']) : ''); ?></div>
-                  <h3><?php echo esc_html($w['title']); ?></h3>
+                  <h3><a href="<?php echo esc_url($w['permalink']); ?>"><?php echo esc_html($w['title']); ?></a></h3>
                   <p><?php echo esc_html($w['excerpt']); ?></p>
                   <div class="journal-meta"><span><b><?php echo esc_html($w['date']); ?></b></span></div>
+                  <a class="journal-btn" href="<?php echo esc_url($w['permalink']); ?>">Read Story →</a>
                 </article>
                 <?php
             }
@@ -179,6 +184,7 @@ $is_admin = is_user_logged_in() && current_user_can('edit_posts');
                 $t_cats = implode(' ', $t['cat_slugs']);
                 ?>
                 <article class="journal-card tall" data-cat="<?php echo esc_attr($t_cats); ?>">
+                  <a href="<?php echo esc_url($t['permalink']); ?>" class="journal-cover-link" aria-label="<?php echo esc_attr($t['title']); ?>">
                   <div class="journal-cover<?php echo $t['thumbnail'] ? '' : ' ' . $art; ?>">
                     <?php if ($t['thumbnail']) : ?>
                       <img src="<?php echo esc_url($t['thumbnail']); ?>" alt="<?php echo esc_attr($t['title']); ?>" class="journal-cover-img" loading="lazy">
@@ -189,10 +195,12 @@ $is_admin = is_user_logged_in() && current_user_can('edit_posts');
                     <?php if ($is_admin) : ?><button class="journal-edit-cover" data-post-id="<?php echo (int)$t["id"]; ?>">编辑封面</button><?php endif; ?>
                     <?php if ($t['advisor']) : ?><div class="journal-tagchip"><?php echo esc_html($t['advisor']); ?></div><?php endif; ?>
                   </div>
+                  </a>
                   <div class="journal-ct"><?php echo ($t['advisor'] ? esc_html($t['advisor']) . ' · ' : '') . ($t['scene'] ? esc_html($t['scene']) : ''); ?></div>
-                  <h3><?php echo esc_html($t['title']); ?></h3>
+                  <h3><a href="<?php echo esc_url($t['permalink']); ?>"><?php echo esc_html($t['title']); ?></a></h3>
                   <p><?php echo esc_html($t['excerpt']); ?></p>
                   <div class="journal-meta"><span><b><?php echo esc_html($t['date']); ?></b></span></div>
+                  <a class="journal-btn" href="<?php echo esc_url($t['permalink']); ?>">Read Story →</a>
                 </article>
                 <?php
             }
@@ -205,6 +213,7 @@ $is_admin = is_user_logged_in() && current_user_can('edit_posts');
                 $p_cats = implode(' ', $p['cat_slugs']);
                 ?>
                 <article class="journal-card" data-cat="<?php echo esc_attr($p_cats); ?>">
+                  <a href="<?php echo esc_url($p['permalink']); ?>" class="journal-cover-link" aria-label="<?php echo esc_attr($p['title']); ?>">
                   <div class="journal-cover<?php echo $p['thumbnail'] ? '' : ' ' . $art; ?>">
                     <?php if ($p['thumbnail']) : ?>
                       <img src="<?php echo esc_url($p['thumbnail']); ?>" alt="<?php echo esc_attr($p['title']); ?>" class="journal-cover-img" loading="lazy">
@@ -215,10 +224,12 @@ $is_admin = is_user_logged_in() && current_user_can('edit_posts');
                     <div class="journal-num">No. <?php echo str_pad($grid_idx + 2, 2, '0', STR_PAD_LEFT); ?></div>
                     <?php if ($p['advisor']) : ?><div class="journal-tagchip"><?php echo esc_html($p['advisor']); ?></div><?php endif; ?>
                   </div>
+                  </a>
                   <div class="journal-ct"><?php echo ($p['advisor'] ? esc_html($p['advisor']) . ' · ' : '') . ($p['scene'] ? esc_html($p['scene']) : ''); ?></div>
-                  <h3><?php echo esc_html($p['title']); ?></h3>
+                  <h3><a href="<?php echo esc_url($p['permalink']); ?>"><?php echo esc_html($p['title']); ?></a></h3>
                   <p><?php echo esc_html($p['excerpt']); ?></p>
                   <div class="journal-meta"><span><b><?php echo esc_html($p['date']); ?></b></span></div>
+                  <a class="journal-btn" href="<?php echo esc_url($p['permalink']); ?>">Read Story →</a>
                 </article>
                 <?php
             }
@@ -451,6 +462,11 @@ $is_admin = is_user_logged_in() && current_user_can('edit_posts');
   .journal-card p {
     font-size: 13px; color: var(--on-surface-variant); font-weight: 300; margin: 0;
   }
+  .journal-cover-link { display: block; text-decoration: none; }
+  .journal-hero-cover-link { display: block; text-decoration: none; }
+  .journal-card h3 a { color: inherit; text-decoration: none; transition: color .2s; }
+  .journal-card h3 a:hover { color: var(--secondary); }
+  .journal-card .journal-btn { margin-top: 4px; align-self: flex-start; }
   .journal-card .journal-meta { margin-top: auto; padding-top: 8px; }
 
   /* ── Cover art gradients (no thumbnail fallback) ── */
