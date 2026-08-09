@@ -4803,7 +4803,7 @@ if (function_exists('acf_add_local_field_group')) {
     $ai_conv_luna_defaults = array(
         'name' => 'Luná The Healer',
         'role' => 'Clinical Aromatherapist · Intake',
-        'greeting' => "I'm Luná. I work with scent and the nervous system — before I recommend anything, I need a quick read on your state. Think of this as an aromatherapy intake: five questions, no wrong answers.",
+        'greeting' => "Hi, I'm Luná. No formalities here — let's just begin wherever you are. Think of this as a gentle chat over tea: a few easy questions, no right or wrong answers, and together we'll find the scent that truly feels like you.",
         'safety_note' => 'For general wellness use only — please consult a professional if you have specific health concerns.',
         'summary_template' => 'Your synthesis reads {state} energy that peaks {time}. You are craving {craving}, delivered as {format}, with {sensitivity} as your boundary. I am narrowing the shortlist toward a scent ritual that supports your nervous system rather than overpowering it.',
         'why_lines' => "Your {state} state maps to olfactory notes that support regulation instead of overstimulation.\nThe {time} timing tells us this needs to integrate with your daily rhythm, not fight it.\nCraving {craving} and choosing {format} points to {sensitivity} as the guiding constraint.",
