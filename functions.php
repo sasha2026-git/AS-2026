@@ -1075,7 +1075,7 @@ if (function_exists('acf_add_local_field_group')) {
 
     acf_add_local_field_group(array(
         'key' => 'group_allscented_archive',
-        'title' => '🗂️ Archive 页内容',
+        'title' => '🗂️ Journal 页内容',
         'fields' => array(
             array(
                 'key' => 'tab_页面标题区',
@@ -4582,7 +4582,7 @@ function allscented_contact_redirect($status) {
 function allscented_page_templates($templates) {
     $templates['page-the-atelier.php'] = 'The Atelier';
     $templates['page-ai-synthesis.php'] = 'AI Synthesis';
-    $templates['page-archive.php'] = 'Archive';
+    $templates['page-archive.php'] = 'Journal';
     $templates['page-contact.php'] = 'Contact';
     return $templates;
 }

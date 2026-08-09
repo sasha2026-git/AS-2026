@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Archive
+ * Template Name: Journal
  * Journal — magazine editorial grid of blog posts.
  * Replaces old ACF product-driven archive with dynamic WP_Query.
  */
