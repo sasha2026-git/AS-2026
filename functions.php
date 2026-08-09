@@ -5120,3 +5120,40 @@ add_filter('woocommerce_email_recipient_new_order', 'allscented_new_order_recipi
 function allscented_new_order_recipient($recipient, $order) {
     return 'info@allscented.com';
 }
+
+/**
+ * v1.10.12 迁移兼容：历史遗留的旧 IP 地址链接（http(s)://8.217.53.107/allscented/...）
+ * 自动替换为当前站点地址（https://allscented.com/...）。
+ * 覆盖 ACF 全部字段（含 repeater/link 数组）与文章正文。
+ */
+function as_norm_legacy_url($url) {
+    if (!is_string($url) || strpos($url, '8.217.53.107') === false) {
+        return $url;
+    }
+    $path = preg_replace('#^https?://8\.217\.53\.107/allscented#i', '', $url);
+    if ($path === null) {
+        return $url;
+    }
+    return home_url($path);
+}
+
+add_filter('acf/load_value', function ($value) {
+    if (is_string($value) && strpos($value, '8.217.53.107') !== false) {
+        return as_norm_legacy_url($value);
+    }
+    if (is_array($value)) {
+        array_walk_recursive($value, function (&$v) {
+            if (is_string($v) && strpos($v, '8.217.53.107') !== false) {
+                $v = as_norm_legacy_url($v);
+            }
+        });
+    }
+    return $value;
+}, 10, 1);
+
+add_filter('the_content', function ($content) {
+    if (strpos($content, '8.217.53.107') === false) {
+        return $content;
+    }
+    return preg_replace('#https?://8\.217\.53\.107/allscented#i', home_url(), $content);
+});
