@@ -3,7 +3,7 @@ Theme Name: Allscented
 Theme URI: https://github.com/sasha2026-git/allscented
 Author: Sasha
 Description: Allscented fragrance brand — child theme of Hello Elementor. Built from v20 preview (AI consultation flow + smart pagination).
-Version: 1.10.2
+Version: 1.10.3
 Template: hello-elementor
 Text Domain: allscented
 */
@@ -398,10 +398,12 @@ body.admin-bar .fixed.top-0 { top: 32px; }
 .contact-intro{margin:0;color:var(--on-surface-variant);font-size:16px}
 .contact-layout{display:grid;grid-template-columns:1fr;gap:20px}
 .contact-layout--single{grid-template-columns:1fr}
-.contact-info-card--split{display:grid;grid-template-columns:1fr;gap:20px}
-.contact-info-card--split .contact-info-image{margin-bottom:0}
-.contact-info-card--split .contact-info-body{display:flex;flex-direction:column;justify-content:center}
-.contact-social--left{justify-content:flex-start}
+.contact-info-card--split{display:grid;grid-template-columns:1fr;gap:28px}
+.contact-info-card--split .contact-info-image{display:flex;justify-content:center;margin-bottom:0}
+.contact-info-card--split .contact-info-image img{width:100%;max-width:860px;border-radius:10px;display:block}
+.contact-info-card--split .contact-info-body{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.contact-info-card--split .contact-info-body .contact-meta-link{justify-content:center}
+.contact-social--left{justify-content:center}
 .contact-info-card,.contact-form-card{border-radius:12px;padding:24px}
 .contact-section-label{display:block;color:var(--secondary);margin-bottom:20px;letter-spacing:.14em}
 .contact-info-list{display:flex;flex-direction:column;gap:18px}
@@ -426,7 +428,8 @@ body.admin-bar .fixed.top-0 { top: 32px; }
   .contact-layout{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:32px}
   .contact-info-card,.contact-form-card{padding:32px}
   .contact-layout--single{grid-template-columns:1fr}
-  .contact-info-card--split{grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:32px;align-items:start}
+  .contact-info-card--split{grid-template-columns:1fr;gap:32px}
+  .contact-info-card--split .contact-info-image img{max-width:960px}
 }
 @media(max-width:767px){
   .product-page,.contact-page{padding-left:20px!important;padding-right:20px!important}
