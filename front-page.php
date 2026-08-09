@@ -55,12 +55,13 @@ for ($i = 1; $i <= 3; $i++) {
         'tag'   => allscented_field("allscented_home_arc{$i}_tag", '', $allscented_home_id),
         'title' => allscented_field("allscented_home_arc{$i}_title", '', $allscented_home_id),
         'desc'  => allscented_field("allscented_home_arc{$i}_desc", '', $allscented_home_id),
+        'link'  => allscented_field("allscented_home_arc{$i}_link", '', $allscented_home_id),
     );
 }
 $arc_defaults = array(
-    1 => array('img' => 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800&q=80', 'tag' => 'FOR PERSONAL', 'title' => 'The Intimate Narrative', 'desc' => 'How AI decoded the scent of childhood nostalgia for a private collection.'),
-    2 => array('img' => 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80', 'tag' => 'FOR HOME', 'title' => 'Atmospheric Flux', 'desc' => 'Scents that adapt to light cycles and biometric data.'),
-    3 => array('img' => 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=800&q=80', 'tag' => 'FOR COMMERCIAL', 'title' => 'Brand Osmosis', 'desc' => 'Architectural scenting for luxury retail.'),
+    1 => array('img' => 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800&q=80', 'tag' => 'FOR PERSONAL', 'title' => 'The Intimate Narrative', 'desc' => 'How AI decoded the scent of childhood nostalgia for a private collection.', 'link' => home_url('/journal/')),
+    2 => array('img' => 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80', 'tag' => 'FOR HOME', 'title' => 'Atmospheric Flux', 'desc' => 'Scents that adapt to light cycles and biometric data.', 'link' => home_url('/journal/')),
+    3 => array('img' => 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=800&q=80', 'tag' => 'FOR COMMERCIAL', 'title' => 'Brand Osmosis', 'desc' => 'Architectural scenting for luxury retail.', 'link' => home_url('/journal/')),
 );
 foreach ($arc_defaults as $i => $d) {
     foreach ($d as $k => $v) {
@@ -74,6 +75,8 @@ $col_main_img = allscented_image_url('allscented_home_col_main_img', 'https://im
 $col_main_lbl = allscented_field('allscented_home_col_main_label', 'THE ATELIER', $allscented_home_id);
 $col_main_ttl = allscented_field('allscented_home_col_main_title', 'AI-Designed for You', $allscented_home_id);
 $col_cta      = allscented_field('allscented_home_col_cta', 'SHOP THE ATELIER', $allscented_home_id);
+$col_main_link = allscented_field('allscented_home_col_main_link', '', $allscented_home_id);
+if (empty($col_main_link)) $col_main_link = home_url('/the-atelier/');
 
 $col_products = array();
 for ($i = 1; $i <= 2; $i++) {
@@ -83,11 +86,12 @@ for ($i = 1; $i <= 2; $i++) {
         'tag1'  => allscented_field("allscented_home_colp{$i}_tag1", '', $allscented_home_id),
         'tag2'  => allscented_field("allscented_home_colp{$i}_tag2", '', $allscented_home_id),
         'price' => allscented_field("allscented_home_colp{$i}_price", '', $allscented_home_id),
+        'link'  => allscented_field("allscented_home_colp{$i}_link", '', $allscented_home_id),
     );
 }
 $colp_defaults = array(
-    1 => array('img' => 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&q=80', 'name' => 'Aura No. 1', 'tag1' => 'SERENE', 'tag2' => 'MORNING', 'price' => '$185.00'),
-    2 => array('img' => 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&q=80', 'name' => 'Aura No. 2', 'tag1' => 'SEDUCTIVE', 'tag2' => 'TWILIGHT', 'price' => '$210.00'),
+    1 => array('img' => 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&q=80', 'name' => 'Aura No. 1', 'tag1' => 'SERENE', 'tag2' => 'MORNING', 'price' => '$185.00', 'link' => home_url('/the-atelier/')),
+    2 => array('img' => 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&q=80', 'name' => 'Aura No. 2', 'tag1' => 'SEDUCTIVE', 'tag2' => 'TWILIGHT', 'price' => '$210.00', 'link' => home_url('/the-atelier/')),
 );
 foreach ($colp_defaults as $i => $d) {
     foreach ($d as $k => $v) {
@@ -164,8 +168,8 @@ $guide_colors = array(
                 </a>
             </div>
             <div id="home-archive-grid">
-                <?php foreach ($arc_cards as $i => $card) : ?>
-                <div class="aura-glass archive-card" style="border-radius:12px;overflow:hidden;cursor:pointer">
+                <?php foreach ($arc_cards as $i => $card) : $card_link = !empty($card['link']) ? $card['link'] : home_url('/journal/'); ?>
+                <a href="<?php echo esc_url($card_link); ?>" class="aura-glass archive-card" style="border-radius:12px;overflow:hidden;cursor:pointer;display:block;text-decoration:none;color:inherit">
                     <div style="aspect-ratio:4/3;overflow:hidden" class="group">
                         <img style="width:100%;height:100%;object-fit:cover;transition:transform .8s" class="group-hover:scale-105" src="<?php echo esc_url($card['img']); ?>" alt="<?php echo esc_attr($card['title']); ?>" loading="lazy">
                     </div>
@@ -174,7 +178,7 @@ $guide_colors = array(
                         <h3 class="font-headline-md" style="font-size:18px;margin-bottom:4px;font-style:italic"><?php echo esc_html($card['title']); ?></h3>
                         <p class="font-body-md text-on-surface-variant" style="font-size:12px;line-height:1.5"><?php echo esc_html($card['desc']); ?></p>
                     </div>
-                </div>
+                </a>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -185,17 +189,17 @@ $guide_colors = array(
             <h2 class="font-headline-lg text-headline-lg"><?php echo esc_html($col_title); ?></h2>
         </div>
         <div class="collection-layout">
-            <div class="collection-main" style="border-radius:16px;overflow:hidden;position:relative">
+            <a href="<?php echo esc_url($col_main_link); ?>" class="collection-main" style="border-radius:16px;overflow:hidden;position:relative;display:block;text-decoration:none;color:inherit">
                 <img src="<?php echo esc_url($col_main_img); ?>" alt="AllScented Collection" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">
                 <div style="position:absolute;inset:0;background:linear-gradient(to top,color-mix(in srgb,var(--surface)70%,transparent)0%,transparent 50%)"></div>
                 <div style="position:absolute;bottom:16px;left:16px;right:16px">
                     <span class="font-label-caps text-label-caps" style="color:var(--surface);font-size:12px;letter-spacing:.12em"><?php echo esc_html($col_main_lbl); ?></span>
                     <h3 class="font-headline-lg text-headline-lg" style="color:var(--surface);font-style:italic;font-size:20px"><?php echo esc_html($col_main_ttl); ?></h3>
                 </div>
-            </div>
+            </a>
             <div class="collection-side">
-            <?php foreach ($col_products as $i => $p) : ?>
-            <div style="text-align:center" class="group">
+            <?php foreach ($col_products as $i => $p) : $p_link = !empty($p['link']) ? $p['link'] : home_url('/the-atelier/'); ?>
+            <a href="<?php echo esc_url($p_link); ?>" style="text-align:center;display:block;text-decoration:none;color:inherit" class="group">
                 <div class="aura-glass" style="aspect-ratio:3/4;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
                     <img src="<?php echo esc_url($p['img']); ?>" alt="<?php echo esc_attr($p['name']); ?>" style="width:60%;height:60%;object-fit:contain;transition:transform .6s" class="group-hover:scale-110" loading="lazy">
                 </div>
@@ -205,7 +209,7 @@ $guide_colors = array(
                     <span class="font-label-caps" style="font-size:11px;letter-spacing:.1em;padding:2px 6px;background:var(--surface-container-high);border-radius:4px;color:var(--on-surface-variant)"><?php echo esc_html($p['tag2']); ?></span>
                 </div>
                 <span class="font-body-md" style="color:var(--on-surface);font-size:13px"><?php echo esc_html($p['price']); ?></span>
-            </div>
+            </a>
             <?php endforeach; ?>
             </div>
         </div>
