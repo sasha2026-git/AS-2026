@@ -13,8 +13,7 @@ $contact_intro   = allscented_field('allscented_contact_intro', 'Questions about
 $contact_info_label = allscented_field('allscented_contact_info_label', 'CONTACT DETAILS');
 $contact_email   = allscented_field('allscented_contact_email', 'info@allscented.com');
 $contact_phone   = allscented_field('allscented_contact_phone', '+852 46090901');
-$contact_address = allscented_field('allscented_contact_address', "Allscented International Limited
-Unit 1021, Beverley Commercial Centre
+$contact_address = allscented_field('allscented_contact_address', "Unit 1021, Beverley Commercial Centre
 87-105 Chatham Road South, Tsim Sha Tsui
 Kowloon, Hong Kong SAR");
 $contact_image   = allscented_image_url('allscented_contact_image', get_stylesheet_directory_uri() . '/assets/images/contact-poster.png');

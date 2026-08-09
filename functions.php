@@ -4483,15 +4483,15 @@ function allscented_handle_contact_form() {
         allscented_contact_redirect('failed');
     }
 
-    $admin_email = get_option('admin_email');
-    $subject = 'AllScented Contact: ' . $name;
+    $to = 'info@allscented.com';
+    $subject = '[AllScented 官网] 新表单提交 - ' . $name;
     $body = "Name: " . $name . "\nEmail: " . $email . "\n\nMessage:\n" . $message;
     $headers = array(
         'Reply-To: ' . $name . ' <' . $email . '>',
         'Content-Type: text/plain; charset=UTF-8',
     );
 
-    $sent = wp_mail($admin_email, $subject, $body, $headers);
+    $sent = wp_mail($to, $subject, $body, $headers);
     allscented_contact_redirect($sent ? 'success' : 'failed');
 }
 
