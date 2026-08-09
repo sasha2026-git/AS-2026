@@ -14,8 +14,9 @@ $contact_info_label = allscented_field('allscented_contact_info_label', 'CONTACT
 $contact_email   = allscented_field('allscented_contact_email', 'info@allscented.com');
 $contact_phone   = allscented_field('allscented_contact_phone', '+852 46090901');
 $contact_address = allscented_field('allscented_contact_address', '');
+$contact_image   = allscented_image_url('allscented_contact_image', '');
 $contact_form_label = allscented_field('allscented_contact_form_label', 'SEND A MESSAGE');
-        $contact_form_intro = allscented_field('allscented_contact_form_intro', 'We usually reply within 24 hours.');
+        $contact_form_intro = allscented_field('allscented_contact_form_intro', '');
 $contact_name_label = allscented_field('allscented_contact_name_label', 'Name');
 $contact_email_label = allscented_field('allscented_contact_email_label', 'Email');
 $contact_message_label = allscented_field('allscented_contact_message_label', 'Message');
@@ -37,6 +38,11 @@ $contact_status  = isset($_GET['contact_status']) ? sanitize_key(wp_unslash($_GE
     <div class="contact-layout">
         <aside class="aura-glass contact-info-card">
             <span class="font-label-caps text-label-caps contact-section-label"><?php echo esc_html($contact_info_label); ?></span>
+            <?php if ($contact_image !== '') : ?>
+            <div class="contact-info-image" style="margin-bottom:20px">
+                <img src="<?php echo esc_url($contact_image); ?>" alt="" loading="lazy" style="width:100%;border-radius:10px;display:block">
+            </div>
+            <?php endif; ?>
             <div class="contact-info-list">
                 <a class="contact-meta-link" href="mailto:<?php echo esc_attr($contact_email); ?>">
                     <span class="material-symbols-outlined" aria-hidden="true">mail</span>
@@ -57,7 +63,9 @@ $contact_status  = isset($_GET['contact_status']) ? sanitize_key(wp_unslash($_GE
 
         <section class="aura-glass contact-form-card">
             <span class="font-label-caps text-label-caps contact-section-label"><?php echo esc_html($contact_form_label); ?></span>
+            <?php if ($contact_form_intro !== '') : ?>
             <p class="contact-form-intro font-body-md"><?php echo esc_html($contact_form_intro); ?></p>
+            <?php endif; ?>
 
             <?php if ($contact_status === 'success') : ?>
                 <div class="contact-status contact-status-success" role="status"><?php echo esc_html($contact_success_message); ?></div>
