@@ -118,7 +118,7 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
     <section class="px-margin-desktop container-max" style="padding-top:24px;padding-bottom:12px">
         <div class="max-w-2xl">
             <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px"><?php echo esc_html($t_eyebrow); ?></span>
-            <?php if (!empty($t_title)) : ?><h1 class="font-headline-xl text-headline-xl" style="margin-bottom:4px"><?php echo esc_html($t_title); ?></h1><?php endif; ?>
+            <?php if (!empty($t_title)) : ?><h1 class="font-headline-xl text-headline-xl" style="margin-bottom:4px"><?php echo esc_html($t_title); ?></h1><?php else : ?><h1 class="sr-only"><?php echo esc_html($t_eyebrow ? $t_eyebrow : 'The Atelier'); ?></h1><?php endif; ?>
             <?php if (!empty($t_desc)) : ?><p class="font-body-lg text-on-surface-variant" style="font-size:14px"><?php echo esc_html($t_desc); ?></p><?php endif; ?>
         </div>
     </section>

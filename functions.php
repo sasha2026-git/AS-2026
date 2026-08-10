@@ -1487,7 +1487,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => '描述文字',
                 'name' => 'allscented_atelier_desc',
                 'type' => 'textarea',
-                'default_value' => 'Each fragrance is AI-synthesized and hand-finished. Free shipping on all orders.',
+                'default_value' => '',
                 'rows' => 2,
                 'new_lines' => 'br',
                 'wrapper' => array('width' => 100),
