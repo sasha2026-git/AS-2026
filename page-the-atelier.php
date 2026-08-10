@@ -19,6 +19,9 @@ $cta_desc    = allscented_field('allscented_atelier_cta_desc', 'Curate a signatu
 $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultation');
 ?>
 <div id="page-the-atelier">
+    <section class="atelier-promo-bar" aria-label="Shipping promotion">
+        <p>Enjoy free shipping with purchases over $79 — it's just $10 otherwise.</p>
+    </section>
     <?php
     // ── Product data: WooCommerce → ACF fallback ──
     if ($use_woo) :
@@ -41,11 +44,23 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
                 $cat = 'commercial';
             }
 
-            // Price: hide element when empty
-            $price_raw = get_post_meta($pitem->ID, '_regular_price', true);
+            // Price: WC API is the source of truth; meta fallbacks cover partial product data
             $price = '';
-            if ($price_raw !== '' && $price_raw !== false && $price_raw !== null) {
-                $price = '$' . number_format((float)$price_raw, 2);
+            $wc_product = function_exists('wc_get_product') ? wc_get_product($pitem->ID) : false;
+            if ($wc_product) {
+                $wc_price = $wc_product->get_price();
+                if ($wc_price !== '' && $wc_price !== false && $wc_price !== null) {
+                    $price = '$' . number_format((float)$wc_price, 2);
+                }
+            }
+            if ($price === '') {
+                foreach (array('_regular_price', '_price', '_sale_price') as $price_meta) {
+                    $price_raw = get_post_meta($pitem->ID, $price_meta, true);
+                    if ($price_raw !== '' && $price_raw !== false && $price_raw !== null) {
+                        $price = '$' . number_format((float)$price_raw, 2);
+                        break;
+                    }
+                }
             }
 
             // Featured image: hide block when absent
@@ -140,13 +155,11 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
                     <img src="<?php echo esc_url($pitem['img']); ?>" alt="<?php echo esc_attr($pitem['name']); ?>" style="width:73%;height:73%;object-fit:contain;transition:transform .5s" loading="lazy">
                 </div>
                 <?php endif; ?>
-                <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic"><?php echo esc_html($pitem['name']); ?></h4>
+                <h4 class="font-headline-md atelier-product-title" style="font-size:15px;font-style:italic"><?php echo esc_html($pitem['name']); ?></h4>
                 <?php if (!empty($pitem['sub'])) : ?>
                 <p class="sr-only font-label-caps text-label-caps" style="color:var(--secondary);font-size:11px;margin-bottom:4px"><?php echo esc_html($pitem['sub']); ?></p>
                 <?php endif; ?>
-                <?php if ($pitem['price'] !== '') : ?>
-                <span class="font-body-md" style="color:var(--on-surface);font-size:13px"><?php echo esc_html($pitem['price']); ?></span>
-                <?php endif; ?>
+                <span class="font-body-md atelier-product-price"><?php echo esc_html($pitem['price']); ?></span>
             </<?php echo $has_link ? 'a' : 'div'; ?>>
             <?php endforeach; ?>
             <?php if (empty($products)) : ?>
