@@ -10,6 +10,7 @@ Text Domain: allscented
 
 /* Changelog
  * v1.10.15 - security hardening: public headers, REST/author enumeration, XML-RPC, generator, product output sanitization
+ * v1.10.15 - fix Atelier card anchor tag missing ">"; hide empty atelier title
  * v1.10.14 - Journal/Atelier CTA buttons link to contact page
  * v1.10.14 - restore Atelier card text and Journal template; scope product detail CSS
  * v1.10.13 - migrate product description inline CSS to theme stylesheet

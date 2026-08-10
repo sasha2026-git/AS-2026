@@ -6,7 +6,7 @@ get_header();
 
 // ===== ACF fields (header + CTA) =====
 $t_eyebrow = allscented_field('allscented_atelier_eyebrow', 'THE ATELIER');
-$t_title   = allscented_field('allscented_atelier_title', 'Shop the Collection');
+$t_title   = allscented_field('allscented_atelier_title', '');
 $t_desc    = allscented_field('allscented_atelier_desc', 'Each fragrance is AI-synthesized and hand-finished. Free shipping on all orders.');
 
 // ===== Products: WooCommerce primary, ACF defaults fallback =====
@@ -121,7 +121,7 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
     <section class="px-margin-desktop container-max" style="padding-top:24px;padding-bottom:12px">
         <div class="max-w-2xl">
             <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px"><?php echo esc_html($t_eyebrow); ?></span>
-            <h1 class="font-headline-xl text-headline-xl" style="margin-bottom:4px"><?php echo esc_html($t_title); ?></h1>
+            <?php if (!empty($t_title)) : ?><h1 class="font-headline-xl text-headline-xl" style="margin-bottom:4px"><?php echo esc_html($t_title); ?></h1><?php endif; ?>
             <p class="font-body-lg text-on-surface-variant" style="font-size:14px"><?php echo esc_html($t_desc); ?></p>
         </div>
     </section>
@@ -137,7 +137,7 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
             <?php foreach ($products as $pitem) :
                 $has_link = !empty($pitem['link']);
             ?>
-            <<?php echo $has_link ? 'a href="' . esc_url($pitem['link']) . '" class="shop-item" data-category="' . esc_attr($pitem['cat']) . '" style="text-decoration:none;color:inherit;display:block;text-align:center"' : 'div class="shop-item" data-category="' . esc_attr($pitem['cat']) . '" style="text-align:center"'; ?>
+            <<?php echo $has_link ? 'a href="' . esc_url($pitem['link']) . '" class="shop-item" data-category="' . esc_attr($pitem['cat']) . '" style="text-decoration:none;color:inherit;display:block;text-align:center"' : 'div class="shop-item" data-category="' . esc_attr($pitem['cat']) . '" style="text-align:center"'; ?>>
                 <?php if (!empty($pitem['img'])) : ?>
                 <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
                     <img src="<?php echo esc_url($pitem['img']); ?>" alt="<?php echo esc_attr($pitem['name']); ?>" style="width:66%;height:66%;object-fit:contain;transition:transform .5s" loading="lazy">
