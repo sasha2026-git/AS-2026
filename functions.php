@@ -5213,3 +5213,25 @@ add_action('template_redirect', function () {
 add_filter('xmlrpc_enabled', '__return_false');
 remove_action('wp_head', 'wp_generator');
 add_filter('the_generator', '__return_empty_string');
+
+/**
+ * Allscented 运费规则：订单满 $79 免运费，否则统一收取 $10。
+ * 需在 WooCommerce → 设置 → 配送 中创建配送区，并添加「统一运费」和「免运费」两种方式。
+ * 此代码会覆盖费率：满 $79 时统一运费归零并启用免运费；未满时统一运费 $10、移除免运费。
+ */
+add_filter('woocommerce_package_rates', function ($rates, $package) {
+    $subtotal = 0;
+    foreach ($package['contents'] as $item) {
+        $subtotal += (float) $item['line_subtotal'];
+    }
+    $free = $subtotal >= 79;
+    foreach ($rates as $rate_id => $rate) {
+        if ($rate->method_id === 'free_shipping') {
+            if (!$free) { unset($rates[$rate_id]); }
+        } elseif ($rate->method_id === 'flat_rate') {
+            $rates[$rate_id]->cost = $free ? 0 : 10;
+            if (!empty($rates[$rate_id]->taxes)) { $rates[$rate_id]->taxes = array(); }
+        }
+    }
+    return $rates;
+}, 100, 2);

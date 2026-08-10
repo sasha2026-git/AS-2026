@@ -7,7 +7,7 @@ get_header();
 // ===== ACF fields (header + CTA) =====
 $t_eyebrow = allscented_field('allscented_atelier_eyebrow', 'THE ATELIER');
 $t_title   = allscented_field('allscented_atelier_title', '');
-$t_desc    = allscented_field('allscented_atelier_desc', 'Each fragrance is AI-synthesized and hand-finished. Free shipping on all orders.');
+$t_desc    = allscented_field('allscented_atelier_desc', '');
 
 // ===== Products: WooCommerce primary, ACF defaults fallback =====
 $products = array();
@@ -19,9 +19,6 @@ $cta_desc    = allscented_field('allscented_atelier_cta_desc', 'Curate a signatu
 $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultation');
 ?>
 <div id="page-the-atelier">
-    <section class="atelier-promo-bar" aria-label="Shipping promotion">
-        <p>Enjoy free shipping with purchases over $79 — it's just $10 otherwise.</p>
-    </section>
     <?php
     // ── Product data: WooCommerce → ACF fallback ──
     if ($use_woo) :
@@ -122,7 +119,7 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
         <div class="max-w-2xl">
             <span class="font-label-caps text-label-caps text-secondary block" style="margin-bottom:4px"><?php echo esc_html($t_eyebrow); ?></span>
             <?php if (!empty($t_title)) : ?><h1 class="font-headline-xl text-headline-xl" style="margin-bottom:4px"><?php echo esc_html($t_title); ?></h1><?php endif; ?>
-            <p class="font-body-lg text-on-surface-variant" style="font-size:14px"><?php echo esc_html($t_desc); ?></p>
+            <?php if (!empty($t_desc)) : ?><p class="font-body-lg text-on-surface-variant" style="font-size:14px"><?php echo esc_html($t_desc); ?></p><?php endif; ?>
         </div>
     </section>
     <section class="px-margin-desktop container-max" style="padding-bottom:36px">
@@ -140,12 +137,12 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
             <<?php echo $has_link ? 'a href="' . esc_url($pitem['link']) . '" class="shop-item" data-category="' . esc_attr($pitem['cat']) . '" style="text-decoration:none;color:inherit;display:block;text-align:center"' : 'div class="shop-item" data-category="' . esc_attr($pitem['cat']) . '" style="text-align:center"'; ?>>
                 <?php if (!empty($pitem['img'])) : ?>
                 <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
-                    <img src="<?php echo esc_url($pitem['img']); ?>" alt="<?php echo esc_attr($pitem['name']); ?>" style="width:66%;height:66%;object-fit:contain;transition:transform .5s" loading="lazy">
+                    <img src="<?php echo esc_url($pitem['img']); ?>" alt="<?php echo esc_attr($pitem['name']); ?>" style="width:73%;height:73%;object-fit:contain;transition:transform .5s" loading="lazy">
                 </div>
                 <?php endif; ?>
                 <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic"><?php echo esc_html($pitem['name']); ?></h4>
                 <?php if (!empty($pitem['sub'])) : ?>
-                <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:11px;margin-bottom:4px"><?php echo esc_html($pitem['sub']); ?></p>
+                <p class="sr-only font-label-caps text-label-caps" style="color:var(--secondary);font-size:11px;margin-bottom:4px"><?php echo esc_html($pitem['sub']); ?></p>
                 <?php endif; ?>
                 <?php if ($pitem['price'] !== '') : ?>
                 <span class="font-body-md" style="color:var(--on-surface);font-size:13px"><?php echo esc_html($pitem['price']); ?></span>
@@ -156,7 +153,7 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
             <!-- Graceful empty state when no products exist at all -->
             <div class="shop-item" data-category="home" style="text-align:center;grid-column:1/-1;padding:40px 16px">
                 <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;opacity:.4">
-                    <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&q=80" alt="Coming Soon" style="width:66%;height:66%;object-fit:contain" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&q=80" alt="Coming Soon" style="width:73%;height:73%;object-fit:contain" loading="lazy">
                 </div>
                 <h4 class="font-headline-md" style="font-size:15px;margin-bottom:2px;font-style:italic">Coming Soon</h4>
                 <p class="font-label-caps text-label-caps" style="color:var(--secondary);font-size:11px;margin-bottom:4px">New products are on the way</p>
