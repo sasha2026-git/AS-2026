@@ -78,7 +78,7 @@ $case3_summary = allscented_field('allscented_ai_case3_summary', 'For a boutique
 $avatar_html = function ($url, $fallback, $bg, $fg, $size, $is_letter = false) {
     $sz = $size . 'px';
     if ($url) {
-        return '<img src="' . esc_url($url) . '" alt="" style="width:' . $sz . ';height:' . $sz . ';border-radius:999px;object-fit:cover;flex-shrink:0;display:block">';
+        return '<img src="' . esc_url($url) . '" alt="Allscented AI consultant avatar" style="width:' . $sz . ';height:' . $sz . ';border-radius:999px;object-fit:cover;flex-shrink:0;display:block">';
     }
     if ($is_letter) {
         $inner = '<span style="font-size:12px;color:' . $fg . ';font-weight:600;line-height:1">' . esc_html($fallback) . '</span>';
@@ -526,7 +526,7 @@ if (!$ai_affiliates_json) {
             <div class="aura-glass char-card<?php echo $g1_avatar ? ' guide-hero-card' : ''; ?>" style="border-radius:16px;overflow:hidden;display:flex;flex-direction:column;<?php echo $g1_avatar ? 'padding:0' : 'padding:20px'; ?>">
                 <?php if ($g1_avatar): ?>
                 <div class="guide-hero-media" style="position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;flex-shrink:0">
-                    <img src="<?php echo esc_url($g1_avatar); ?>" alt="Luná" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;transition:transform .6s">
+                    <img src="<?php echo esc_url($g1_avatar); ?>" alt="Luná — Allscented AI scent therapist" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;transition:transform .6s">
                 </div>
                 <?php endif; ?>
                 <div class="guide-hero-body" style="padding:20px 20px 22px;display:flex;flex-direction:column;flex:1">
@@ -551,7 +551,7 @@ if (!$ai_affiliates_json) {
             <div class="aura-glass char-card<?php echo $g2_avatar ? ' guide-hero-card' : ''; ?>" style="border-radius:16px;overflow:hidden;display:flex;flex-direction:column;<?php echo $g2_avatar ? 'padding:0' : 'padding:20px'; ?>">
                 <?php if ($g2_avatar): ?>
                 <div class="guide-hero-media" style="position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;flex-shrink:0">
-                    <img src="<?php echo esc_url($g2_avatar); ?>" alt="Echo" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;transition:transform .6s">
+                    <img src="<?php echo esc_url($g2_avatar); ?>" alt="Echo — Allscented AI diviner" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;transition:transform .6s">
                 </div>
                 <?php endif; ?>
                 <div class="guide-hero-body" style="padding:20px 20px 22px;display:flex;flex-direction:column;flex:1">
@@ -576,7 +576,7 @@ if (!$ai_affiliates_json) {
             <div class="aura-glass char-card<?php echo $g3_avatar ? ' guide-hero-card' : ''; ?>" style="border-radius:16px;overflow:hidden;display:flex;flex-direction:column;<?php echo $g3_avatar ? 'padding:0' : 'padding:20px'; ?>">
                 <?php if ($g3_avatar): ?>
                 <div class="guide-hero-media" style="position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;flex-shrink:0">
-                    <img src="<?php echo esc_url($g3_avatar); ?>" alt="Sage" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;transition:transform .6s">
+                    <img src="<?php echo esc_url($g3_avatar); ?>" alt="Sage — Allscented AI commercial scent strategist" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;transition:transform .6s">
                 </div>
                 <?php endif; ?>
                 <div class="guide-hero-body" style="padding:20px 20px 22px;display:flex;flex-direction:column;flex:1">

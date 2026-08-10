@@ -32,7 +32,7 @@ $instagram_url   = allscented_field('allscented_contact_instagram_url', '');
         <aside class="aura-glass contact-info-card contact-info-card--split">
             <?php if ($contact_image !== '') : ?>
             <div class="contact-info-image">
-                <img src="<?php echo esc_url($contact_image); ?>" alt="" loading="lazy" style="width:100%;border-radius:10px;display:block">
+                <img src="<?php echo esc_url($contact_image); ?>" alt="Contact Allscented — Hong Kong luxury home fragrance studio" loading="lazy" style="width:100%;border-radius:10px;display:block">
             </div>
             <?php endif; ?>
             <div class="contact-info-body">
