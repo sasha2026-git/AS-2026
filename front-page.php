@@ -109,11 +109,11 @@ $guide_colors = array(
 <div id="page-discover">
     <section class="hero-section" style="position:relative;width:100%;overflow:hidden;margin-bottom:12px">
         <div class="hero-bg" style="width:100%;min-height:clamp(240px,40vh,480px);position:relative;display:flex;align-items:center;justify-content:center">
-            <img src="<?php echo esc_url($h_hero_img); ?>" alt="Artisanal fragrance concept" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block" class="hero-image">
+            <img src="<?php echo esc_url($h_hero_img); ?>" alt="Artisanal fragrance concept" style="display:block" class="hero-image">
             <div style="position:absolute;inset:0;background:linear-gradient(135deg, rgba(28,27,27,0.55) 0%, rgba(28,27,27,0.2) 50%, rgba(28,27,27,0.55) 100%);z-index:1"></div>
             <div style="position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 16px;max-width:600px;margin:0 auto">
                 <span class="font-label-caps" style="font-size:clamp(10px,2vw,13px);letter-spacing:.15em;color:rgba(255,255,255,0.7);display:block;margin-bottom:8px;text-transform:uppercase"><?php echo esc_html($h_hero_badge); ?></span>
-                <h1 class="hero-title" style="font-family:'Playfair Display',serif;font-weight:500;font-style:italic;font-size:clamp(28px,5vw,56px);line-height:1.1;color:#fff;margin:0 0 12px"><?php echo esc_html($h_hero_title); ?></h1>
+                <h1 class="hero-title" style="font-family:'Playfair Display',serif;font-weight:500;font-style:italic;font-size:clamp(30.8px,5.5vw,61.6px);line-height:1.1;color:#fff;margin:0 0 12px"><?php echo esc_html($h_hero_title); ?></h1>
                 <p class="hero-subtitle" style="font-family:'Hanken Grotesk',sans-serif;font-weight:300;font-size:clamp(13px,1.5vw,16px);color:rgba(255,255,255,0.8);margin:0 0 20px;max-width:480px;margin-left:auto;margin-right:auto"><?php echo esc_html($h_hero_sub); ?></p>
                 <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
                     <a href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>" class="iridescent-btn" style="padding:10px 28px;border-radius:999px;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:500;letter-spacing:.06em;color:#fff;text-decoration:none">

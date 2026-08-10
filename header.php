@@ -35,7 +35,7 @@ $account_url = class_exists('WooCommerce') ? get_permalink(get_option('woocommer
         $allscented_brand_text  = get_theme_mod('allscented_brand_text', 'ALLSCENTED');
         $allscented_logo_file   = get_stylesheet_directory() . '/assets/images/logo.png';
         ?>
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="font-headline-md" style="font-size:17px;letter-spacing:.22em;font-weight:600;color:var(--on-surface);text-decoration:none;display:flex;align-items:center;gap:8px">
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="font-headline-md" style="font-size:18.7px;letter-spacing:.22em;font-weight:600;color:var(--on-surface);text-decoration:none;display:flex;align-items:center;gap:8px">
             <?php if ($allscented_header_logo) : ?>
                 <img src="<?php echo esc_url($allscented_header_logo); ?>" alt="Allscented" style="height:30px;width:auto;display:block">
             <?php elseif (file_exists($allscented_logo_file)) : ?>
