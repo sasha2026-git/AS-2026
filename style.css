@@ -3,12 +3,14 @@ Theme Name: Allscented
 Theme URI: https://github.com/sasha2026-git/allscented
 Author: Sasha
 Description: Allscented fragrance brand — child theme of Hello Elementor. Built from v20 preview (AI consultation flow + smart pagination).
-Version: 1.10.13
+Version: 1.10.14
 Template: hello-elementor
 Text Domain: allscented
 */
 
 /* Changelog
+ * v1.10.14 - Journal/Atelier CTA buttons link to contact page
+ * v1.10.14 - restore Atelier card text and Journal template; scope product detail CSS
  * v1.10.13 - migrate product description inline CSS to theme stylesheet
  * v1.10.12 - 迁移修复：ACF/正文中历史遗留的 8.217.53.107 旧链接自动替换为站点域名
  * v1.10.0 - AI Synthesis v2.0 conversation engine (5-round persona flows, zero text fields, WooCommerce + affiliate recommendations)
@@ -505,14 +507,10 @@ body.admin-bar .fixed.top-0 { top: 32px; }
 }
 
 
-/* v1.10.13: migrated from product description content-layer */
-/* product-details override */
-.product-details-content li{display:none !important}
-[style*="775a19"]{color:#645787 !important;border-color:#645787 !important}
+/* v1.10.13 migrated CSS, scoped in v1.10.14 */
 .product-details-content strong{color:#645787 !important}
 .product-details-content li strong{color:#645787 !important}
 #tab-description img{width:80% !important;max-width:80% !important;height:auto;border-radius:16px;margin:20px auto;display:block}
-#tab-description h2{display:none !important}
 /* product 246: hide duplicate images (src-specific, harmless elsewhere) */
 .product-details-content img[src*="20250321195355"]{display:none !important}
 #tab-description img[src*="1742563549377"]{display:none !important}

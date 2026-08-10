@@ -57,9 +57,11 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
 
             $link = get_permalink($pitem->ID);
 
+            $sub_raw = trim((string) $pitem->post_excerpt);
+            $sub = $sub_raw !== '' ? wp_trim_words(wp_strip_all_tags($sub_raw), 20, '...') : '';
             $products[] = array(
                 'name'  => $pitem->post_title,
-                'sub'   => $pitem->post_excerpt,
+                'sub'   => $sub,
                 'price' => $price,
                 'img'   => $img,
                 'cat'   => $cat,
@@ -174,7 +176,7 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
             <span class="font-label-caps text-label-caps" style="color:var(--secondary-fixed);margin-bottom:4px;display:block"><?php echo esc_html($cta_eyebrow); ?></span>
             <h2 class="font-headline-lg text-headline-lg" style="margin-bottom:6px;font-style:italic"><?php echo esc_html($cta_title); ?></h2>
             <p class="font-body-md" style="margin-bottom:12px;color:var(--surface-variant);font-size:13px"><?php echo esc_html($cta_desc); ?></p>
-            <a class="iridescent-btn font-label-caps text-label-caps" style="padding:10px 24px;border-radius:999px;font-size:12px" href="<?php echo esc_url(home_url('/ai-synthesis/')); ?>"><?php echo esc_html($cta_btn); ?></a>
+            <a class="iridescent-btn font-label-caps text-label-caps" style="padding:10px 24px;border-radius:999px;font-size:12px" href="<?php echo esc_url(home_url('/contact/')); ?>"><?php echo esc_html($cta_btn); ?></a>
         </div>
     </section>
 </div>

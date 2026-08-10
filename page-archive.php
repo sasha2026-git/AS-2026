@@ -256,7 +256,7 @@ $is_admin = is_user_logged_in() && current_user_can('edit_posts');
       <h4><?php echo esc_html($cta_title); ?></h4>
       <p><?php echo esc_html($cta_desc); ?></p>
     </div>
-    <a class="journal-btn" href="#"><?php echo esc_html($cta_btn); ?> →</a>
+    <a class="journal-btn" href="<?php echo esc_url(home_url('/contact/')); ?>"><?php echo esc_html($cta_btn); ?> →</a>
   </section>
 
   <!-- ── Pagination ── -->
