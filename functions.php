@@ -4597,6 +4597,10 @@ function allscented_template_include($template) {
         $new = locate_template(array('page-ai-synthesis.php'));
         if ($new) return $new;
     }
+    if (is_home() && !is_front_page()) {
+        $new = locate_template(array('page-archive.php'));
+        if ($new) return $new;
+    }
     if (is_page_template('page-archive.php')) {
         $new = locate_template(array('page-archive.php'));
         if ($new) return $new;
