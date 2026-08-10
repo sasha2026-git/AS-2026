@@ -3,12 +3,13 @@ Theme Name: Allscented
 Theme URI: https://github.com/sasha2026-git/allscented
 Author: Sasha
 Description: Allscented fragrance brand — child theme of Hello Elementor. Built from v20 preview (AI consultation flow + smart pagination).
-Version: 1.10.12
+Version: 1.10.13
 Template: hello-elementor
 Text Domain: allscented
 */
 
 /* Changelog
+ * v1.10.13 - migrate product description inline CSS to theme stylesheet
  * v1.10.12 - 迁移修复：ACF/正文中历史遗留的 8.217.53.107 旧链接自动替换为站点域名
  * v1.10.0 - AI Synthesis v2.0 conversation engine (5-round persona flows, zero text fields, WooCommerce + affiliate recommendations)
  */
@@ -502,6 +503,48 @@ body.admin-bar .fixed.top-0 { top: 32px; }
 @media(min-width:1024px){
   .related-products-grid{grid-template-columns:repeat(3,1fr)}
 }
+
+
+/* v1.10.13: migrated from product description content-layer */
+/* product-details override */
+.product-details-content li{display:none !important}
+[style*="775a19"]{color:#645787 !important;border-color:#645787 !important}
+.product-details-content strong{color:#645787 !important}
+.product-details-content li strong{color:#645787 !important}
+#tab-description img{width:80% !important;max-width:80% !important;height:auto;border-radius:16px;margin:20px auto;display:block}
+#tab-description h2{display:none !important}
+/* product 246: hide duplicate images (src-specific, harmless elsewhere) */
+.product-details-content img[src*="20250321195355"]{display:none !important}
+#tab-description img[src*="1742563549377"]{display:none !important}
+
+/* button override */
+.product-summary-column .single_add_to_cart_button{background:linear-gradient(135deg,#645787,#8f7bb5) !important;box-shadow:0 8px 24px rgba(100,87,135,.22) !important}
+.product-summary-column .single_add_to_cart_button:hover{box-shadow:0 12px 30px rgba(100,87,135,.3) !important;transform:translateY(-2px) !important}
+
+/* related products responsive grid */
+.related-products-grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr)) !important;gap:24px !important}
+.related-products-section{max-width:1280px;margin-left:auto;margin-right:auto;padding:0 24px}
+@media(max-width:640px){.related-products-grid{grid-template-columns:1fr !important}}
+
+/* tabs + shipping cards */
+.woocommerce-tabs ul.tabs{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-wrap:wrap;gap:4px 28px;border-bottom:1px solid #e8e6e3}
+.woocommerce-tabs ul.tabs li{margin:0}
+.woocommerce-tabs ul.tabs li a{display:block;padding:12px 2px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#77777b;text-decoration:none;border-bottom:2px solid transparent}
+.woocommerce-tabs ul.tabs li.active a{color:#775a19;border-bottom-color:#775a19}
+.shipping-returns-block{max-width:760px;margin:36px auto;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.sr-card{background:#faf9f7;border:1px solid #ece9e4;border-radius:16px;padding:22px 24px}
+.sr-card ul{list-style:none;margin:0;padding:0}
+.sr-card li{font-size:14px;line-height:1.7;color:#46464b;margin:0 0 8px;padding-left:16px;position:relative}
+.sr-card li::before{content:"\00b7";position:absolute;left:2px;top:0;color:#775a19;font-weight:700}
+.sr-card li:last-child{margin-bottom:0}
+.sr-card li.sr-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#775a19;margin:0 0 12px;padding:0}
+.sr-card li.sr-title::before{content:none}
+.shipping-returns-block .sr-links-wrap{grid-column:1/-1;list-style:none;margin:6px 0 0;padding:0;text-align:center}
+.shipping-returns-block .sr-links{font-size:13px;color:#77777b;padding:0}
+.shipping-returns-block .sr-links::before{content:none}
+.shipping-returns-block .sr-links a{color:#645787;text-decoration:underline}
+@media(max-width:640px){.shipping-returns-block{grid-template-columns:1fr}}
+.product-details-content .shipping-returns-block{display:none !important}
 
 
 /* v1.8.0: Stitch product detail page template */
