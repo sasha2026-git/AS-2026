@@ -137,7 +137,7 @@ $cta_btn     = allscented_field('allscented_atelier_cta_btn', 'Request Consultat
             <?php foreach ($products as $pitem) :
                 $has_link = !empty($pitem['link']);
             ?>
-            <<?php echo $has_link ? 'a href="' . esc_url($pitem['link']) . '" style="text-decoration:none;color:inherit;display:block"' : 'div'; ?> class="shop-item" data-category="<?php echo esc_attr($pitem['cat']); ?>" style="text-align:center">
+            <<?php echo $has_link ? 'a href="' . esc_url($pitem['link']) . '" class="shop-item" data-category="' . esc_attr($pitem['cat']) . '" style="text-decoration:none;color:inherit;display:block;text-align:center"' : 'div class="shop-item" data-category="' . esc_attr($pitem['cat']) . '" style="text-align:center"'; ?>
                 <?php if (!empty($pitem['img'])) : ?>
                 <div class="aura-glass" style="aspect-ratio:1;border-radius:12px;margin-bottom:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
                     <img src="<?php echo esc_url($pitem['img']); ?>" alt="<?php echo esc_attr($pitem['name']); ?>" style="width:66%;height:66%;object-fit:contain;transition:transform .5s" loading="lazy">
