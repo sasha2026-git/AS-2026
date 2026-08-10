@@ -251,7 +251,7 @@ $related_intro = allscented_field('product_related_intro', '', $product_id);
     <?php if ($product_details !== '') : ?>
     <section class="stitch-section stitch-details">
         <h2 class="stitch-details-heading">The Details</h2>
-        <div class="product-details-content"><?php echo $product_details; ?></div>
+        <div class="product-details-content"><?php echo wp_kses_post($product_details); ?></div>
     </section>
     <?php endif; ?>
 

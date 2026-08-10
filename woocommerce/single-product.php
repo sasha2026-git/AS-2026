@@ -173,7 +173,7 @@ if ($use_stitch) {
             <div class="font-headline-md" style="margin:0 0 24px;color:#775a19;"><?php echo $product ? $product->get_price_html() : ''; ?></div>
 
             <?php if ($short_description) : ?>
-                <div class="font-body-lg text-body-lg" style="margin-bottom:32px;color:var(--on-surface-variant);"><?php echo $short_description; ?></div>
+                <div class="font-body-lg text-body-lg" style="margin-bottom:32px;color:var(--on-surface-variant);"><?php echo wp_kses_post($short_description); ?></div>
             <?php endif; ?>
 
             <div style="margin-bottom:32px;">
@@ -203,7 +203,7 @@ if ($use_stitch) {
     ?>
     <div style="border-top:1px solid #775a19;max-width:120px;margin:80px auto 24px;"></div>
     <h2 class="font-label-caps text-label-caps" style="text-align:center;margin:0 0 32px;color:#775a19;letter-spacing:.14em;">The Details</h2>
-    <div class="product-details-content"><?php echo $product_details; ?></div>
+    <div class="product-details-content"><?php echo wp_kses_post($product_details); ?></div>
     <?php endif; ?>
 
     <?php if ($journey) : $journey_title = allscented_field('product_journey_title', 'The Olfactory Journey', $product_id); $journey_intro = allscented_field('product_journey_intro', '', $product_id); ?>

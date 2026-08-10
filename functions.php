@@ -5161,3 +5161,55 @@ add_filter('the_content', function ($content) {
     }
     return preg_replace('#https?://8\.217\.53\.107/allscented#i', home_url(), $content);
 });
+
+/**
+ * v1.10.15 security hardening.
+ * These are theme-side fallbacks; the Nginx security-headers config can layer on top.
+ */
+add_action('send_headers', function () {
+    if (is_admin() || headers_sent()) {
+        return;
+    }
+
+    $allscented_security_headers = array(
+        'X-Content-Type-Options' => 'nosniff',
+        'X-Frame-Options' => 'SAMEORIGIN',
+        'Referrer-Policy' => 'strict-origin-when-cross-origin',
+        'Permissions-Policy' => 'camera=(), microphone=(), geolocation=()',
+    );
+
+    foreach ($allscented_security_headers as $header_name => $header_value) {
+        $already_sent = false;
+        foreach (headers_list() as $sent_header) {
+            if (stripos($sent_header, $header_name . ':') === 0) {
+                $already_sent = true;
+                break;
+            }
+        }
+        if (!$already_sent) {
+            header($header_name . ': ' . $header_value);
+        }
+    }
+});
+
+add_filter('rest_endpoints', function ($endpoints) {
+    foreach (array_keys($endpoints) as $route) {
+        if (strpos($route, '/wp/v2/users') === 0) {
+            unset($endpoints[$route]);
+        }
+    }
+    return $endpoints;
+});
+
+add_action('template_redirect', function () {
+    if (!is_admin() && isset($_GET['author'])) {
+        global $wp_query;
+        $wp_query->set_404();
+        status_header(404);
+        nocache_headers();
+    }
+}, 1);
+
+add_filter('xmlrpc_enabled', '__return_false');
+remove_action('wp_head', 'wp_generator');
+add_filter('the_generator', '__return_empty_string');
