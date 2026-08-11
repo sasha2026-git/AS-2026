@@ -1,4 +1,7 @@
 <?php
+// 防御 WooCommerce 后台设置页 PHP memory_limit 过低导致的 Fatal error
+if (function_exists('ini_set')) { @ini_set('memory_limit', '512M'); }
+
 /**
  * Allscented Child Theme Functions
  * Parent: Hello Elementor
@@ -5161,6 +5164,99 @@ add_filter('the_content', function ($content) {
     }
     return preg_replace('#https?://8\.217\.53\.107/allscented#i', home_url(), $content);
 });
+
+/**
+ * v1.10.21: Point legacy /shop/ URLs to The Atelier.
+ * Shop feeds and admin requests stay untouched.
+ */
+add_action('template_redirect', 'allscented_redirect_shop_to_atelier');
+function allscented_redirect_shop_to_atelier() {
+    if (is_admin() || is_feed() || !function_exists('is_shop') || !is_shop()) {
+        return;
+    }
+    wp_safe_redirect(home_url('/the-atelier/'), 301);
+    exit;
+}
+
+/**
+ * v1.10.21: Normalize legacy IP GUIDs in feeds without touching stored data.
+ */
+add_filter('the_guid', 'allscented_norm_legacy_guid');
+add_filter('get_the_guid', 'allscented_norm_legacy_guid');
+function allscented_norm_legacy_guid($guid) {
+    if (!is_string($guid) || strpos($guid, '8.217.53.107') === false) {
+        return $guid;
+    }
+    $normalized = preg_replace('#https?://8\.217\.53\.107/allscented#i', 'https://allscented.com', $guid);
+    return is_string($normalized) ? $normalized : $guid;
+}
+
+/**
+ * v1.10.21: English /shop/ title fallback.
+ * Rank Math keeps priority when it supplies a title; this only fills the gap.
+ */
+add_filter('pre_get_document_title', 'allscented_shop_document_title', 99);
+function allscented_shop_document_title($title) {
+    if (!function_exists('is_shop') || !is_shop()) {
+        return $title;
+    }
+    if (class_exists('RankMath') && trim((string) $title) !== '') {
+        return $title;
+    }
+    return 'Shop - Allscented';
+}
+
+add_filter('woocommerce_page_title', 'allscented_shop_page_title');
+function allscented_shop_page_title($page_title) {
+    if (function_exists('is_shop') && is_shop()) {
+        return 'Shop';
+    }
+    return $page_title;
+}
+
+/**
+ * v1.10.21: Homepage description and Open Graph fallback.
+ * Buffers wp_head only on the front page so Rank Math output is not duplicated.
+ */
+add_action('wp_head', 'allscented_homepage_meta_start', 0);
+add_action('wp_head', 'allscented_homepage_meta_finish', 999);
+function allscented_homepage_meta_start() {
+    if (is_admin() || !is_front_page()) {
+        return;
+    }
+    $GLOBALS['allscented_homepage_meta_buffer'] = ob_start();
+}
+
+function allscented_homepage_meta_finish() {
+    if (empty($GLOBALS['allscented_homepage_meta_buffer'])) {
+        return;
+    }
+    $head_output = ob_get_clean();
+    unset($GLOBALS['allscented_homepage_meta_buffer']);
+    if (!is_string($head_output)) {
+        return;
+    }
+
+    $has_standard_description = (bool) preg_match(
+        '#<meta\b[^>]*(?:name|property)\s*=\s*["\']description["\'][^>]*>#i',
+        $head_output
+    );
+    $has_og_description = (bool) preg_match(
+        '#<meta\b[^>]*property\s*=\s*["\']og:description["\'][^>]*>#i',
+        $head_output
+    );
+
+    $description = 'Allscented handcrafts fragrance candles and AI-personalized scents from memory and mood. Sensory intelligence, ritual, and hand-finished aroma for home.';
+
+    if (!$has_standard_description) {
+        printf('<meta name="description" content="%s">' . "\n", esc_attr($description));
+    }
+    if (!$has_og_description) {
+        printf('<meta property="og:description" content="%s">' . "\n", esc_attr($description));
+    }
+
+    echo $head_output;
+}
 
 /**
  * v1.10.15 security hardening.
