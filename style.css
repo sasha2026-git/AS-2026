@@ -3,7 +3,7 @@ Theme Name: Allscented
 Theme URI: https://github.com/sasha2026-git/AS-2026
 Author: Sasha
 Description: Allscented fragrance brand — child theme of Hello Elementor. Built from v20 preview (AI consultation flow + smart pagination).
-Version: 1.10.21
+Version: 1.10.22
 Template: hello-elementor
 Text Domain: allscented
 */
@@ -12,6 +12,7 @@ Text Domain: allscented
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 /* Changelog
+ * v1.10.22 - ACF tab keys unique per field group (product-design audit)
  * v1.10.21 - /shop redirect to The Atelier; feed GUID IP normalization; homepage meta fallback
  * v1.10.20 - ALT attributes on AI synthesis and contact templates
  * v1.10.19 - PC hero full-image restore; header logo +10%; hero SCENT +10%

@@ -1081,7 +1081,7 @@ if (function_exists('acf_add_local_field_group')) {
         'title' => '🗂️ Journal 页内容',
         'fields' => array(
             array(
-                'key' => 'tab_页面标题区',
+                'key' => 'tab_archive_页面标题区',
                 'label' => '页面标题区',
                 'type' => 'tab',
             ),
@@ -1397,7 +1397,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 25),
             ),
             array(
-                'key' => 'tab_底部_cta',
+                'key' => 'tab_archive_底部_cta',
                 'label' => '底部 CTA',
                 'type' => 'tab',
             ),
@@ -1465,7 +1465,7 @@ if (function_exists('acf_add_local_field_group')) {
         'title' => '🛍️ The Atelier 页内容',
         'fields' => array(
             array(
-                'key' => 'tab_页面标题区',
+                'key' => 'tab_atelier_页面标题区',
                 'label' => '页面标题区',
                 'type' => 'tab',
             ),
@@ -2886,7 +2886,7 @@ if (function_exists('acf_add_local_field_group')) {
             ),
 
             array(
-                'key' => 'tab_底部_cta',
+                'key' => 'tab_atelier_底部_cta',
                 'label' => '底部 CTA',
                 'type' => 'tab',
             ),
@@ -2954,7 +2954,7 @@ if (function_exists('acf_add_local_field_group')) {
         'title' => '✨ AI Synthesis 页内容',
         'fields' => array(
             array(
-                'key' => 'tab_页面标题区',
+                'key' => 'tab_ai_页面标题区',
                 'label' => '页面标题区',
                 'type' => 'tab',
             ),
@@ -3554,7 +3554,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => array('width' => 50),
             ),
             array(
-                'key' => 'tab_底部_cta',
+                'key' => 'tab_ai_底部_cta',
                 'label' => '底部 CTA',
                 'type' => 'tab',
             ),
